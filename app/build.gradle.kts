@@ -4,17 +4,17 @@ plugins {
 }
 
 android {
-    namespace = "the.store"
-    compileSdk = 33
+    namespace = Dependencies.AppConfig.namespace
+    compileSdk = Dependencies.AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = "the.store"
-        minSdk = 26
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Dependencies.AppConfig.applicationId
+        minSdk = Dependencies.AppConfig.minSdk
+        targetSdk = Dependencies.AppConfig.targetSdk
+        versionCode = Dependencies.AppConfig.versionCode
+        versionName = Dependencies.AppConfig.versionName
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -50,20 +50,20 @@ android {
 }
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.8.0")
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.5.1")
-    implementation(platform("androidx.compose:compose-bom:2022.10.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2022.10.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation(Dependencies.Library.Core.coreKtx)
+    implementation(platform(Dependencies.Library.Platform.kotlinBom))
+    implementation(Dependencies.Library.Core.lifecycleRuntimeKtx)
+    implementation(Dependencies.Library.Compose.activityCompose)
+    implementation(platform(Dependencies.Library.Platform.composeBom))
+    implementation(Dependencies.Library.Compose.ui)
+    implementation(Dependencies.Library.Compose.uiGraphics)
+    implementation(Dependencies.Library.Compose.uiToolingPreview)
+    implementation(Dependencies.Library.Compose.material3)
+    testImplementation(Dependencies.Library.Tests.junit)
+    androidTestImplementation(Dependencies.Library.Tests.testExtJunit)
+    androidTestImplementation(Dependencies.Library.Tests.espressoCore)
+    androidTestImplementation(platform(Dependencies.Library.Platform.composeBom))
+    androidTestImplementation(Dependencies.Library.Tests.uiTestJunit4)
+    debugImplementation(Dependencies.Library.Tests.uiTooling)
+    debugImplementation(Dependencies.Library.Tests.uiTestManifest)
 }
