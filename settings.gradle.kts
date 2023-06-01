@@ -13,4 +13,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "TheStore"
-include ':app'
+include(":app")
+include(":core")
+include(":core:theme")
