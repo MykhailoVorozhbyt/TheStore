@@ -5,6 +5,7 @@ object Dependencies {
         const val compileSdk = 33
         const val applicationId = "the.store"
         const val minSdk = 23
+        const val minSdk26 = 23
         const val targetSdk = 33
         const val versionCode = 1
         const val versionName = "1.0"
@@ -21,6 +22,9 @@ object Dependencies {
         const val espresso_core = "3.5.1"
         const val compose_bom = "2022.10.00"
         const val activity_compose = "1.5.1"
+        const val material = "1.9.0"
+        const val kotlin_bom = "1.8.0"
+        const val appcompat = "1.6.1"
     }
 
     object Library {
@@ -29,10 +33,11 @@ object Dependencies {
             const val coreKtx = "androidx.core:core-ktx:${LibraryVersion.core_ktx}"
             const val lifecycleRuntimeKtx =
                 "androidx.lifecycle:lifecycle-runtime-ktx:${LibraryVersion.lifecycle_runtime_ktx}"
+            const val appcompat = "androidx.appcompat:appcompat:${LibraryVersion.appcompat}"
         }
 
-        object Platform{
-            const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:1.8.0"
+        object Platform {
+            const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:${LibraryVersion.kotlin_bom}"
             const val composeBom = "androidx.compose:compose-bom:${LibraryVersion.compose_bom}"
         }
 
@@ -49,7 +54,12 @@ object Dependencies {
             const val ui = "androidx.compose.ui:ui"
             const val uiGraphics = "androidx.compose.ui:ui-graphics"
             const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview"
+        }
+
+        object Material {
+            const val material = "com.google.android.material:material:${LibraryVersion.material}"
             const val material3 = "androidx.compose.material3:material3"
+
         }
 
         object Tests {

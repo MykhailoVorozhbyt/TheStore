@@ -58,7 +58,7 @@ dependencies {
     implementation(Dependencies.Library.Compose.ui)
     implementation(Dependencies.Library.Compose.uiGraphics)
     implementation(Dependencies.Library.Compose.uiToolingPreview)
-    implementation(Dependencies.Library.Compose.material3)
+    implementation(Dependencies.Library.Material.material3)
     testImplementation(Dependencies.Library.Tests.junit)
     androidTestImplementation(Dependencies.Library.Tests.testExtJunit)
     androidTestImplementation(Dependencies.Library.Tests.espressoCore)
