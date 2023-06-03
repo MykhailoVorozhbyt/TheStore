@@ -1,6 +1,7 @@
 object Dependencies {
 
     object AppConfig {
+        const val appName = "TheStore"
         const val namespace = "the.store"
         const val compileSdk = 33
         const val applicationId = "the.store"

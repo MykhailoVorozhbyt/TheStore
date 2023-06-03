@@ -66,4 +66,8 @@ dependencies {
     androidTestImplementation(Dependencies.Library.Tests.uiTestJunit4)
     debugImplementation(Dependencies.Library.Tests.uiTooling)
     debugImplementation(Dependencies.Library.Tests.uiTestManifest)
+
+    //Modules
+    implementation(project(path = ":core"))
+    implementation(project(path = ":core:theme"))
 }
