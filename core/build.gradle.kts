@@ -8,7 +8,7 @@ android {
     compileSdk = Dependencies.AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = Dependencies.AppConfig.minSdk26
+        minSdk = Dependencies.AppConfig.minSdk
         targetSdk = Dependencies.AppConfig.targetSdk
 
         testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
@@ -35,10 +35,10 @@ android {
 
 dependencies {
 
-    implementation(Dependencies.Library.Core.coreKtx)
-    implementation(Dependencies.Library.Core.appcompat)
-    implementation(Dependencies.Library.Material.material)
-    testImplementation(Dependencies.Library.Tests.junit)
-    androidTestImplementation(Dependencies.Library.Tests.testExtJunit)
-    androidTestImplementation(Dependencies.Library.Tests.espressoCore)
+    implementation(Library.Core.coreKtx)
+    implementation(Library.Core.appcompat)
+    implementation(Library.Material.material)
+    testImplementation(Library.Tests.junit)
+    androidTestImplementation(Library.Tests.testExtJunit)
+    androidTestImplementation(Library.Tests.espressoCore)
 }
