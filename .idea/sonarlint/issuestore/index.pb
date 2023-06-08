@@ -31,14 +31,9 @@ C
 settings.gradle.kts,7\4\749edfcc96398253e5b3416184e95c46621da850
 W
 'core/theme/src/main/AndroidManifest.xml,0\f\0f5d05f2454e78a335e00d46ea0239383166b10f
-:
-
-.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
 i
 9core/src/main/java/com/example/core/base/BaseViewModel.kt,4\f\4fa4b4697fde4cc97ef4a6673b24af526b670e57
 q
 Acore/src/main/java/com/example/core/domain/constants/Constants.kt,b\3\b316dd4f2e683a36f59baa32267e72e57f00a794
-E
-core/build.gradle.kts,d\7\d72846b7b418aa17de692d1ccf924c738cf8dbe5
 @
 build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d

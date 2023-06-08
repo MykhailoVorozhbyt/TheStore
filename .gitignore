@@ -16,3 +16,4 @@ local.properties
 .idea
 .idea/sonarlint
 /buildSrc
+/buildSrc/build

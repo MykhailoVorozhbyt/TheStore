@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
-import the.store.navigation.SetupNavGraph
+import the.store.navigation.RootNavGraph
 import the.store.ui.theme.TheStoreTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             TheStoreTheme {
                 val navGraph = rememberNavController()
-                SetupNavGraph(navGraph)
+                RootNavGraph(navGraph)
             }
         }
     }

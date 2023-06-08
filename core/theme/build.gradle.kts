@@ -5,11 +5,11 @@ plugins {
 
 android {
     namespace = "com.example.theme"
-    compileSdk = Dependencies.AppConfig.compileSdk
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

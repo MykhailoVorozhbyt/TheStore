@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.delay
-import the.store.navigation.Screen
+import com.example.core.navigation.Screen
 
 @Composable
 fun AnimatedSplashScreen(navController: NavHostController) {
@@ -39,13 +39,13 @@ fun AnimatedSplashScreen(navController: NavHostController) {
         startAnimation = true
         delay(2000)
         navController.popBackStack()
-        navController.navigate(Screen.Home.route)
+        navController.navigate(Screen.Login.route)
     }
     SplashScreen(alphaAnimation.value)
 }
 
 @Composable
-fun SplashScreen(alpha: Float) {
+private fun SplashScreen(alpha: Float) {
     Box(
         modifier = Modifier
             .background(colorResource(id = com.example.theme.R.color.white))

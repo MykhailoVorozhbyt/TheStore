@@ -4,17 +4,17 @@ plugins {
 }
 
 android {
-    namespace = Dependencies.AppConfig.namespace
-    compileSdk = Dependencies.AppConfig.compileSdk
+    namespace = AppConfig.namespace
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = Dependencies.AppConfig.applicationId
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
-        versionCode = Dependencies.AppConfig.versionCode
-        versionName = Dependencies.AppConfig.versionName
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }

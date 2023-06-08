@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace = "com.example.core"
-    compileSdk = Dependencies.AppConfig.compileSdk
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
     }
 
