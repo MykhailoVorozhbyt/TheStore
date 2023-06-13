@@ -1,3 +1,3 @@
-package com.example.core.navigation.graphs
+package com.example.core.navigation.base
 
 abstract class BaseGraph(val route: String)

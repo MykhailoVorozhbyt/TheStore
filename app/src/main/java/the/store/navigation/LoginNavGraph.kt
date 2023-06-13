@@ -14,8 +14,8 @@ import the.store.presentation.splash.AnimatedSplashScreen
 
 fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
     navigation(
-        startDestination = Screen.AnimatedSplash.route,
-        route = Graph.Login.route
+        route = Graph.Login.route,
+        startDestination = Screen.AnimatedSplash.route
     ) {
         composable(route = Screen.AnimatedSplash.route) {
             AnimatedSplashScreen(navController = navController)

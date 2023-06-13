@@ -37,7 +37,7 @@ dependencies {
 
     implementation(Library.Core.coreKtx)
     implementation(Library.Core.appcompat)
-    implementation(Library.Material.material)
+    implementation(Library.Material.googleMaterial)
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)

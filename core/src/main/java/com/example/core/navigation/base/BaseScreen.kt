@@ -1,3 +1,3 @@
-package com.example.core.navigation.screens
+package com.example.core.navigation.base
 
 abstract class BaseScreen(val route: String)

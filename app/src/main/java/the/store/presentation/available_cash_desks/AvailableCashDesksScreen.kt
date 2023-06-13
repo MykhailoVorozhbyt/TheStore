@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.Graph
-import com.example.core.navigation.Screen
 import the.store.ui.theme.TheStoreTheme
 
 
@@ -32,8 +31,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier, navController: NavHost
             text = "Hello $name!", modifier = modifier
         )
         Button(onClick = {
-            navController.navigate(Graph.Main.route){
-                /**removed login graph*/
+            navController.navigate(Graph.Primary.route) {
                 popUpTo(Graph.Login.route)
             }
         }) {
