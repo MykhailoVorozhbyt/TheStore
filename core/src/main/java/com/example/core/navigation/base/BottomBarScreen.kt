@@ -1,11 +1,11 @@
 package com.example.core.navigation.base
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.core.navigation.Screen
 
@@ -29,7 +29,7 @@ sealed class BottomBarScreen(
     object Basket : BottomBarScreen(
         route = Screen.Basket.route,
         title = "Basket",
-        icon = Icons.Default.Settings,
+        icon = Icons.Default.Add,
     )
 
     object Workers : BottomBarScreen(

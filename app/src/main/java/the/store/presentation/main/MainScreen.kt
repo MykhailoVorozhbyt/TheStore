@@ -1,11 +1,19 @@
 package the.store.presentation.main
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -13,13 +21,32 @@ import com.example.core.navigation.base.BottomBarScreen
 import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddItem
 
+@Preview
+@Composable
+fun MainScreenPreview() {
+    MainScreen()
+}
+
+
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
+        topBar = { MainTopBar() },
         bottomBar = { BottomBar(navController = navController) },
-    ) {
-        BottomNavGraph(navController)
-    }
+        content = { padding -> // We have to pass the scaffold inner padding to our content. That's why we use Box.
+            Box(modifier = Modifier.padding(padding)) {
+                BottomNavGraph(navController)
+            }
+        },
+//        backgroundColor = colorResource(R.color.colorPrimaryDark) // Set background color to avoid the white flashing when you switch between screens
+    )
+
+
+//    Scaffold(
+//        bottomBar = { BottomBar(navController = navController) }
+//    ) { padding ->
+//        BottomNavGraph(navController)
+//    }
 }
 
 @Composable
@@ -28,6 +55,33 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
+}
+
+@Composable
+fun MainTopBar() {
+    TopAppBar(
+        title = {
+            Text(
+                text = stringResource(com.example.theme.R.string.app_name),
+                fontSize = 18.sp,
+                color = Color.White
+            )
+        },
+        backgroundColor = colorResource(id = com.example.theme.R.color.black),
+        contentColor = Color.White
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TopBarPreview() {
+    MainTopBar()
+}
+
+@Preview
+@Composable
+fun BottomBarPreview() {
+    BottomBar(rememberNavController())
 }
 
 @Composable
