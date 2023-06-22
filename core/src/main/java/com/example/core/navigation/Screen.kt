@@ -9,10 +9,10 @@ sealed class Screen(route: String) : BaseScreen(route) {
     object InputPassword : BaseScreen("input_password_screen")
     object AvailableCashDesks : BaseScreen("available_cash_desks_screen")
 
-
     object Primary : BaseScreen("primary_screen")
     object Goods : BaseScreen("goods_screen")
-    object Basket : BaseScreen("basket_screen")
     object Workers : BaseScreen("workers_screen")
     object More : BaseScreen("mode_screen")
+
+    object Basket : BaseScreen("basket_screen")
 }

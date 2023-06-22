@@ -31,22 +31,14 @@ fun MainScreenPreview() {
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
     Scaffold(
-        topBar = { MainTopBar() },
+        topBar = { TopBar() },
         bottomBar = { BottomBar(navController = navController) },
-        content = { padding -> // We have to pass the scaffold inner padding to our content. That's why we use Box.
+        content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
                 BottomNavGraph(navController)
             }
-        },
-//        backgroundColor = colorResource(R.color.colorPrimaryDark) // Set background color to avoid the white flashing when you switch between screens
+        }
     )
-
-
-//    Scaffold(
-//        bottomBar = { BottomBar(navController = navController) }
-//    ) { padding ->
-//        BottomNavGraph(navController)
-//    }
 }
 
 @Composable
@@ -58,7 +50,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun MainTopBar() {
+fun TopBar() {
     TopAppBar(
         title = {
             Text(
@@ -70,18 +62,6 @@ fun MainTopBar() {
         backgroundColor = colorResource(id = com.example.theme.R.color.black),
         contentColor = Color.White
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopBarPreview() {
-    MainTopBar()
-}
-
-@Preview
-@Composable
-fun BottomBarPreview() {
-    BottomBar(rememberNavController())
 }
 
 @Composable

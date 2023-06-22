@@ -27,7 +27,7 @@ fun AddItemPreview() {
     val screens = listOf(
         BottomBarScreen.Primary,
         BottomBarScreen.Goods,
-        BottomBarScreen.Basket,
+//        BottomBarScreen.Basket,
         BottomBarScreen.Workers,
         BottomBarScreen.More,
     )

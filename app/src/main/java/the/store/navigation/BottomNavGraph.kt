@@ -25,9 +25,9 @@ fun BottomNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.Goods.route) {
             GoodsScreen(navController = navController)
         }
-        composable(route = BottomBarScreen.Basket.route) {
-            BasketScreen(navController = navController)
-        }
+
+        basketNavGraph(navController = navController)
+
         composable(route = BottomBarScreen.Workers.route) {
             WorkersScreen(navController = navController)
         }

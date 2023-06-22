@@ -7,4 +7,5 @@ sealed class Graph(val graphRoute: String) : BaseGraph(graphRoute) {
     object Root : BaseGraph("ROOT_GRAPH")
     object Login : BaseGraph("LOGIN_GRAPH")
     object Primary : BaseGraph("PRIMARY_GRAPH")
+    object Basket : BaseGraph("BASKET_GRAPH")
 }

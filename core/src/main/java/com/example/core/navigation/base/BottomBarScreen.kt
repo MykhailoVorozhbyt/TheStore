@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
 
 sealed class BottomBarScreen(
@@ -16,7 +17,7 @@ sealed class BottomBarScreen(
 ) {
     object Primary : BottomBarScreen(
         route = Screen.Primary.route,
-        title = "Main",
+        title = "Primary",
         icon = Icons.Default.Home,
     )
 
@@ -27,7 +28,7 @@ sealed class BottomBarScreen(
     )
 
     object Basket : BottomBarScreen(
-        route = Screen.Basket.route,
+        route = Graph.Basket.route,
         title = "Basket",
         icon = Icons.Default.Add,
     )
