@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace = "com.example.core"
-    compileSdk = Dependencies.AppConfig.compileSdk
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -37,8 +37,18 @@ dependencies {
 
     implementation(Library.Core.coreKtx)
     implementation(Library.Core.appcompat)
-    implementation(Library.Material.material)
+    implementation(Library.Material.googleMaterial)
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
+
+
+    implementation(Library.Compose.activityCompose)
+    implementation(Library.Compose.ui)
+    implementation(Library.Compose.uiGraphics)
+    implementation(Library.Compose.uiToolingPreview)
+    implementation(Library.Compose.material)
+
+    implementation(Library.Navigation.navigationCompose)
+
 }

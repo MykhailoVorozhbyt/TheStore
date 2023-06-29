@@ -1,20 +1,23 @@
+import extensions.CORE
+import extensions.CORE_THEME
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
 
 android {
-    namespace = Dependencies.AppConfig.namespace
-    compileSdk = Dependencies.AppConfig.compileSdk
+    namespace = AppConfig.namespace
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = Dependencies.AppConfig.applicationId
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
-        versionCode = Dependencies.AppConfig.versionCode
-        versionName = Dependencies.AppConfig.versionName
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -58,7 +61,9 @@ dependencies {
     implementation(Library.Compose.ui)
     implementation(Library.Compose.uiGraphics)
     implementation(Library.Compose.uiToolingPreview)
-    implementation(Library.Material.material3)
+    implementation(Library.Material.googleMaterial)
+    implementation(Library.Compose.material)
+    implementation(Library.Compose.material3)
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
@@ -70,6 +75,6 @@ dependencies {
     implementation(Library.Navigation.navigationCompose)
 
     //Modules
-    implementation(project(path = ":core"))
-    implementation(project(path = ":core:theme"))
+    CORE
+    CORE_THEME
 }
