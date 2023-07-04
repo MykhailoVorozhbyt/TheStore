@@ -16,11 +16,11 @@ import the.store.ui.theme.TheStoreTheme
 
 
 @Composable
-fun InputPasswordScreen(navController: NavHostController) {
+fun InputPasswordScreen(navController: NavHostController, userNumber: String) {
     Surface(
         modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
     ) {
-        Greeting("InputPasswordScreen", navController = navController)
+        Greeting("InputPasswordScreen $userNumber", navController = navController)
     }
 }
 

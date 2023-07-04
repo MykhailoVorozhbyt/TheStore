@@ -28,11 +28,13 @@ fun LoginScreen(navController: NavHostController) {
 fun Greeting(name: String, modifier: Modifier = Modifier, navController: NavHostController) {
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
-            text = "Hello $name!", modifier = modifier
+            text = "Hello $name !", modifier = modifier
         )
         Button(
             onClick = {
-                navController.navigate(Screen.InputPassword.route)
+                navController.navigate(
+                    Screen.InputPassword.route
+                )
             }) {
             Text(
                 text = "To InputPasswordScreen"

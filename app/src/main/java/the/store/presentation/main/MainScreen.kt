@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.base.BottomBarScreen
+import com.example.theme.R
 import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddItem
 
@@ -30,23 +31,13 @@ fun MainScreenPreview() {
 
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
-    Scaffold(
-        topBar = { TopBar() },
+    Scaffold(topBar = { TopBar() },
         bottomBar = { BottomBar(navController = navController) },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
                 BottomNavGraph(navController)
             }
-        }
-    )
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+        })
 }
 
 @Composable
@@ -54,13 +45,24 @@ fun TopBar() {
     TopAppBar(
         title = {
             Text(
-                text = stringResource(com.example.theme.R.string.app_name),
+                text = stringResource(R.string.app_name),
                 fontSize = 18.sp,
                 color = Color.White
             )
         },
-        backgroundColor = colorResource(id = com.example.theme.R.color.black),
-        contentColor = Color.White
+        backgroundColor = colorResource(id = R.color.black),
+        contentColor = Color.White,
+        actions = {
+
+        }
+    )
+}
+
+@Composable
+fun ComposableHelloText(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = "Hello $name!",
+        modifier = modifier
     )
 }
 
@@ -68,7 +70,7 @@ fun TopBar() {
 fun BottomBar(navController: NavHostController) {
     val screens = listOf(
         BottomBarScreen.Primary,
-        BottomBarScreen.Goods,
+        BottomBarScreen.Products,
         BottomBarScreen.Basket,
         BottomBarScreen.Workers,
         BottomBarScreen.More,

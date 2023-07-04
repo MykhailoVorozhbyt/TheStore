@@ -1,3 +1,5 @@
+import extensions.CORE_THEME
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -51,4 +53,5 @@ dependencies {
 
     implementation(Library.Navigation.navigationCompose)
 
+    CORE_THEME
 }
