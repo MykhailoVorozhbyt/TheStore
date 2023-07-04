@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import the.store.presentation.main.Greeting
+import the.store.presentation.main.ComposableHelloText
 
 @Composable
 fun PrimaryScreen(navController: NavHostController = rememberNavController()) {
@@ -15,6 +15,6 @@ fun PrimaryScreen(navController: NavHostController = rememberNavController()) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Greeting("PrimaryScreen")
+        ComposableHelloText("PrimaryScreen")
     }
 }

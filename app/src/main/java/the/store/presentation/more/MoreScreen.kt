@@ -6,7 +6,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import the.store.presentation.main.Greeting
+import the.store.presentation.main.ComposableHelloText
 
 @Composable
 fun MoreScreen(navController: NavHostController) {
@@ -14,6 +14,6 @@ fun MoreScreen(navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Greeting("MoreScreen")
+        ComposableHelloText("MoreScreen")
     }
 }

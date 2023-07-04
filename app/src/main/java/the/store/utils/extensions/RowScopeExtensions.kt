@@ -11,7 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -26,8 +28,8 @@ import com.example.core.navigation.base.BottomBarScreen
 fun AddItemPreview() {
     val screens = listOf(
         BottomBarScreen.Primary,
-        BottomBarScreen.Goods,
-//        BottomBarScreen.Basket,
+        BottomBarScreen.Products,
+        BottomBarScreen.Basket,
         BottomBarScreen.Workers,
         BottomBarScreen.More,
     )
@@ -53,7 +55,8 @@ fun RowScope.AddItem(
     },
         icon = {
             Icon(
-                imageVector = screen.icon, contentDescription = "Navigation Icon"
+                imageVector = ImageVector.vectorResource(id = screen.icon),
+                contentDescription = "Navigation Icon"
             )
         },
         selected = currentDestination?.hierarchy?.any {
