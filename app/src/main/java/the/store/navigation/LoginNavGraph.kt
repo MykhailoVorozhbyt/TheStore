@@ -2,14 +2,10 @@ package the.store.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.core.domain.constants.Constants
 import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
-import com.example.core.utils.elvis
 import the.store.presentation.available_cash_desks.AvailableCashDesksScreen
 import the.store.presentation.input_password.InputPasswordScreen
 import the.store.presentation.login.LoginScreen
