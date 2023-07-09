@@ -1,45 +1,104 @@
 package the.store.presentation.login
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.Screen
-import the.store.ui.theme.TheStoreTheme
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.defaultPadding
+import com.example.core.utils.extensions.modifiers.loginIconSize
+import com.example.theme.R
+import the.store.ui.base.BaseButton
+import the.store.ui.base.BaseSpacer
+import the.store.ui.base.BaseSpacerColorView
+import the.store.ui.custom_view.InputTextField
 
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    Surface(
-        modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Greeting("LoginScreen", navController = navController)
+        Icon(
+            modifier = Modifier.loginIconSize(),
+            painter = painterResource(id = R.drawable.ic_the_store),
+            contentDescription = "Logo icon",
+        )
+        InputDataView(navController = navController)
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier, navController: NavHostController) {
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text(
-            text = "Hello $name !", modifier = modifier
-        )
-        Button(
+fun InputDataView(navController: NavHostController) {
+    Column(
+        modifier = Modifier
+            .defaultPadding()
+            .background(
+                colorResource(
+                    id = R.color.app_black
+                ),
+                shape = baseRoundedCornerShape()
+            )
+            .defaultPadding()
+    ) {
+        InputTextField(stringResource(id = R.string.input_phone), { tesultText ->
+        })
+        BaseSpacer()
+        InputTextField(stringResource(id = R.string.input_password), { tesultText ->
+        })
+        BaseSpacer()
+        BaseSpacerColorView(colorResource(id = R.color.white))
+        BaseSpacer()
+        BaseButton(
+            text = stringResource(id = R.string.login),
             onClick = {
                 navController.navigate(
                     Screen.InputPassword.route
                 )
-            }) {
-            Text(
-                text = "To InputPasswordScreen"
-            )
-        }
+            },
+            textModifier = Modifier.fillMaxWidth(),
+        )
+        BaseSpacer()
+        BaseButton(
+            text = stringResource(id = R.string.registration),
+            onClick = {
+                navController.navigate(
+                    Screen.InputPassword.route
+                )
+            },
+            textModifier = Modifier.fillMaxWidth(),
+        )
+        BaseSpacer()
+        BaseSpacerColorView(colorResource(id = R.color.white))
+        BaseSpacer()
+        ClickableText(
+            text = AnnotatedString(stringResource(id = R.string.forgot_password)),
+            modifier = Modifier
+                .fillMaxWidth(),
+            style = TextStyle(
+                color = colorResource(id = R.color.white),
+                textAlign = TextAlign.Center
+            ),
+            onClick = {})
+        BaseSpacer()
     }
 }
 
@@ -47,7 +106,5 @@ fun Greeting(name: String, modifier: Modifier = Modifier, navController: NavHost
 @Composable
 fun GreetingPreview() {
     val navGraph = rememberNavController()
-    TheStoreTheme {
-        Greeting("LoginScreen", navController = navGraph)
-    }
+    LoginScreen(navGraph)
 }
