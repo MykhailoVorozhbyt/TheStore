@@ -6,10 +6,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
-import the.store.presentation.available_cash_desks.AvailableCashDesksScreen
-import the.store.presentation.input_password.InputPasswordScreen
-import the.store.presentation.login.LoginScreen
-import the.store.presentation.splash.AnimatedSplashScreen
+import the.store.presentation.login_to_app.available_cash_desks.AvailableCashDesksScreen
+import the.store.presentation.login_to_app.input_password.InputPasswordScreen
+import the.store.presentation.login_to_app.login.LoginScreen
+import the.store.presentation.login_to_app.registration.RegistrationScreen
+import the.store.presentation.login_to_app.splash.AnimatedSplashScreen
 
 fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
     navigation(
@@ -37,6 +38,10 @@ fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
         }
         composable(route = Screen.AvailableCashDesks.route) {
             AvailableCashDesksScreen(navController = navController)
+        }
+
+        composable(route = Screen.Registration.route){
+            RegistrationScreen(navController = navController)
         }
     }
 }

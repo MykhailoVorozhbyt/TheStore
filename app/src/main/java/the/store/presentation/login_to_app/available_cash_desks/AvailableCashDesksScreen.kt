@@ -1,4 +1,4 @@
-package the.store.presentation.available_cash_desks
+package the.store.presentation.login_to_app.available_cash_desks
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

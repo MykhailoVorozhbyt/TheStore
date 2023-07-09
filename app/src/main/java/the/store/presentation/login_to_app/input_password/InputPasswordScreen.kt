@@ -1,4 +1,4 @@
-package the.store.presentation.input_password
+package the.store.presentation.login_to_app.input_password
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

@@ -16,6 +16,8 @@ sealed class Screen(route: String) : BaseScreen(route) {
         }
     }
 
+    object Registration : BaseScreen("registration")
+
     object AvailableCashDesks : BaseScreen("available_cash_desks_screen")
 
     object Primary : BaseScreen("primary_screen")

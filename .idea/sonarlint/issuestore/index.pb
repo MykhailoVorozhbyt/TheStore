@@ -34,12 +34,8 @@ k
 ;app/src/main/java/the/store/presentation/main/MainScreen.kt,1\7\1764e8033875ed5a8f5a93c311a8f59e520b80d2
 q
 Acore/src/main/java/com/example/core/navigation/base/BaseScreen.kt,5\a\5a1372f8bb2a77c67ff076377aded07d9f3695a1
-h
-8core/src/main/java/com/example/core/navigation/Screen.kt,7\4\74bb2ec0df676fcbb9f6a68037ed91fd5988a80a
 ~
 Napp/src/main/java/the/store/presentation/input_password/InputPasswordScreen.kt,0\c\0cf60c171c34e36bd6debb957bec3aee28200652
-g
-7app/src/main/java/the/store/navigation/LoginNavGraph.kt,a\5\a5badeac27fece079c45d1da944b70a4b53c2f41
 —
 gcore/src/main/java/com/example/core/utils/extensions/modifiers/fab_border_modifier/FabBorderModifier.kt,c\1\c17b44bf46b2a931039bf11e9988996597b02789
 k
