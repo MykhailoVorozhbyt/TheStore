@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="app_black">#222</color>
     <color name="transparentColor">#00FFFFFF</color>
+    <color name="hintColor">#757575</color>
+    <color name="errorColor">#B61919</color>
 </resources>

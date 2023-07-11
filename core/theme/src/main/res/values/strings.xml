@@ -7,6 +7,6 @@
     <string name="input_text">Input text</string>
     <string name="registration">Registration</string>
     <string name="login">Login</string>
-    <string name="forgot_password">Forgot password ?</string>
+    <string name="error">Error</string>
 
 </resources>

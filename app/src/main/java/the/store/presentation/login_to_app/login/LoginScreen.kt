@@ -8,6 +8,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -46,6 +50,9 @@ fun LoginScreen(navController: NavHostController) {
 
 @Composable
 fun InputDataView(navController: NavHostController) {
+    var phoneErrorState by rememberSaveable { mutableStateOf(false) }
+    var passwordErrorState by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = Modifier
             .defaultPadding()
@@ -61,10 +68,13 @@ fun InputDataView(navController: NavHostController) {
         ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = { resultText ->
-            })
+            }, isError = phoneErrorState
+        )
         BaseSpacer()
-        InputTextField(stringResource(id = R.string.input_password), { tesultText ->
-        })
+        InputTextField(
+            stringResource(id = R.string.input_password), { tesultText ->
+            }, isError = passwordErrorState
+        )
         BaseSpacer()
         BaseSpacerColorView(colorResource(id = R.color.white))
         BaseSpacer()
