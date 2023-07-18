@@ -45,12 +45,11 @@ fun InputTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     maxLines: Int = 1,
     singleLine: Boolean = true,
-    isError: Boolean = false
+    isError: Boolean = false,
+    errorMessage: String = stringResource(id = R.string.error)
 ) {
     var fieldText by remember { mutableStateOf(TextFieldValue("")) }
-    var isError by rememberSaveable { mutableStateOf(isError) }
-
-    val errorMessage = stringResource(id = R.string.error)
+    var isErrorState by rememberSaveable { mutableStateOf(isError) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -74,7 +73,7 @@ fun InputTextField(
                 errorIndicatorColor = colorResource(R.color.transparentColor),
             ),
             onValueChange = { text ->
-                isError = false
+                isErrorState = false
                 fieldText = text
                 onValueChange(fieldText.text)
             },

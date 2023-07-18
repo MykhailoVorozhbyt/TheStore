@@ -1,9 +1,12 @@
 import extensions.CORE
 import extensions.CORE_THEME
+import extensions.addHiltDi
 
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -73,6 +76,9 @@ dependencies {
     debugImplementation(Library.Tests.uiTestManifest)
 
     implementation(Library.Navigation.navigationCompose)
+
+    //HILT
+    addHiltDi()
 
     //Modules
     CORE

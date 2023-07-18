@@ -49,4 +49,10 @@ object Library {
         const val uiTooling = "androidx.compose.ui:ui-tooling"
         const val uiTestManifest = "androidx.compose.ui:ui-test-manifest"
     }
+
+    object HiltDi{
+        const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
+        const val hiltWork = "androidx.hilt:hilt-work:1.0.0"
+        const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
+    }
 }

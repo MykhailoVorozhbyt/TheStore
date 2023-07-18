@@ -15,8 +15,6 @@ i
 9core/src/main/java/com/example/core/base/BaseViewModel.kt,4\f\4fa4b4697fde4cc97ef4a6673b24af526b670e57
 p
 @app/src/main/java/the/store/presentation/products/GoodsScreen.kt,e\1\e15c657efbb74b1c23a9b77c05b380a6f6293af2
-D
-app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
 E
 core/build.gradle.kts,d\7\d72846b7b418aa17de692d1ccf924c738cf8dbe5
 v

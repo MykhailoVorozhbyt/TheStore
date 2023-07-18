@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.Screen
@@ -33,7 +34,10 @@ import the.store.ui.custom_view.InputTextField
 
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: LoginScreenViewModel  = hiltViewModel()
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -63,17 +67,20 @@ fun InputDataView(navController: NavHostController) {
             )
             .defaultPadding()
     ) {
-        InputTextField(stringResource(
-            id = R.string.input_phone
-        ),
+        InputTextField(
+            stringResource(
+                id = R.string.input_phone
+            ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = { resultText ->
-            }, isError = phoneErrorState
+            }, isError = phoneErrorState,
+            errorMessage = stringResource(id = R.string.error)
         )
         BaseSpacer()
         InputTextField(
             stringResource(id = R.string.input_password), { tesultText ->
-            }, isError = passwordErrorState
+            }, isError = passwordErrorState,
+            errorMessage = stringResource(id = R.string.error)
         )
         BaseSpacer()
         BaseSpacerColorView(colorResource(id = R.color.white))
@@ -98,6 +105,13 @@ fun InputDataView(navController: NavHostController) {
             textModifier = Modifier.fillMaxWidth(),
         )
     }
+}
+
+fun checkValidData(
+    phone: String,
+    password: String
+) {
+
 }
 
 @Preview(showBackground = true)
