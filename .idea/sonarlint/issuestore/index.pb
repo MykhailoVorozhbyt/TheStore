@@ -1,6 +1,4 @@
 
-@
-build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
 g
 7core/src/main/java/com/example/core/navigation/Graph.kt,f\3\f35c84f6e8bbbc2840b42d9cb9e3dea6e864e30c
 o
@@ -11,12 +9,8 @@ h
 8app/src/main/java/the/store/navigation/BottomNavGraph.kt,8\f\8f91c0a8233dbc5bd0f1fbf2789bd3f899dcb4d0
 h
 8app/src/main/java/the/store/navigation/BasketNavGraph.kt,8\2\824d4def34fbf495a544ae85461b7a864ac3b8ed
-i
-9core/src/main/java/com/example/core/base/BaseViewModel.kt,4\f\4fa4b4697fde4cc97ef4a6673b24af526b670e57
 p
 @app/src/main/java/the/store/presentation/products/GoodsScreen.kt,e\1\e15c657efbb74b1c23a9b77c05b380a6f6293af2
-E
-core/build.gradle.kts,d\7\d72846b7b418aa17de692d1ccf924c738cf8dbe5
 v
 Fcore/src/main/java/com/example/core/navigation/base/BottomBarScreen.kt,f\8\f824a0a50ad4f1cfea99448ea172b99b3c2ba1e0
 q
@@ -64,5 +58,3 @@ h
 [app/src/main/java/the/store/presentation/login_to_app/input_password/InputPasswordScreen.kt,f\b\fbcd62f675016eab0078fef2c893c57658bae346
 ˆ
 Xapp/src/main/java/the/store/presentation/login_to_app/registration/RegistrationScreen.kt,0\8\08410908d7d475664139a5489f8b53e486674bb5
-g
-7app/src/main/java/the/store/navigation/LoginNavGraph.kt,a\5\a5badeac27fece079c45d1da944b70a4b53c2f41

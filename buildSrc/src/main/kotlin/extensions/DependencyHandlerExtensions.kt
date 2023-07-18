@@ -18,8 +18,17 @@ val DependencyHandler.CORE_THEME
     get() = implementation(project(mapOf("path" to ":core:theme")))
 
 
+fun DependencyHandler.addCompose() {
+    implementation(Library.Compose.activityCompose)
+    implementation(Library.Compose.ui)
+    implementation(Library.Compose.uiGraphics)
+    implementation(Library.Compose.uiToolingPreview)
+    implementation(Library.Compose.material3)
+    implementation(Library.Compose.material)
+}
+
 fun DependencyHandler.addHiltDi() {
-    implementation(Library.HiltDi.hiltNavigationCompose)
-    implementation(Library.HiltDi.hiltWork)
-    kapt(Library.HiltDi.hiltCompiler)
+    implementation(Library.HiltDi.navigationCompose)
+    implementation(Library.HiltDi.android)
+    kapt(Library.HiltDi.androidCompiler)
 }

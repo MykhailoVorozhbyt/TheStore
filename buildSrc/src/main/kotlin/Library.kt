@@ -51,8 +51,8 @@ object Library {
     }
 
     object HiltDi{
-        const val hiltNavigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
-        const val hiltWork = "androidx.hilt:hilt-work:1.0.0"
-        const val hiltCompiler = "androidx.hilt:hilt-compiler:1.0.0"
+        const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
+        const val android = "com.google.dagger:hilt-android:2.44"
+        const val androidCompiler = "com.google.dagger:hilt-android-compiler:2.44"
     }
 }
