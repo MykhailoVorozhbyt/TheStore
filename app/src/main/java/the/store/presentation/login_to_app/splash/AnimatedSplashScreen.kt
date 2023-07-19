@@ -20,13 +20,23 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.delay
+import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
+import kotlinx.coroutines.delay
 
 @Composable
-fun AnimatedSplashScreen(navController: NavHostController) {
+fun AnimatedSplashScreen(
+    navController: NavHostController,
+    viewModel: AnimatedSplashViewModel = hiltViewModel()
+) {
+
+    val userIsLoggedIn by remember {
+        viewModel.userIsLoggedIn
+    }
+
     var startAnimation by remember {
         mutableStateOf(false)
     }
@@ -39,7 +49,13 @@ fun AnimatedSplashScreen(navController: NavHostController) {
         startAnimation = true
         delay(2000)
         navController.popBackStack()
-        navController.navigate(Screen.Login.route)
+        if (userIsLoggedIn.not()) {
+            navController.navigate(Screen.Login.route)
+        } else {
+            navController.navigate(Graph.Primary.route) {
+                popUpTo(Graph.Login.route)
+            }
+        }
     }
     SplashScreen(alphaAnimation.value)
 }

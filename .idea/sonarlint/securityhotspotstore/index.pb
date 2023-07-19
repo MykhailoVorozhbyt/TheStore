@@ -36,8 +36,6 @@ h
 8core/src/main/java/com/example/core/utils/NumberUtils.kt,0\2\02317c36698e17ccf0a8430f485ae36e1b69bea2
 i
 9core/src/main/java/com/example/core/utils/IconResource.kt,5\2\52a2d65bb28b2350ca4ff5a0407779300eec71c6
-q
-Acore/src/main/java/com/example/core/domain/constants/Constants.kt,b\3\b316dd4f2e683a36f59baa32267e72e57f00a794
 ‚
 Rcore/src/main/java/com/example/core/utils/extensions/modifiers/BorderExtensions.kt,4\1\41692201389c1d8abbf94fc8badb3e19a858f85b
 ‚
@@ -58,3 +56,21 @@ h
 [app/src/main/java/the/store/presentation/login_to_app/input_password/InputPasswordScreen.kt,f\b\fbcd62f675016eab0078fef2c893c57658bae346
 ˆ
 Xapp/src/main/java/the/store/presentation/login_to_app/registration/RegistrationScreen.kt,0\8\08410908d7d475664139a5489f8b53e486674bb5
+m
+=app/src/main/java/the/store/ui/custom_view/CustomTextField.kt,d\f\df23b2ffd79803c1522c8928d54a644757c9a31d
+i
+9core/src/main/java/com/example/core/base/BaseViewModel.kt,4\f\4fa4b4697fde4cc97ef4a6673b24af526b670e57
+g
+7app/src/main/java/the/store/navigation/LoginNavGraph.kt,a\5\a5badeac27fece079c45d1da944b70a4b53c2f41
+[
++app/src/main/java/the/store/MainActivity.kt,2\6\2666646696d7340515272cb5664042f1887409ec
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
+K
+core/theme/build.gradle.kts,4\3\430c900a6732e90677ff5ce943a8f481391caaea
+E
+core/build.gradle.kts,d\7\d72846b7b418aa17de692d1ccf924c738cf8dbe5
+S
+#buildSrc/src/main/kotlin/Library.kt,d\a\da39611c01e3634d181616810831055a659b8bbf
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
