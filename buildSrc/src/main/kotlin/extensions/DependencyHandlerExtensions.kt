@@ -32,3 +32,9 @@ fun DependencyHandler.addHiltDi() {
     implementation(Library.HiltDi.android)
     kapt(Library.HiltDi.androidCompiler)
 }
+
+fun DependencyHandler.addRoomDi() {
+    implementation(Library.Room.roomRuntime)
+    implementation(Library.Room.roomKtx)
+    kapt(Library.Room.roomCompiler)
+}

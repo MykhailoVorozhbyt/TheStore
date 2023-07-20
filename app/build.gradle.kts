@@ -1,6 +1,7 @@
 import extensions.CORE
 import extensions.CORE_THEME
 import extensions.addHiltDi
+import extensions.addRoomDi
 
 plugins {
     id("com.android.application")
@@ -81,6 +82,9 @@ dependencies {
 
     //HILT
     addHiltDi()
+
+    //ROOM
+    addRoomDi()
 
     //Modules
     CORE

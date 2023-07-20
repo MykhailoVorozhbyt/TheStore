@@ -1,9 +1,13 @@
 import extensions.CORE_THEME
 import extensions.addHiltDi
+import extensions.addRoomDi
 
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -52,6 +56,12 @@ dependencies {
     implementation(Library.Compose.material)
 
     implementation(Library.Navigation.navigationCompose)
+
+    //HILT
+    addHiltDi()
+
+    //ROOM
+    addRoomDi()
 
     CORE_THEME
 }

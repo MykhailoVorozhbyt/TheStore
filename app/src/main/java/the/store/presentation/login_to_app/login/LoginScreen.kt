@@ -36,7 +36,7 @@ import the.store.ui.custom_view.InputTextField
 @Composable
 fun LoginScreen(
     navController: NavHostController,
-    viewModel: LoginScreenViewModel  = hiltViewModel()
+    viewModel: LoginViewModel  = hiltViewModel()
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

@@ -16,13 +16,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class AppModules {
 
-
     @Singleton
     @Provides
     fun provideApplication(): TheStoreApp {
         return TheStoreApp()
     }
-
 
     @Provides
     @Singleton

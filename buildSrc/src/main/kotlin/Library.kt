@@ -50,9 +50,15 @@ object Library {
         const val uiTestManifest = "androidx.compose.ui:ui-test-manifest"
     }
 
-    object HiltDi{
+    object HiltDi {
         const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0"
         const val android = "com.google.dagger:hilt-android:2.44"
         const val androidCompiler = "com.google.dagger:hilt-android-compiler:2.44"
+    }
+
+    object Room {
+        const val roomRuntime = "androidx.room:room-runtime:2.5.2"
+        const val roomKtx = "androidx.room:room-ktx:2.5.2"
+        const val roomCompiler = "androidx.room:room-compiler:2.5.2"
     }
 }
