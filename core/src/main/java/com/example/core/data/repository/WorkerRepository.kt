@@ -4,7 +4,6 @@ import com.example.core.data.dao.WorkerDao
 import com.example.core.domain.models.db_entity.WorkerEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -15,12 +14,6 @@ class WorkerRepository @Inject constructor(
         workerDao.insertWorker(worker)
     }
 
-    suspend fun isWorkerCreated(
-        password: String,
-        phone: String,
-    ): Flow<Boolean> = withContext(ioDispatcher) {
-        return@withContext workerDao.isWorkerCreated(
-            password, phone
-        )
-    }
+    suspend fun getWorkerByPhoneAndPassword(password: String, phone: String): WorkerEntity? =
+        workerDao.getWorkerByPhoneAndPassword(password, phone)
 }

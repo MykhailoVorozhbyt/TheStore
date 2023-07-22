@@ -54,8 +54,6 @@ h
 8core/src/main/java/com/example/core/navigation/Screen.kt,7\4\74bb2ec0df676fcbb9f6a68037ed91fd5988a80a
 ‹
 [app/src/main/java/the/store/presentation/login_to_app/input_password/InputPasswordScreen.kt,f\b\fbcd62f675016eab0078fef2c893c57658bae346
-ˆ
-Xapp/src/main/java/the/store/presentation/login_to_app/registration/RegistrationScreen.kt,0\8\08410908d7d475664139a5489f8b53e486674bb5
 m
 =app/src/main/java/the/store/ui/custom_view/CustomTextField.kt,d\f\df23b2ffd79803c1522c8928d54a644757c9a31d
 i
@@ -76,3 +74,13 @@ w
 Gapp/src/main/java/the/store/utils/helpes/preference/PreferenceHelper.kt,b\c\bcd6c0620fdf34e86c1d59e92463f4343f3c90a1
 p
 @core/src/main/java/com/example/core/utils/enums/PreferenceKey.kt,e\b\ebbfd481efb6b0290c6451493a4e17bbd80752c3
+I
+buildSrc/build.gradle.kts,d\9\d90b697280fada81e52ec92d24725920f1cb087b
+S
+#buildSrc/src/main/kotlin/Library.kt,d\a\da39611c01e3634d181616810831055a659b8bbf
+r
+BbuildSrc/src/main/kotlin/extensions/DependencyHandlerExtensions.kt,c\7\c7843c791960ce12ac73ec34399811ee6d3f868c
+\
+,app/src/main/java/the/store/di/AppModules.kt,3\f\3ff110539c48fdf2bf60120ecedc685a56e94952
+q
+Acore/src/main/java/com/example/core/domain/constants/Constants.kt,b\3\b316dd4f2e683a36f59baa32267e72e57f00a794
