@@ -2,8 +2,9 @@ package com.example.core.utils
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import com.example.core.domain.constants.Constants
 
-fun String?.elvis(): String = this ?: ""
+fun String?.elvis(): String = this ?: Constants.EMPTY_STRING
 fun String?.elvis(value: String): String = this ?: value
 
 fun Int?.elvis(): Int = this ?: 0

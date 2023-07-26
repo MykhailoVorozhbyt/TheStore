@@ -14,7 +14,7 @@ data class WorkerEntity(
     @ColumnInfo(name = COLUMN_LAST_NAME) val lastName: String,
     @ColumnInfo(name = COLUMN_PASSWORD) val password: String,
     @ColumnInfo(name = COLUMN_PHONE) val phone: String,
-    @ColumnInfo(name = COLUMN_MAIL) val mail: String,
+    @ColumnInfo(name = COLUMN_MAIL) val emailAddress: String,
     @ColumnInfo(name = COLUMN_VAT_IDENTIFICATION_NUMBER) val vatIdentificationNumber: String,
 ) {
     companion object {
@@ -24,7 +24,7 @@ data class WorkerEntity(
         const val COLUMN_LAST_NAME = "lastName"
         const val COLUMN_PASSWORD = "password"
         const val COLUMN_PHONE = "phone"
-        const val COLUMN_MAIL = "mail"
+        const val COLUMN_MAIL = "emailAddress"
         const val COLUMN_VAT_IDENTIFICATION_NUMBER = "vatIdentificationNumber"
     }
 }

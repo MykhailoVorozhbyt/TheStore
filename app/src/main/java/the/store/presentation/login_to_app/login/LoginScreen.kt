@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
@@ -22,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.core.navigation.Screen
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.extensions.modifiers.loginIconSize
@@ -35,9 +32,9 @@ import the.store.ui.custom_view.InputTextField
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController,
-    viewModel: LoginViewModel  = hiltViewModel()
+    navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -48,15 +45,18 @@ fun LoginScreen(
             painter = painterResource(id = R.drawable.ic_the_store),
             contentDescription = "Logo icon",
         )
-        InputDataView(navController = navController)
+        InputDataView(
+            uiState = uiState,
+            navController = navController,
+            viewModel = viewModel
+        )
     }
 }
 
 @Composable
-fun InputDataView(navController: NavHostController) {
-    var phoneErrorState by rememberSaveable { mutableStateOf(false) }
-    var passwordErrorState by rememberSaveable { mutableStateOf(false) }
-
+fun InputDataView(
+    uiState: LoginState, navController: NavHostController, viewModel: LoginViewModel
+) {
     Column(
         modifier = Modifier
             .defaultPadding()
@@ -68,19 +68,33 @@ fun InputDataView(navController: NavHostController) {
             .defaultPadding()
     ) {
         InputTextField(
-            stringResource(
+            { resultText ->
+                viewModel.onTriggerEvent(
+                    LoginUiEvent.PhoneChanged(
+                        resultText
+                    )
+                )
+            },
+            textValue = uiState.phoneValue,
+            titleText = stringResource(
                 id = R.string.input_phone
             ),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { resultText ->
-            }, isError = phoneErrorState,
-            errorMessage = stringResource(id = R.string.error)
+            errorMessage = stringResource(id = uiState.errorState.phoneErrorState.errorMessageStringResource),
+            isError = uiState.errorState.phoneErrorState.hasError
         )
         BaseSpacer()
         InputTextField(
-            stringResource(id = R.string.input_password), { tesultText ->
-            }, isError = passwordErrorState,
-            errorMessage = stringResource(id = R.string.error)
+            { resultText ->
+                viewModel.onTriggerEvent(
+                    LoginUiEvent.PasswordChanged(
+                        resultText
+                    )
+                )
+            },
+            titleText = stringResource(id = R.string.input_password),
+            errorMessage = stringResource(id = uiState.errorState.passwordErrorState.errorMessageStringResource),
+            isError = uiState.errorState.passwordErrorState.hasError
         )
         BaseSpacer()
         BaseSpacerColorView(colorResource(id = R.color.white))
@@ -88,9 +102,10 @@ fun InputDataView(navController: NavHostController) {
         BaseButton(
             text = stringResource(id = R.string.login),
             onClick = {
-                navController.navigate(
-                    Screen.InputPassword.route
-                )
+                viewModel.onTriggerEvent(LoginUiEvent.SubmitLoginClick)
+//                navController.navigate(
+//                    Screen.InputPassword.route
+//                )
             },
             textModifier = Modifier.fillMaxWidth(),
         )
@@ -98,20 +113,13 @@ fun InputDataView(navController: NavHostController) {
         BaseButton(
             text = stringResource(id = R.string.registration),
             onClick = {
-                navController.navigate(
-                    Screen.Registration.route
-                )
+//                navController.navigate(
+//                    Screen.Registration.route
+//                )
             },
             textModifier = Modifier.fillMaxWidth(),
         )
     }
-}
-
-fun checkValidData(
-    phone: String,
-    password: String
-) {
-
 }
 
 @Preview(showBackground = true)

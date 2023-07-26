@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.core.data.dao.WorkerDao
 import com.example.core.data.db.TheStoreDatabase
 import com.example.core.data.repository.WorkerRepository
+import com.example.core.data.repository.WorkerRepositoryImpl
 import com.example.core.domain.constants.Constants
 import dagger.Module
 import dagger.Provides
@@ -27,13 +28,4 @@ class DatabaseModule {
         ).build()
     }
 
-
-    @Provides
-    fun provideWorkerDao(appDatabase: TheStoreDatabase): WorkerDao {
-        return appDatabase.workerDao()
-    }
-
-    @Provides
-    fun provideWorkerRepository(workerDao: WorkerDao): WorkerRepository =
-        WorkerRepository(workerDao)
 }

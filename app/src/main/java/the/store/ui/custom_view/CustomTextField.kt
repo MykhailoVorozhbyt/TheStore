@@ -18,8 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.core.domain.constants.Constants
 import com.example.core.utils.elvis
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
@@ -39,8 +39,9 @@ fun CustomTextFieldPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputTextField(
-    titleText: String? = null,
     onValueChange: (String) -> Unit,
+    textValue: String = Constants.EMPTY_STRING,
+    titleText: String? = null,
     hintText: String = stringResource(id = R.string.input_text),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     maxLines: Int = 1,
@@ -48,7 +49,7 @@ fun InputTextField(
     isError: Boolean = false,
     errorMessage: String = stringResource(id = R.string.error)
 ) {
-    var fieldText by remember { mutableStateOf(TextFieldValue("")) }
+    var fieldText by remember { mutableStateOf(textValue) }
     var isErrorState by rememberSaveable { mutableStateOf(isError) }
 
     Column(
@@ -63,7 +64,8 @@ fun InputTextField(
                 color = colorResource(id = R.color.white)
             )
         }
-        TextField(value = fieldText,
+        TextField(
+            value = fieldText,
             modifier = Modifier.fillMaxWidth(),
             shape = baseRoundedCornerShape(),
             colors = TextFieldDefaults.textFieldColors(
@@ -75,7 +77,7 @@ fun InputTextField(
             onValueChange = { text ->
                 isErrorState = false
                 fieldText = text
-                onValueChange(fieldText.text)
+                onValueChange(fieldText)
             },
             singleLine = singleLine,
             placeholder = {

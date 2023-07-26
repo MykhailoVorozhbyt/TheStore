@@ -8,5 +8,13 @@
     <string name="registration">Registration</string>
     <string name="login">Login</string>
     <string name="error">Error</string>
+    <string name="default_ua_phone">+380</string>
+    <string name="incorrect_phone_error">"Number format: +380987654321"</string>
+    <string name="empty_string" />
+    <string name="field_cannot_be_empty" >Field cannot be empty</string>
+
+    <!--Login Error Messages-->
+    <string name="login_error_msg_empty_phone">Please enter your mobile number</string>
+    <string name="login_error_msg_empty_password">Please enter your password</string>
 
 </resources>
