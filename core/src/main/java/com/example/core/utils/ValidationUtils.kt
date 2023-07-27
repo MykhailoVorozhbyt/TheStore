@@ -13,5 +13,10 @@ fun isValidEmail(target: String): Boolean {
 
 fun isPhoneCorrectLength(phone: String?): Boolean {
     if (phone.isNullOrBlank()) return false
+    if (phone.length > 5) {
+        if (phone.substring(0, 4) != "+380") {
+            return false
+        }
+    }
     return phone.length == 13
 }

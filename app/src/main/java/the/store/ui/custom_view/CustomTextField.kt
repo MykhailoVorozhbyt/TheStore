@@ -47,7 +47,10 @@ fun InputTextField(
     maxLines: Int = 1,
     singleLine: Boolean = true,
     isError: Boolean = false,
-    errorMessage: String = stringResource(id = R.string.error)
+    errorMessage: String = stringResource(id = R.string.error),
+    maxLength: Int = 100,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
 ) {
     var fieldText by remember { mutableStateOf(textValue) }
     var isErrorState by rememberSaveable { mutableStateOf(isError) }
@@ -80,6 +83,8 @@ fun InputTextField(
                 onValueChange(fieldText)
             },
             singleLine = singleLine,
+            enabled = enabled,
+            readOnly = readOnly,
             placeholder = {
                 Text(
                     text = hintText, color = colorResource(
@@ -107,6 +112,7 @@ fun InputTextField(
                         ), contentDescription = "Varning Icon"
                     )
                 }
-            })
+            }
+        )
     }
 }

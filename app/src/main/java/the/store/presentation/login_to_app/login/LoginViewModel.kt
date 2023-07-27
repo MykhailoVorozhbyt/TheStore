@@ -1,12 +1,12 @@
 package the.store.presentation.login_to_app.login
 
-import androidx.lifecycle.viewModelScope
 import com.example.core.base.BaseStateVM
 import com.example.core.base.states.ErrorState
+import com.example.core.base.states.FieldErrorState
 import com.example.core.data.repository.WorkerRepository
+import com.example.core.utils.AppLogger
 import com.example.core.utils.isPhoneCorrectLength
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,18 +25,18 @@ class LoginViewModel @Inject constructor(
 
     private fun submitPhoneChangedEvent(phone: String) {
         setState(
-            LoginState(
+            uiState.value.copy(
                 phoneValue = phone,
-                errorState = checkPhone(phone)
+                inputDataErrorState = checkPhone(phone)
             )
         )
     }
 
-    private fun submitPasswordChangedEvent(phone: String) {
+    private fun submitPasswordChangedEvent(password: String) {
         setState(
-            LoginState(
-                phoneValue = phone,
-                errorState = checkPassword(phone)
+            uiState.value.copy(
+                passwordValue = password,
+                inputDataErrorState = checkPassword(password)
             )
         )
     }
@@ -44,27 +44,29 @@ class LoginViewModel @Inject constructor(
     private fun submitSubmitLoginClickEvent() {
         val inputsValidated = validateInputs()
         if (inputsValidated) {
-            // TODO Trigger login in authentication flow
-//            loginState.value = loginState.value.copy(isLoginSuccessful = true)
+            getWorkerByPhoneAndPassword()
         }
     }
 
-    fun getWorkerByPhoneAndPassword(phone: String, password: String) {
-        startLoading()
-        viewModelScope.launch {
+    fun getWorkerByPhoneAndPassword() {
+//        setState(uiState.value.copy(isLoading = false))
+        safeLaunch {
             try {
                 val result = workerRepository.getWorkerByPhoneAndPassword(
-                    password,
-                    phone
+                    uiState.value.phoneValue,
+                    uiState.value.passwordValue
                 )
                 if (result == null) {
+                    setState(uiState.value.copy(userNotLoggedIn = true))
                 } else {
-
+                    setState(uiState.value.copy(userLoggedIn = true))
                 }
             } catch (e: Exception) {
-
+                AppLogger.log(e)
+                setState(uiState.value.copy(errorState = ErrorState(e.localizedMessage)))
             }
         }
+
     }
 
     private fun checkPhone(phone: String): LoginErrorState {
@@ -73,7 +75,7 @@ class LoginViewModel @Inject constructor(
         }
         if (isPhoneCorrectLength(phone).not()) {
             return LoginErrorState(
-                phoneErrorState = ErrorState(
+                phoneErrorState = FieldErrorState(
                     hasError = true,
                     errorMessageStringResource = com.example.theme.R.string.incorrect_phone_error
                 )
@@ -83,29 +85,23 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun checkPassword(password: String): LoginErrorState {
-        if (password.isBlank()) {
-            return LoginErrorState(passwordErrorState = passwordEmptyErrorState)
-        }
-        return LoginErrorState()
+        return if (password.isBlank()) LoginErrorState(passwordErrorState = passwordEmptyErrorState) else LoginErrorState()
     }
 
     private fun validateInputs(): Boolean {
         val phoneValidate: LoginErrorState = checkPhone(uiState.value.phoneValue)
         val passwordValidate: LoginErrorState = checkPassword(uiState.value.passwordValue)
         return when {
-            phoneValidate.phoneErrorState.hasError.not() && passwordValidate.passwordErrorState.hasError.not() -> {
-                true
-            }
             phoneValidate.phoneErrorState.hasError -> {
-                setState(LoginState(errorState = phoneValidate))
+                setState(uiState.value.copy(inputDataErrorState = phoneValidate))
                 false
             }
             passwordValidate.passwordErrorState.hasError -> {
-                setState(LoginState(errorState = passwordValidate))
+                setState(uiState.value.copy(inputDataErrorState = passwordValidate))
                 false
             }
             else -> {
-                setState(LoginState(errorState = LoginErrorState()))
+                setState(uiState.value.copy(inputDataErrorState = LoginErrorState()))
                 true
             }
         }

@@ -13,13 +13,4 @@ abstract class BaseStateVM<STATE, EVENT>(state: STATE) : BaseViewModel() {
         _uiState.emit(state)
     }
 
-//    override fun startLoading() {
-//        super.startLoading()
-//        _uiState.value = BaseViewState.Loading
-//    }
-//
-//    override fun handleError(exception: Throwable) {
-//        super.handleError(exception)
-//        _uiState.value = BaseViewState.Error(exception)
-//    }
 }

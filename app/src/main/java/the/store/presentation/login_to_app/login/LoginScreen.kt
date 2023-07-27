@@ -9,6 +9,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.core.navigation.Screen
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.extensions.modifiers.loginIconSize
@@ -35,6 +37,7 @@ fun LoginScreen(
     navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -45,17 +48,35 @@ fun LoginScreen(
             painter = painterResource(id = R.drawable.ic_the_store),
             contentDescription = "Logo icon",
         )
-        InputDataView(
-            uiState = uiState,
-            navController = navController,
-            viewModel = viewModel
-        )
+
+        when {
+            uiState.userLoggedIn -> {
+                LaunchedEffect(key1 = true) {
+                    navController.navigate(
+                        Screen.AvailableCashDesks.route
+                    )
+                }
+            }
+            uiState.userNotLoggedIn -> {
+                LaunchedEffect(key1 = true) {
+                    navController.navigate(
+                        Screen.Registration.route
+                    )
+                }
+            }
+            else -> {
+                InputDataView(
+                    uiState = uiState,
+                    viewModel = viewModel
+                )
+            }
+        }
     }
 }
 
 @Composable
 fun InputDataView(
-    uiState: LoginState, navController: NavHostController, viewModel: LoginViewModel
+    uiState: LoginState, viewModel: LoginViewModel
 ) {
     Column(
         modifier = Modifier
@@ -79,9 +100,9 @@ fun InputDataView(
             titleText = stringResource(
                 id = R.string.input_phone
             ),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            errorMessage = stringResource(id = uiState.errorState.phoneErrorState.errorMessageStringResource),
-            isError = uiState.errorState.phoneErrorState.hasError
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+            errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorMessageStringResource),
+            isError = uiState.inputDataErrorState.phoneErrorState.hasError,
         )
         BaseSpacer()
         InputTextField(
@@ -93,8 +114,9 @@ fun InputDataView(
                 )
             },
             titleText = stringResource(id = R.string.input_password),
-            errorMessage = stringResource(id = uiState.errorState.passwordErrorState.errorMessageStringResource),
-            isError = uiState.errorState.passwordErrorState.hasError
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            errorMessage = stringResource(id = uiState.inputDataErrorState.passwordErrorState.errorMessageStringResource),
+            isError = uiState.inputDataErrorState.passwordErrorState.hasError
         )
         BaseSpacer()
         BaseSpacerColorView(colorResource(id = R.color.white))
@@ -103,22 +125,12 @@ fun InputDataView(
             text = stringResource(id = R.string.login),
             onClick = {
                 viewModel.onTriggerEvent(LoginUiEvent.SubmitLoginClick)
-//                navController.navigate(
-//                    Screen.InputPassword.route
-//                )
             },
             textModifier = Modifier.fillMaxWidth(),
         )
         BaseSpacer()
-        BaseButton(
-            text = stringResource(id = R.string.registration),
-            onClick = {
-//                navController.navigate(
-//                    Screen.Registration.route
-//                )
-            },
-            textModifier = Modifier.fillMaxWidth(),
-        )
+        BaseSpacerColorView(colorResource(id = R.color.white))
+        BaseSpacer()
     }
 }
 

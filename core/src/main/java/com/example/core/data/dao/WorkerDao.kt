@@ -14,7 +14,6 @@ interface WorkerDao {
 
     @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE password = :password AND phone = :phone")
     suspend fun getWorkerByPhoneAndPassword(
-        password: String,
-        phone: String,
+        phone: String, password: String
     ): WorkerEntity?
 }
