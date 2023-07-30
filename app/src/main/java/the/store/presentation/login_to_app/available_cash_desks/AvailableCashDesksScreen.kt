@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.Graph
-import the.store.ui.theme.TheStoreTheme
+import com.example.theme.TheStoreTheme
 
 
 @Composable

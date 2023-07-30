@@ -5,13 +5,11 @@ object Library {
         const val lifecycleRuntimeKtx =
             "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
         const val appcompat = "androidx.appcompat:appcompat:1.6.1"
-        const val splashscreen = "androidx.core:core-splashscreen:1.0.1"
     }
 
     object Navigation {
         const val navigationCompose =
             "androidx.navigation:navigation-compose:2.6.0"
-
     }
 
     object Platform {
@@ -19,9 +17,8 @@ object Library {
         const val composeBom = "androidx.compose:compose-bom:2022.10.00"
     }
 
-
     object Plugins {
-        const val gradle = "com.android.tools.build:gradle:8.0.2"
+        const val gradle = "com.android.tools.build:gradle:8.1.0"
         const val kotlinGradlePlugin =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20"
     }
@@ -29,10 +26,10 @@ object Library {
     object Compose {
         const val activityCompose =
             "androidx.activity:activity-compose:1.7.2"
-        const val ui = "androidx.compose.ui:ui"
-        const val uiGraphics = "androidx.compose.ui:ui-graphics"
-        const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview"
-        const val material3 = "androidx.compose.material3:material3"
+        const val ui = "androidx.compose.ui:ui:1.4.3"
+        const val uiGraphics = "androidx.compose.ui:ui-graphics:1.4.3"
+        const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:1.4.3"
+        const val material3 = "androidx.compose.material3:material3:1.1.1"
         const val material = "androidx.compose.material:material:1.4.3"
     }
 

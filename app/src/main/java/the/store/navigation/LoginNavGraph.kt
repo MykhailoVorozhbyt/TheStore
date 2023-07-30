@@ -24,21 +24,21 @@ fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
         ) {
             LoginScreen(navController = navController)
         }
-        composable(
-            route = Screen.InputPassword.route,
-            /*           arguments = listOf(
-                           navArgument(Constants.USER_PHONE_NUMBER) {
-                               type = NavType.StringType
-                           }
-                       )*/
-        ) { backStackEntry ->
-//            val userPhoneNumber =
-//                backStackEntry.arguments?.getString(Constants.USER_PHONE_NUMBER).elvis()
-            InputPasswordScreen(navController = navController)
-        }
-        composable(route = Screen.AvailableCashDesks.route) {
-            AvailableCashDesksScreen(navController = navController)
-        }
+//        composable(
+//            route = Screen.InputPassword.route,
+//            /*           arguments = listOf(
+//                           navArgument(Constants.USER_PHONE_NUMBER) {
+//                               type = NavType.StringType
+//                           }
+//                       )*/
+//        ) { backStackEntry ->
+////            val userPhoneNumber =
+////                backStackEntry.arguments?.getString(Constants.USER_PHONE_NUMBER).elvis()
+//            InputPasswordScreen(navController = navController)
+//        }
+//        composable(route = Screen.AvailableCashDesks.route) {
+//            AvailableCashDesksScreen(navController = navController)
+//        }
 
         composable(route = Screen.Registration.route){
             RegistrationScreen(navController = navController)

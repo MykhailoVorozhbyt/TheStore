@@ -1,18 +1,17 @@
-package the.store.ui.base
+package com.example.core.ui.base
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.theme.R
+import com.example.theme.White
 
 @Preview
 @Composable
@@ -33,16 +32,16 @@ fun BaseButton(
     textModifier: Modifier = Modifier
 ) {
     return Button(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth(),
         onClick = {
             onClick()
         },
         colors = ButtonDefaults
-            .buttonColors(containerColor = colorResource(id = R.color.white)),
-        interactionSource = remember { MutableInteractionSource() },
+            .buttonColors(containerColor = White),
     ) {
         Text(
-            modifier = textModifier,
+            modifier = textModifier.fillMaxWidth(),
             text = text,
             color = colorResource(id = R.color.app_black),
             textAlign = TextAlign.Center

@@ -1,3 +1,5 @@
+import extensions.addCompose
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -31,6 +33,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
+    }
 }
 
 dependencies {
@@ -41,4 +49,7 @@ dependencies {
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
+
+    //COMPOSE
+    addCompose()
 }

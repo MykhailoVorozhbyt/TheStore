@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import the.store.navigation.RootNavGraph
-import the.store.ui.theme.TheStoreTheme
+import com.example.theme.TheStoreTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

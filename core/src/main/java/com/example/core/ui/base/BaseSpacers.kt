@@ -1,4 +1,4 @@
-package the.store.ui.base
+package com.example.core.ui.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

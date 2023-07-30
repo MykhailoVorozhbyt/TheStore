@@ -1,5 +1,6 @@
 import extensions.CORE
 import extensions.CORE_THEME
+import extensions.addCompose
 import extensions.addHiltDi
 import extensions.addRoomDi
 
@@ -49,7 +50,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.5"
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
     packagingOptions {
         resources {
@@ -62,14 +63,8 @@ dependencies {
     implementation(Library.Core.coreKtx)
     implementation(platform(Library.Platform.kotlinBom))
     implementation(Library.Core.lifecycleRuntimeKtx)
-    implementation(Library.Compose.activityCompose)
     implementation(platform(Library.Platform.composeBom))
-    implementation(Library.Compose.ui)
-    implementation(Library.Compose.uiGraphics)
-    implementation(Library.Compose.uiToolingPreview)
     implementation(Library.Material.googleMaterial)
-    implementation(Library.Compose.material)
-    implementation(Library.Compose.material3)
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
@@ -80,9 +75,10 @@ dependencies {
 
     implementation(Library.Navigation.navigationCompose)
 
+    //Compose
+    addCompose()
     //HILT
     addHiltDi()
-
     //ROOM
     addRoomDi()
 

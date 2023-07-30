@@ -1,4 +1,5 @@
 import extensions.CORE_THEME
+import extensions.addCompose
 import extensions.addHiltDi
 import extensions.addRoomDi
 
@@ -39,6 +40,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
+    }
 }
 
 dependencies {
@@ -50,13 +57,10 @@ dependencies {
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
 
-    implementation(Library.Compose.activityCompose)
-    implementation(Library.Compose.ui)
-    implementation(Library.Compose.uiGraphics)
-    implementation(Library.Compose.uiToolingPreview)
-    implementation(Library.Compose.material)
-
     implementation(Library.Navigation.navigationCompose)
+
+    //COMPOSE
+    addCompose()
 
     //HILT
     addHiltDi()

@@ -48,8 +48,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun getWorkerByPhoneAndPassword() {
-//        setState(uiState.value.copy(isLoading = false))
+    private fun getWorkerByPhoneAndPassword() {
+        setState(uiState.value.copy(isLoading = true))
         safeLaunch {
             try {
                 val result = workerRepository.getWorkerByPhoneAndPassword(
