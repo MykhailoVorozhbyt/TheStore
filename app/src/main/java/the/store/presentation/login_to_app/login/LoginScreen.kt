@@ -8,10 +8,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,11 +30,12 @@ import com.example.core.navigation.Screen
 import com.example.core.ui.base.BaseButton
 import com.example.core.ui.base.BaseSpacer
 import com.example.core.ui.base.BaseSpacerColorView
-import com.example.core.ui.custom_view.InputTextField
+import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.ProgressIndicator
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.extensions.modifiers.loginIconSize
+import com.example.core.utils.helpers.showMessage
 import com.example.theme.R
 
 
@@ -38,6 +44,10 @@ fun LoginScreen(
     navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val localContext = LocalContext.current
+
+    var userNotLoggedInState by remember { mutableStateOf(0) }
+    var userLoggedInState by remember { mutableStateOf(0) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -51,16 +61,26 @@ fun LoginScreen(
         )
         when {
             uiState.userLoggedIn -> {
-                navController.navigate(Graph.Primary.route) {
-                    popUpTo(Graph.Login.route) {
-                        inclusive = true
+                userLoggedInState++
+                showMessage(localContext, "userLoggedIn: $userLoggedInState")
+
+                LaunchedEffect(true) {
+                    navController.navigate(Graph.Primary.route) {
+                        popUpTo(Graph.Login.route) {
+                            inclusive = true
+                        }
                     }
                 }
             }
             uiState.userNotLoggedIn -> {
-                navController.navigate(
-                    Screen.Registration.route
-                )
+                userNotLoggedInState++
+                showMessage(localContext, "userNotLoggedInState: $userNotLoggedInState")
+
+                LaunchedEffect(true) {
+                    navController.navigate(
+                        Screen.Registration.route
+                    )
+                }
             }
             else -> {
                 InputDataContainerView(
@@ -100,7 +120,7 @@ fun LoginInputsView(
     uiState: LoginState, viewModel: LoginViewModel
 ) {
     InputTextField(
-        { resultText ->
+        onValueChange = { resultText ->
             viewModel.onTriggerEvent(
                 LoginUiEvent.PhoneChanged(
                     resultText
@@ -108,16 +128,14 @@ fun LoginInputsView(
             )
         },
         textValue = uiState.phoneValue,
-        titleText = stringResource(
-            id = R.string.input_phone
-        ),
+        titleText = stringResource(id = R.string.input_phone),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
         errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorMessageStringResource),
         isError = uiState.inputDataErrorState.phoneErrorState.hasError,
     )
     BaseSpacer()
     InputTextField(
-        { resultText ->
+        onValueChange = { resultText ->
             viewModel.onTriggerEvent(
                 LoginUiEvent.PasswordChanged(
                     resultText

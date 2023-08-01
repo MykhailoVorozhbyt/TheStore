@@ -1,9 +1,10 @@
 package the.store.presentation.login_to_app.login
 
-import com.example.core.base.BaseStateVM
+import com.example.core.base.BaseStateViewModel
 import com.example.core.base.states.ErrorState
 import com.example.core.base.states.FieldErrorState
 import com.example.core.data.repository.WorkerRepository
+import com.example.core.utils.AppDispatchers
 import com.example.core.utils.AppLogger
 import com.example.core.utils.isPhoneCorrectLength
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,8 +12,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val workerRepository: WorkerRepository
-) : BaseStateVM<LoginState, LoginUiEvent>(LoginState()) {
+    private val workerRepository: WorkerRepository,
+    private val dispatchers: AppDispatchers
+) : BaseStateViewModel<LoginState, LoginUiEvent>(LoginState()) {
 
 
     override fun onTriggerEvent(eventType: LoginUiEvent) {
@@ -50,20 +52,27 @@ class LoginViewModel @Inject constructor(
 
     private fun getWorkerByPhoneAndPassword() {
         setState(uiState.value.copy(isLoading = true))
-        safeLaunch {
+        safeLaunch(dispatchers.io) {
             try {
                 val result = workerRepository.getWorkerByPhoneAndPassword(
                     uiState.value.phoneValue,
                     uiState.value.passwordValue
                 )
                 if (result == null) {
-                    setState(uiState.value.copy(userNotLoggedIn = true))
+//                    setState(uiState.value.copy(userNotLoggedIn = true, isLoading = false))
+                    setState(LoginState(userNotLoggedIn = true, isLoading = false))
                 } else {
-                    setState(uiState.value.copy(userLoggedIn = true))
+//                    setState(uiState.value.copy(userLoggedIn = true, isLoading = false))
+                    setState(LoginState(userLoggedIn = true, isLoading = false))
                 }
             } catch (e: Exception) {
                 AppLogger.log(e)
-                setState(uiState.value.copy(errorState = ErrorState(e.localizedMessage)))
+                setState(
+                    uiState.value.copy(
+                        errorState = ErrorState(e.localizedMessage),
+                        isLoading = false
+                    )
+                )
             }
         }
 

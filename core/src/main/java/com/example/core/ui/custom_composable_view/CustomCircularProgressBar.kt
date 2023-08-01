@@ -1,4 +1,4 @@
-package com.example.core.ui.custom_view
+package com.example.core.ui.custom_composable_view
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable

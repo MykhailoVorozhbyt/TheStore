@@ -1,4 +1,4 @@
-package com.example.core.ui.custom_view
+package com.example.core.ui.custom_composable_view
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
