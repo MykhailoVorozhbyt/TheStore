@@ -20,3 +20,4 @@ class WorkerRepositoryImpl @Inject constructor(
     ): WorkerEntity? =
         workerDao.getWorkerByPhoneAndPassword(password, phone)
 }
+

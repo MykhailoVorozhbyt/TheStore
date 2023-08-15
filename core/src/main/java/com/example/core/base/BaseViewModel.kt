@@ -14,4 +14,7 @@ abstract class BaseViewModel : ViewModel() {
     ) {
         viewModelScope.launch(context = context, block = block)
     }
+
+    open fun startLoading() {}
+    open fun handleError(exception: Throwable) {}
 }

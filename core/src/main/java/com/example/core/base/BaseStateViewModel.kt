@@ -7,6 +7,8 @@ abstract class BaseStateViewModel<STATE, EVENT>(initialState: STATE) : BaseViewM
     private val _uiState = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
+
+
     abstract fun onTriggerEvent(eventType: EVENT)
 
     protected fun setState(newState: STATE) = safeLaunch {

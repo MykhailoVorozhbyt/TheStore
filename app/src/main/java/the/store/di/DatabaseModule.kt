@@ -2,10 +2,7 @@ package the.store.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.core.data.dao.WorkerDao
 import com.example.core.data.db.TheStoreDatabase
-import com.example.core.data.repository.WorkerRepository
-import com.example.core.data.repository.WorkerRepositoryImpl
 import com.example.core.domain.constants.Constants
 import dagger.Module
 import dagger.Provides

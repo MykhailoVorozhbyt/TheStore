@@ -1,88 +1,109 @@
 package the.store.presentation.login_to_app.login
 
-import com.example.core.base.BaseStateViewModel
-import com.example.core.base.states.ErrorState
+import com.example.core.base.MviViewModel
+import com.example.core.base.states.BaseViewState
 import com.example.core.base.states.FieldErrorState
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
 import com.example.core.utils.AppLogger
-import com.example.core.utils.isPhoneCorrectLength
+import com.example.core.utils.isValidUkrainianPhoneNumber
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import the.store.presentation.login_to_app.login.utils.LoginErrorState
+import the.store.presentation.login_to_app.login.utils.LoginUiEvent
+import the.store.presentation.login_to_app.login.utils.LoginUiState
+import the.store.presentation.login_to_app.login.utils.passwordEmptyErrorState
+import the.store.presentation.login_to_app.login.utils.phoneEmptyErrorState
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val workerRepository: WorkerRepository,
     private val dispatchers: AppDispatchers
-) : BaseStateViewModel<LoginState, LoginUiEvent>(LoginState()) {
-
+) : MviViewModel<BaseViewState<LoginUiState>, LoginUiEvent>() {
 
     override fun onTriggerEvent(eventType: LoginUiEvent) {
         when (eventType) {
             is LoginUiEvent.PhoneChanged -> submitPhoneChangedEvent(eventType.inputValue)
             is LoginUiEvent.PasswordChanged -> submitPasswordChangedEvent(eventType.inputValue)
             is LoginUiEvent.SubmitLoginClick -> submitSubmitLoginClickEvent()
+            is LoginUiEvent.InitView -> submitInitViewEvent()
         }
     }
 
+    private fun setUiState(state: LoginUiState) {
+        setState(BaseViewState.Data(state))
+    }
+
+    private fun submitInitViewEvent() {
+        setState(BaseViewState.Data(LoginUiState()))
+    }
+
     private fun submitPhoneChangedEvent(phone: String) {
-        setState(
-            uiState.value.copy(
-                phoneValue = phone,
-                inputDataErrorState = checkPhone(phone)
-            )
-        )
+        safeLaunch {
+            val castState =
+                uiState.filterIsInstance<BaseViewState.Data<LoginUiState>>().map { it.value }
+                    .first().copy(
+                        phoneValue = phone,
+                        inputDataErrorState = checkPhone(phone)
+                    )
+            setUiState(castState)
+        }
     }
 
     private fun submitPasswordChangedEvent(password: String) {
-        setState(
-            uiState.value.copy(
-                passwordValue = password,
-                inputDataErrorState = checkPassword(password)
-            )
-        )
+        safeLaunch {
+            val castState =
+                uiState.filterIsInstance<BaseViewState.Data<LoginUiState>>()
+                    .map { it.value }
+                    .first()
+                    .copy(
+                        passwordValue = password,
+                        inputDataErrorState = checkPassword(password)
+                    )
+            setUiState(castState)
+        }
     }
 
     private fun submitSubmitLoginClickEvent() {
-        val inputsValidated = validateInputs()
-        if (inputsValidated) {
-            getWorkerByPhoneAndPassword()
+        safeLaunch {
+            val inputsValidated = validateInputs()
+            if (inputsValidated) {
+                getWorkerByPhoneAndPassword()
+            }
         }
     }
 
     private fun getWorkerByPhoneAndPassword() {
-        setState(uiState.value.copy(isLoading = true))
+        startLoading()
         safeLaunch(dispatchers.io) {
             try {
+                val castState =
+                    uiState.filterIsInstance<BaseViewState.Data<LoginUiState>>().map { it.value }
+                        .first()
                 val result = workerRepository.getWorkerByPhoneAndPassword(
-                    uiState.value.phoneValue,
-                    uiState.value.passwordValue
+                    castState.phoneValue,
+                    castState.passwordValue
                 )
                 if (result == null) {
-//                    setState(uiState.value.copy(userNotLoggedIn = true, isLoading = false))
-                    setState(LoginState(userNotLoggedIn = true, isLoading = false))
+                    setUiState(LoginUiState(userNotLoggedIn = true))
                 } else {
-//                    setState(uiState.value.copy(userLoggedIn = true, isLoading = false))
-                    setState(LoginState(userLoggedIn = true, isLoading = false))
+                    setUiState(LoginUiState(userLoggedIn = true))
                 }
             } catch (e: Exception) {
                 AppLogger.log(e)
-                setState(
-                    uiState.value.copy(
-                        errorState = ErrorState(e.localizedMessage),
-                        isLoading = false
-                    )
-                )
+                handleError(e)
             }
         }
-
     }
 
     private fun checkPhone(phone: String): LoginErrorState {
         if (phone.isBlank()) {
             return LoginErrorState(phoneEmptyErrorState)
         }
-        if (isPhoneCorrectLength(phone).not()) {
+        if (isValidUkrainianPhoneNumber(phone).not()) {
             return LoginErrorState(
                 phoneErrorState = FieldErrorState(
                     hasError = true,
@@ -97,20 +118,22 @@ class LoginViewModel @Inject constructor(
         return if (password.isBlank()) LoginErrorState(passwordErrorState = passwordEmptyErrorState) else LoginErrorState()
     }
 
-    private fun validateInputs(): Boolean {
-        val phoneValidate: LoginErrorState = checkPhone(uiState.value.phoneValue)
-        val passwordValidate: LoginErrorState = checkPassword(uiState.value.passwordValue)
+    private suspend fun validateInputs(): Boolean {
+        val castState =
+            uiState.filterIsInstance<BaseViewState.Data<LoginUiState>>().map { it.value }.first()
+        val phoneValidate: LoginErrorState = checkPhone(castState.phoneValue)
+        val passwordValidate: LoginErrorState = checkPassword(castState.passwordValue)
         return when {
             phoneValidate.phoneErrorState.hasError -> {
-                setState(uiState.value.copy(inputDataErrorState = phoneValidate))
+                setUiState(LoginUiState(inputDataErrorState = phoneValidate))
                 false
             }
             passwordValidate.passwordErrorState.hasError -> {
-                setState(uiState.value.copy(inputDataErrorState = passwordValidate))
+                setUiState(LoginUiState(inputDataErrorState = passwordValidate))
                 false
             }
             else -> {
-                setState(uiState.value.copy(inputDataErrorState = LoginErrorState()))
+                setUiState(LoginUiState(inputDataErrorState = LoginErrorState()))
                 true
             }
         }
