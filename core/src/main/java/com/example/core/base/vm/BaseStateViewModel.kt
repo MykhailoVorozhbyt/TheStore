@@ -1,4 +1,4 @@
-package com.example.core.base
+package com.example.core.base.vm
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -7,11 +7,9 @@ abstract class BaseStateViewModel<STATE, EVENT>(initialState: STATE) : BaseViewM
     private val _uiState = MutableStateFlow(initialState)
     val uiState = _uiState.asStateFlow()
 
-
-
     abstract fun onTriggerEvent(eventType: EVENT)
 
-    protected fun setState(newState: STATE) = safeLaunch {
+    fun setState(newState: STATE) = safeLaunch {
         _uiState.value = newState
     }
 

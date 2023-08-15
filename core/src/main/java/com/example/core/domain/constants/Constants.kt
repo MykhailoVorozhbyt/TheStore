@@ -7,4 +7,5 @@ object Constants {
     ////
     const val EMPTY_STRING = ""
     const val USER_PHONE_NUMBER = "USER_PHONE_NUMBER"
+    const val USER_PASSWORD = "USER_PASSWORD"
 }

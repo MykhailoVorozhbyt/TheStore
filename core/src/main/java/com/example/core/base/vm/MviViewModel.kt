@@ -1,7 +1,6 @@
-package com.example.core.base
+package com.example.core.base.vm
 
 import com.example.core.base.states.BaseViewState
-import com.example.core.utils.extensions.modifiers.cast
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

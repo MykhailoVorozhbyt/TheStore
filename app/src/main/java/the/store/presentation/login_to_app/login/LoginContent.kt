@@ -1,35 +1,57 @@
 package the.store.presentation.login_to_app.login
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.navigation.NavHostController
-import com.example.core.navigation.Graph
-import com.example.core.navigation.Screen
 import com.example.core.ui.base.BaseButton
 import com.example.core.ui.base.BaseSpacer
 import com.example.core.ui.base.BaseSpacerColorView
 import com.example.core.ui.custom_composable_view.InputTextField
-import com.example.core.utils.AppLogger
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
+import com.example.core.utils.extensions.modifiers.loginIconSize
 import com.example.theme.R
 import the.store.presentation.login_to_app.login.utils.LoginUiEvent
 import the.store.presentation.login_to_app.login.utils.LoginUiState
+
+@Composable
+fun LoginContent(
+    uiState: LoginUiState,
+    viewModel: LoginViewModel
+) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            modifier = Modifier.loginIconSize(),
+            painter = painterResource(id = R.drawable.ic_the_store),
+            contentDescription = "Logo icon",
+        )
+        InputDataContainerContent(
+            data = uiState,
+            viewModel = viewModel
+        )
+    }
+}
 
 
 @Composable
 fun InputDataContainerContent(
     data: LoginUiState,
-    viewModel: LoginViewModel,
-    navController: NavHostController
+    viewModel: LoginViewModel
 ) {
     Column(
         modifier = Modifier
@@ -42,29 +64,7 @@ fun InputDataContainerContent(
             )
             .defaultPadding()
     ) {
-        when {
-            data.userLoggedIn -> {
-                AppLogger.log("userLoggedIn")
-                LaunchedEffect(data) {
-                    navController.navigate(Graph.Primary.route) {
-                        popUpTo(Graph.Login.route) {
-                            inclusive = true
-                        }
-                    }
-                }
-            }
-            data.userNotLoggedIn -> {
-                AppLogger.log("userNotLoggedIn")
-                LaunchedEffect(data) {
-                    navController.navigate(
-                        Screen.Registration.route
-                    )
-                }
-            }
-            else -> {
-                LoginInputsView(data, viewModel)
-            }
-        }
+        LoginInputsView(data, viewModel)
     }
 }
 

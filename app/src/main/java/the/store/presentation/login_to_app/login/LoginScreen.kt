@@ -1,84 +1,73 @@
 package the.store.presentation.login_to_app.login
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Icon
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.core.base.states.BaseViewState
-import com.example.core.ui.widget.ProgressIndicator
-import com.example.core.utils.extensions.modifiers.cast
-import com.example.core.utils.extensions.modifiers.loginIconSize
-import com.example.theme.R
-import the.store.presentation.login_to_app.login.utils.LoginUiEvent
+import com.example.core.navigation.Graph
+import com.example.core.navigation.Screen
+import com.example.core.ui.widget.LoadingDialogView
+import com.example.core.utils.AppLogger
+import com.example.core.utils.helpers.showMessage
 import the.store.presentation.login_to_app.login.utils.LoginUiState
 
 
 @Composable
 fun LoginScreen(
-    navController: NavHostController, viewModel: LoginViewModel = hiltViewModel()
+    navController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel(),
+    context: Context = LocalContext.current
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-//    val uiState by remember {
-//        viewModel.uiState
-//    }
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            modifier = Modifier.loginIconSize(),
-            painter = painterResource(id = R.drawable.ic_the_store),
-            contentDescription = "Logo icon",
-        )
-        when (uiState) {
-            is BaseViewState.Loading -> {
-                ProgressIndicator(
-                    Modifier.align(Alignment.CenterHorizontally)
-                )
-            }
-            is BaseViewState.Data -> {
-                InputDataContainerContent(
-                    data = uiState.cast<BaseViewState.Data<LoginUiState>>().value,
-                    viewModel = viewModel,
-                    navController = navController
-                )
-            }
-            is BaseViewState.Error -> {
-
-            }
-
-//            else -> {
-//                InputDataContainerContent(
-//                    data = uiState.cast<BaseViewState.Data<LoginUiState>>().value,
-//                    viewModel = viewModel,
-//                    navController = navController
-//                )
-//            }
-            else -> {
-
+    when {
+        uiState.userLoggedIn -> {
+            AppLogger.log("uiState.userLoggedIn")
+            LaunchedEffect(uiState) {
+                navController.navigate(Graph.Primary.route) {
+                    popUpTo(Graph.Login.route) {
+                        inclusive = true
+                    }
+                }
+                //TODO: Fix the problem with the state later
+                viewModel.setState(LoginUiState())
             }
         }
+        uiState.userNotLoggedIn -> {
+            AppLogger.log("uiState.userNotLoggedIn")
+            LaunchedEffect(uiState) {
+                navController.navigate(
+                    Screen.Registration.setUserData(
+                        uiState.phoneValue,
+                        uiState.passwordValue,
+                    )
+                )
+                //TODO: Fix the problem with the state later
+                viewModel.setState(LoginUiState())
+            }
+        }
+        uiState.isLoading -> {
+            AppLogger.log("uiState.isLoading")
+            LoadingDialogView(true)
+        }
+        else -> {
+            LoginContent(
+                uiState,
+                viewModel
+            )
+        }
     }
-    LaunchedEffect(key1 = viewModel, block = {
-        viewModel.onTriggerEvent(LoginUiEvent.InitView)
-    })
-
+    if (uiState.errorState.errorMessage.isNullOrBlank().not()) {
+        AppLogger.log("uiState.isLoading")
+        showMessage(context, uiState.errorState.errorMessage)
+    }
 }
-
 
 @Preview(showBackground = true)
 @Composable

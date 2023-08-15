@@ -1,10 +1,10 @@
 package the.store.presentation.login_to_app.registration
 
-import com.example.core.base.BaseStateViewModel
+import com.example.core.base.vm.BaseStateViewModel
 import javax.inject.Inject
 
 class RegistrationViewModel @Inject constructor() :
-    BaseStateViewModel<RegistrationContract, RegistrationUiEvent>(RegistrationContract()) {
+    BaseStateViewModel<RegistrationUiState, RegistrationUiEvent>(RegistrationUiState()) {
 
     override fun onTriggerEvent(eventType: RegistrationUiEvent) {
         when (eventType) {

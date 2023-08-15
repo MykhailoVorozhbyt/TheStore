@@ -16,7 +16,12 @@ sealed class Screen(route: String) : BaseScreen(route) {
         }
     }
 
-    object Registration : BaseScreen("registration")
+    object Registration :
+        BaseScreen("registration/{${Constants.USER_PHONE_NUMBER}}/{${Constants.USER_PASSWORD}}") {
+        fun setUserData(phone: String, password: String): String {
+            return "registration/${phone}/${password}"
+        }
+    }
 
     object AvailableCashDesks : BaseScreen("available_cash_desks_screen")
 
