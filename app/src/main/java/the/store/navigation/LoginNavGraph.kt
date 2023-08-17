@@ -9,6 +9,7 @@ import androidx.navigation.navigation
 import com.example.core.domain.constants.Constants
 import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
+import com.example.core.utils.elvis
 import the.store.presentation.login_to_app.login.LoginScreen
 import the.store.presentation.login_to_app.registration.RegistrationScreen
 import the.store.presentation.login_to_app.splash.AnimatedSplashScreen
@@ -54,7 +55,7 @@ fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
         ) { backStackEntry ->
             RegistrationScreen(
                 navController = navController,
-                bundle = backStackEntry.arguments
+                bundle = backStackEntry.arguments.elvis()
             )
         }
     }

@@ -1,4 +1,4 @@
-package the.store.presentation.login_to_app.login.utils
+package the.store.presentation.login_to_app.login.models
 
 import com.example.core.base.states.BaseUiState
 import com.example.core.base.states.ErrorState

@@ -5,13 +5,13 @@ import com.example.core.base.vm.BaseStateViewModel
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
 import com.example.core.utils.AppLogger
+import com.example.core.utils.helpers.passwordEmptyErrorState
+import com.example.core.utils.helpers.phoneEmptyErrorState
 import com.example.core.utils.isValidUkrainianPhoneNumber
 import dagger.hilt.android.lifecycle.HiltViewModel
-import the.store.presentation.login_to_app.login.utils.LoginErrorState
-import the.store.presentation.login_to_app.login.utils.LoginUiEvent
-import the.store.presentation.login_to_app.login.utils.LoginUiState
-import the.store.presentation.login_to_app.login.utils.passwordEmptyErrorState
-import the.store.presentation.login_to_app.login.utils.phoneEmptyErrorState
+import the.store.presentation.login_to_app.login.models.LoginErrorState
+import the.store.presentation.login_to_app.login.models.LoginUiEvent
+import the.store.presentation.login_to_app.login.models.LoginUiState
 import javax.inject.Inject
 
 @HiltViewModel

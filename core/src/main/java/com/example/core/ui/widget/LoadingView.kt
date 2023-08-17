@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import java.util.concurrent.Delayed
 
 @Composable
 fun LoadingView(modifier: Modifier = Modifier, delayMillis: Long = 100L) {

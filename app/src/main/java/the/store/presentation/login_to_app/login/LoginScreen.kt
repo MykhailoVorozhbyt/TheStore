@@ -15,7 +15,7 @@ import com.example.core.navigation.Screen
 import com.example.core.ui.widget.LoadingDialogView
 import com.example.core.utils.AppLogger
 import com.example.core.utils.helpers.showMessage
-import the.store.presentation.login_to_app.login.utils.LoginUiState
+import the.store.presentation.login_to_app.login.models.LoginUiState
 
 
 @Composable

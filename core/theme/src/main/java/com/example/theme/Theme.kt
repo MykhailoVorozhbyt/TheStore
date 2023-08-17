@@ -3,6 +3,9 @@ package com.example.theme
 import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
+import androidx.compose.material.Shapes
+import androidx.compose.material.Typography
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.dynamicDarkColorScheme
@@ -36,6 +39,17 @@ private val LightColorScheme = lightColorScheme(
     onSurface = Color(0xFF1C1B1F),
     */
 )
+
+
+val TheStoreColors: Colors
+    @Composable get() = androidx.compose.material.MaterialTheme.colors
+
+val TheStoreShapes: Shapes
+    @Composable get() = androidx.compose.material.MaterialTheme.shapes
+
+val TheStoreTypography: Typography
+    @Composable get() = androidx.compose.material.MaterialTheme.typography
+
 
 @Composable
 fun TheStoreTheme(
