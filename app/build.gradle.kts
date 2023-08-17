@@ -1,20 +1,30 @@
+import extensions.CORE
+import extensions.CORE_THEME
+import extensions.addCompose
+import extensions.addHiltDi
+import extensions.addRoomDi
+
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
-    namespace = Dependencies.AppConfig.namespace
-    compileSdk = Dependencies.AppConfig.compileSdk
+    namespace = AppConfig.namespace
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        applicationId = Dependencies.AppConfig.applicationId
-        minSdk = Dependencies.AppConfig.minSdk
-        targetSdk = Dependencies.AppConfig.targetSdk
-        versionCode = Dependencies.AppConfig.versionCode
-        versionName = Dependencies.AppConfig.versionName
+        applicationId = AppConfig.applicationId
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
+        versionCode = AppConfig.versionCode
+        versionName = AppConfig.versionName
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -30,17 +40,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.5"
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
     packagingOptions {
         resources {
@@ -50,20 +60,29 @@ android {
 }
 dependencies {
 
-    implementation(Dependencies.Library.Core.coreKtx)
-    implementation(platform(Dependencies.Library.Platform.kotlinBom))
-    implementation(Dependencies.Library.Core.lifecycleRuntimeKtx)
-    implementation(Dependencies.Library.Compose.activityCompose)
-    implementation(platform(Dependencies.Library.Platform.composeBom))
-    implementation(Dependencies.Library.Compose.ui)
-    implementation(Dependencies.Library.Compose.uiGraphics)
-    implementation(Dependencies.Library.Compose.uiToolingPreview)
-    implementation(Dependencies.Library.Material.material3)
-    testImplementation(Dependencies.Library.Tests.junit)
-    androidTestImplementation(Dependencies.Library.Tests.testExtJunit)
-    androidTestImplementation(Dependencies.Library.Tests.espressoCore)
-    androidTestImplementation(platform(Dependencies.Library.Platform.composeBom))
-    androidTestImplementation(Dependencies.Library.Tests.uiTestJunit4)
-    debugImplementation(Dependencies.Library.Tests.uiTooling)
-    debugImplementation(Dependencies.Library.Tests.uiTestManifest)
+    implementation(Library.Core.coreKtx)
+    implementation(platform(Library.Platform.kotlinBom))
+    implementation(Library.Core.lifecycleRuntimeKtx)
+    implementation(platform(Library.Platform.composeBom))
+    implementation(Library.Material.googleMaterial)
+    testImplementation(Library.Tests.junit)
+    androidTestImplementation(Library.Tests.testExtJunit)
+    androidTestImplementation(Library.Tests.espressoCore)
+    androidTestImplementation(platform(Library.Platform.composeBom))
+    androidTestImplementation(Library.Tests.uiTestJunit4)
+    debugImplementation(Library.Tests.uiTooling)
+    debugImplementation(Library.Tests.uiTestManifest)
+
+    implementation(Library.Navigation.navigationCompose)
+
+    //Compose
+    addCompose()
+    //HILT
+    addHiltDi()
+    //ROOM
+    addRoomDi()
+
+    //Modules
+    CORE
+    CORE_THEME
 }

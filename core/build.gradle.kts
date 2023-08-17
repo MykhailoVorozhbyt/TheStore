@@ -1,17 +1,26 @@
+import extensions.CORE_THEME
+import extensions.addCompose
+import extensions.addHiltDi
+import extensions.addRoomDi
+
 plugins {
     id("com.android.library")
     kotlin("android")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.example.core"
-    compileSdk = Dependencies.AppConfig.compileSdk
+    compileSdk = AppConfig.compileSdk
 
     defaultConfig {
-        minSdk = Dependencies.AppConfig.minSdk26
-        targetSdk = Dependencies.AppConfig.targetSdk
+        minSdk = AppConfig.minSdk
+        targetSdk = AppConfig.targetSdk
 
-        testInstrumentationRunner = Dependencies.AppConfig.testInstrumentationRunner
+        testInstrumentationRunner = AppConfig.testInstrumentationRunner
         consumerProguardFiles("consumer-rules.pro")
     }
 
@@ -25,20 +34,39 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = AppConfig.kotlinCompilerExtensionVersion
     }
 }
 
 dependencies {
 
-    implementation(Dependencies.Library.Core.coreKtx)
-    implementation(Dependencies.Library.Core.appcompat)
-    implementation(Dependencies.Library.Material.material)
-    testImplementation(Dependencies.Library.Tests.junit)
-    androidTestImplementation(Dependencies.Library.Tests.testExtJunit)
-    androidTestImplementation(Dependencies.Library.Tests.espressoCore)
+    implementation(Library.Core.coreKtx)
+    implementation(Library.Core.appcompat)
+    implementation(Library.Material.googleMaterial)
+    testImplementation(Library.Tests.junit)
+    androidTestImplementation(Library.Tests.testExtJunit)
+    androidTestImplementation(Library.Tests.espressoCore)
+
+    implementation(Library.Navigation.navigationCompose)
+
+    //COMPOSE
+    addCompose()
+
+    //HILT
+    addHiltDi()
+
+    //ROOM
+    addRoomDi()
+
+    CORE_THEME
 }

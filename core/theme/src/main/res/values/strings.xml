@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TheStore</string>
+
+    <!--LOGIN TEXT-->
+    <string name="input_phone">Input phone</string>
+    <string name="input_password">Input password</string>
+    <string name="input_text">Input text</string>
+    <string name="login">Login</string>
+    <string name="error">Error</string>
+    <string name="default_ua_phone">+380</string>
+    <string name="incorrect_phone_error">"Number format: +380987654321"</string>
+    <string name="empty_string" />
+    <string name="field_cannot_be_empty">Field cannot be empty</string>
+    <string name="text_no_data_found">No suitable data found.</string>
+    <string name="text_retry">Retry</string>
+
+    <!--Login Error Messages-->
+    <string name="login_error_msg_empty_phone">Please enter your mobile number</string>
+    <string name="login_error_msg_empty_password">Please enter your password</string>
+
+    <!--Registration-->
+    <string name="registration">Registration</string>
+    <string name="register">Register</string>
+    <string name="input_name">Input name</string>
+    <string name="input_surname">Input surname</string>
+    <string name="Name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="sign_up">Sign up</string>
+
+
+</resources>

@@ -4,9 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath(Dependencies.Library.Plugins.gradle)
-        classpath(Dependencies.Library.Plugins.kotlinGradlePlugin)
+        classpath(Library.Plugins.gradle)
+        classpath(Library.Plugins.kotlinGradlePlugin)
     }
+}
+
+plugins {
+    id("com.google.devtools.ksp") version "1.6.10-1.0.4" apply false
+    id("com.google.dagger.hilt.android") version "2.44" apply false
 }
 
 tasks.register("clean", Delete::class){

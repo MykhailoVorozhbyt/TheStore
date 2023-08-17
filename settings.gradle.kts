@@ -16,3 +16,5 @@ rootProject.name = "TheStore"
 include(":app")
 include(":core")
 include(":core:theme")
+include(":features:splash")
+include(":features:login")
