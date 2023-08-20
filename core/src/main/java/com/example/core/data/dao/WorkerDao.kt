@@ -10,7 +10,7 @@ import com.example.core.domain.models.db_entity.WorkerEntity
 interface WorkerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorker(worker: WorkerEntity)
+    suspend fun insertWorker(worker: WorkerEntity): Long
 
     @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE password = :password AND phone = :phone")
     suspend fun getWorkerByPhoneAndPassword(

@@ -10,7 +10,7 @@ import javax.inject.Inject
 class WorkerRepositoryImpl @Inject constructor(
     private val workerDao: WorkerDao, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : WorkerRepository {
-    override suspend fun insertWorker(worker: WorkerEntity) = withContext(ioDispatcher) {
+    override suspend fun insertWorker(worker: WorkerEntity): Long = withContext(ioDispatcher) {
         workerDao.insertWorker(worker)
     }
 

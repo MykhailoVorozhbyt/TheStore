@@ -6,6 +6,7 @@ import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
 import com.example.core.utils.AppLogger
 import com.example.core.utils.helpers.passwordEmptyErrorState
+import com.example.core.utils.helpers.passwordLengthErrorState
 import com.example.core.utils.helpers.phoneEmptyErrorState
 import com.example.core.utils.isValidUkrainianPhoneNumber
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -54,13 +55,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun startLoading() {
-        super.startLoading()
-        AppLogger.log("startLoading")
-
-        setState(uiState.value.copy(isLoading = true))
-    }
-
     private fun getWorkerByPhoneAndPassword() {
         safeLaunch(dispatchers.io) {
             try {
@@ -98,7 +92,13 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun checkPassword(password: String): LoginErrorState {
-        return if (password.isBlank()) LoginErrorState(passwordErrorState = passwordEmptyErrorState) else LoginErrorState()
+        if (password.isBlank()) {
+            return LoginErrorState(passwordErrorState = passwordEmptyErrorState)
+        }
+        if (password.length <= 4) {
+            return LoginErrorState(passwordErrorState = passwordLengthErrorState)
+        }
+        return LoginErrorState()
     }
 
     private fun validateInputs(): Boolean {

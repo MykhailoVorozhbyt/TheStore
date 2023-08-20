@@ -58,4 +58,8 @@ object Library {
         const val roomKtx = "androidx.room:room-ktx:2.5.2"
         const val roomCompiler = "androidx.room:room-compiler:2.5.2"
     }
+
+    object Gson {
+        const val gson = "com.google.code.gson:gson:2.10.1"
+    }
 }

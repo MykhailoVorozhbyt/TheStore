@@ -1,7 +1,6 @@
 package the.store.presentation.login_to_app.registration.models
 
 sealed class RegistrationUiEvent {
-    object ReloadContent : RegistrationUiEvent()
     data class InitUiContent(
         val phone: String,
         val password: String

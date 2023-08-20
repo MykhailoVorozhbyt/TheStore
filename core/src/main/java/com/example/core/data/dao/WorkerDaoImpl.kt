@@ -7,7 +7,8 @@ import javax.inject.Inject
 class WorkerDaoImpl @Inject constructor(
     private val db: TheStoreDatabase
 ) : WorkerDao {
-    override suspend fun insertWorker(worker: WorkerEntity) = db.workerDao().insertWorker(worker)
+    override suspend fun insertWorker(worker: WorkerEntity): Long =
+        db.workerDao().insertWorker(worker)
 
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String, password: String
