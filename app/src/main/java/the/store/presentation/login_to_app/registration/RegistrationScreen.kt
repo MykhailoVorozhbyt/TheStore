@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.base.states.BaseViewState
 import com.example.core.domain.constants.Constants
+import com.example.core.navigation.Graph
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
@@ -33,26 +34,45 @@ fun RegistrationScreen(
         pressOnBack = { navController.navigateUp() }
     ) {
         when (uiState) {
-            is BaseViewState.Data ->
+            is BaseViewState.Data -> {
+                val newState = uiState.cast<BaseViewState.Data<RegistrationUiState>>().value
+                if (newState.isRegister) {
+                    navController.navigate(Graph.Primary.route) {
+                        popUpTo(Graph.Login.route)
+                    }
+                    //TODO: Fix the problem with the state later
+                    viewModel.onTriggerEvent(
+                        RegistrationUiEvent.InitUiContent(
+                            phone = "",
+                            password = ""
+                        )
+                    )
+                    return@RegistrationBody
+                }
                 RegistrationContent(
-                    uiState.cast<BaseViewState.Data<RegistrationUiState>>().value,
+                    newState,
                     nameChanged = {
+                        viewModel.onTriggerEvent(RegistrationUiEvent.NameChanged(it))
                     },
                     surnameChanged = {
+                        viewModel.onTriggerEvent(RegistrationUiEvent.SurnameChanged(it))
                     },
                     phoneChanged = {
+                        viewModel.onTriggerEvent(RegistrationUiEvent.PhoneChanged(it))
                     },
                     passwordChanged = {
+                        viewModel.onTriggerEvent(RegistrationUiEvent.PasswordChanged(it))
                     },
                     registerClick = {
-
+                        viewModel.onTriggerEvent(RegistrationUiEvent.SubmitRegistrationClick)
                     }
                 )
+            }
             is BaseViewState.Loading -> LoadingView()
             is BaseViewState.Error -> ErrorView(
                 e = uiState.cast<BaseViewState.Error>().throwable,
                 action = {
-                    viewModel.onTriggerEvent(RegistrationUiEvent.ReloadContent)
+                    viewModel.onTriggerEvent(RegistrationUiEvent.SubmitRegistrationClick)
                 }
             )
             is BaseViewState.Empty -> EmptyView()

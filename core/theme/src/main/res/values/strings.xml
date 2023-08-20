@@ -17,6 +17,9 @@
     <!--Login Error Messages-->
     <string name="login_error_msg_empty_phone">Please enter your mobile number</string>
     <string name="login_error_msg_empty_password">Please enter your password</string>
+    <string name="login_error_msg_empty_name">Please enter your name</string>
+    <string name="login_error_msg_empty_surname">Please enter your surname</string>
+    <string name="password_length_must_be_more_than_4_characters">Password length must be more than 4 characters</string>
 
     <!--Registration-->
     <string name="registration">Registration</string>

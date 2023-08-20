@@ -5,6 +5,7 @@ data class RegistrationUiState(
     var surname: String = "",
     var phone: String = "",
     var password: String = "",
-    var inputDataErrorState: RegistrationErrorState = RegistrationErrorState()
+    var inputDataErrorState: RegistrationErrorState = RegistrationErrorState(),
+    var isRegister: Boolean = false
 )
 

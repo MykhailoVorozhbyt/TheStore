@@ -1,4 +1,4 @@
-package the.store.utils.helpes.preference
+package com.example.core.utils.helpers
 
 import android.content.SharedPreferences
 import com.example.core.domain.constants.Constants
@@ -14,11 +14,18 @@ class PreferenceHelper @Inject constructor(private val preference: SharedPrefere
     fun getDataByKey(key: PreferenceKey, defaultValue: Boolean = false): Boolean =
         preference.getBoolean(key.name, defaultValue)
 
+    fun getDataByKey(key: PreferenceKey, defaultValue: Long = 0L): Long =
+        preference.getLong(key.name, defaultValue)
+
     fun setDataByKey(key: PreferenceKey, value: String) {
         preference.edit().putString(key.name, value).commit()
     }
 
     fun setDataByKey(key: PreferenceKey, value: Boolean) {
         preference.edit().putBoolean(key.name, value).commit()
+    }
+
+    fun setDataByKey(key: PreferenceKey, value: Long) {
+        preference.edit().putLong(key.name, value).commit()
     }
 }
