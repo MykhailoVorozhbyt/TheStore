@@ -2,6 +2,7 @@ package the.store.presentation.login_to_app.registration
 
 import android.os.Bundle
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -37,17 +38,12 @@ fun RegistrationScreen(
             is BaseViewState.Data -> {
                 val newState = uiState.cast<BaseViewState.Data<RegistrationUiState>>().value
                 if (newState.isRegister) {
-                    navController.navigate(Graph.Primary.route) {
-                        popUpTo(Graph.Login.route)
+                    DisposableEffect(uiState) {
+                        navController.navigate(Graph.Primary.route) {
+                            popUpTo(Graph.Login.route)
+                        }
+                        onDispose {}
                     }
-                    //TODO: Fix the problem with the state later
-                    viewModel.onTriggerEvent(
-                        RegistrationUiEvent.InitUiContent(
-                            phone = "",
-                            password = ""
-                        )
-                    )
-                    return@RegistrationBody
                 }
                 RegistrationContent(
                     newState,

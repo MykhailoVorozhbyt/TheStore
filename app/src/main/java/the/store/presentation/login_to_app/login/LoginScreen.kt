@@ -2,7 +2,7 @@ package the.store.presentation.login_to_app.login
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
@@ -15,6 +15,7 @@ import com.example.core.navigation.Screen
 import com.example.core.ui.widget.LoadingDialogView
 import com.example.core.utils.AppLogger
 import com.example.core.utils.helpers.showMessage
+import the.store.presentation.login_to_app.login.models.LoginUiEvent
 import the.store.presentation.login_to_app.login.models.LoginUiState
 
 
@@ -29,27 +30,29 @@ fun LoginScreen(
     when {
         uiState.userLoggedIn -> {
             AppLogger.log("uiState.userLoggedIn")
-            LaunchedEffect(uiState) {
+            DisposableEffect(uiState) {
                 navController.navigate(Graph.Primary.route) {
                     popUpTo(Graph.Login.route) {
                         inclusive = true
                     }
                 }
-                //TODO: Fix the problem with the state later
-                viewModel.setState(LoginUiState())
+                onDispose {
+                    viewModel.onTriggerEvent(LoginUiEvent.DeleteAllStateExceptData)
+                }
             }
         }
         uiState.userNotLoggedIn -> {
             AppLogger.log("uiState.userNotLoggedIn")
-            LaunchedEffect(uiState) {
+            DisposableEffect(key1 = viewModel) {
                 navController.navigate(
                     Screen.Registration.setUserData(
                         uiState.phoneValue,
                         uiState.passwordValue,
                     )
                 )
-                //TODO: Fix the problem with the state later
-                viewModel.setState(LoginUiState())
+                onDispose {
+                    viewModel.onTriggerEvent(LoginUiEvent.DeleteAllStateExceptData)
+                }
             }
         }
         uiState.isLoading -> {

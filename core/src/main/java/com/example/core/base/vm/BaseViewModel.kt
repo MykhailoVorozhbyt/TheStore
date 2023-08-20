@@ -17,4 +17,5 @@ abstract class BaseViewModel : ViewModel() {
 
     open fun startLoading() {}
     open fun handleError(exception: Throwable) {}
+
 }
