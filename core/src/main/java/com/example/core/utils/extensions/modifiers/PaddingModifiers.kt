@@ -37,3 +37,6 @@ fun Modifier.defaultTextBottomPadding(): Modifier =
 
 fun Modifier.loginIconSize(): Modifier =
     this.size(140.dp)
+
+fun Modifier.defaultCardPadding(): Modifier =
+    this.padding(16.dp)

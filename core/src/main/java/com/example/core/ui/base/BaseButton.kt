@@ -27,13 +27,12 @@ fun BaseButtonPreview() {
 @Composable
 fun BaseButton(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    textModifier: Modifier = Modifier
+    textModifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
     return Button(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier,
         onClick = {
             onClick()
         },
