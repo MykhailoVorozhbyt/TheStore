@@ -14,4 +14,6 @@ class WorkerDaoImpl @Inject constructor(
         phone: String, password: String
     ): WorkerEntity? = db.workerDao().getWorkerByPhoneAndPassword(phone, password)
 
+    override suspend fun getWorkerById(id: Long): WorkerEntity? = db.workerDao().getWorkerById(id)
+
 }

@@ -3,21 +3,22 @@ package the.store.presentation.primary.pager_views
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
+import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.core.ui.base.BaseButton
-import com.example.core.ui.base.HorizontalSpacerColorView
-import com.example.core.ui.base.SmallSpacer
-import com.example.core.utils.extensions.modifiers.defaultCardPadding
+import com.example.core.base.views.BaseCardView
+import com.example.core.base.views.ExtraSmallHorizontalSpacer
+import com.example.core.utils.extensions.modifiers.defaultTextPadding
+import com.example.core.utils.extensions.modifiers.smallPadding
+import com.example.core.utils.singletons.WorkerSingleton
 import com.example.theme.R
-import com.example.theme.White
+import com.example.theme.WhiteBoldTextStyle
+import com.example.theme.WhiteTextStyle
 
 @Preview
 @Composable
@@ -27,38 +28,39 @@ fun SDataOfTheCurrentShiftViewPreview() {
 
 @Composable
 fun DataOfTheCurrentShiftView() {
-    Card(
-        modifier =
-        Modifier
-            .fillMaxWidth()
-            .defaultCardPadding(),
-        colors = CardDefaults.cardColors(
-            containerColor = White
-        ),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 10.dp
-        ),
-    ) {
+    lateinit var workerSingleton: WorkerSingleton
+
+    BaseCardView {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
+                .height(200.dp),
+//            verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Text(text = "Data of the current shift")
+            ExtraSmallHorizontalSpacer()
+            Text(
+                text = stringResource(id = R.string.data_of_the_current_shift),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultTextPadding(),
+                style = WhiteBoldTextStyle,
+                textAlign = TextAlign.Center
+            )
             Row(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .smallPadding(),
             ) {
-                BaseButton(text = "text - 1") {}
-                BaseButton(text = "text - 2") {}
+                Text(
+                    text = stringResource(
+                        id = R.string.cashier_with_dots_and_value,
+                        "Current Worker"
+                    ),
+                    style = WhiteTextStyle,
+                    textAlign = TextAlign.Start
+                )
             }
-            SmallSpacer()
-            HorizontalSpacerColorView(colorResource(id = R.color.black))
-            Row(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                BaseButton(text = "text - 3") {}
-                BaseButton(text = "text - 4") {}
-            }
+            ExtraSmallHorizontalSpacer()
         }
     }
 }
