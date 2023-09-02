@@ -8,8 +8,20 @@ import androidx.compose.ui.unit.dp
 fun Modifier.smallPadding(): Modifier =
     this.padding(10.dp)
 
+fun Modifier.smallHorizontalPadding(): Modifier =
+    this.padding(horizontal = 10.dp)
+
+fun Modifier.smallVerticalPadding(): Modifier =
+    this.padding(vertical = 10.dp)
+
 fun Modifier.defaultPadding(): Modifier =
     this.padding(20.dp)
+
+fun Modifier.defaultHorizontalPadding(): Modifier =
+    this.padding(horizontal = 20.dp)
+
+fun Modifier.defaultVerticalPadding(): Modifier =
+    this.padding(vertical = 20.dp)
 
 fun Modifier.defaultStartPadding(): Modifier =
     this.padding(start = 20.dp)
