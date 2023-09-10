@@ -42,5 +42,7 @@
     <string name="open_shift">Open shift</string>
     <string name="close_shift">Close shift</string>
 
+    <string name="input_data">Input data</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package the.store.presentation.primary.pager_views
+package the.store.presentation.primary.views.pager_views
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
