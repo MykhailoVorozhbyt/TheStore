@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PrimaryViewModel @Inject constructor(
     private val workerRepository: WorkerRepository,
-    ) : BaseViewModel() {
+) : BaseViewModel() {
 
 
     init {
@@ -20,7 +20,7 @@ class PrimaryViewModel @Inject constructor(
             try {
                 val worker = workerRepository.getWorkerById(workerSingleton.getWorker().id)
                 println(worker)
-            }catch (e:Exception){
+            } catch (e: Exception) {
 
             }
         }
