@@ -18,8 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.navigationBackIconColor
-import com.example.theme.navigationTopAppBarBackgroundColor
+import com.example.theme.blackOrWhiteColor
+import com.example.theme.whiteOrBlackColor
 
 @Preview
 @Composable
@@ -44,13 +44,13 @@ fun TheStoreToolbar(
             Icon(
                 rememberVectorPainter(Icons.Filled.ArrowBack),
                 contentDescription = null,
-                tint = TheStoreColors.navigationBackIconColor,
+                tint = TheStoreColors.blackOrWhiteColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressOnBack.invoke() }
             )
         },
-        backgroundColor = TheStoreColors.navigationTopAppBarBackgroundColor,
+        backgroundColor = TheStoreColors.whiteOrBlackColor,
         modifier = Modifier.fillMaxWidth()
     )
 }

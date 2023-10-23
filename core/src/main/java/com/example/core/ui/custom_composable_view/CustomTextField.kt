@@ -51,12 +51,13 @@ fun InputTextField(
     maxLength: Int = 100,
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    columnModifier: Modifier = Modifier
 ) {
     var fieldText by remember { mutableStateOf(textValue) }
     var isErrorState by rememberSaveable { mutableStateOf(isError) }
 
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = columnModifier.fillMaxWidth()
     ) {
         if (titleText.isNullOrBlank().not()) {
             Text(

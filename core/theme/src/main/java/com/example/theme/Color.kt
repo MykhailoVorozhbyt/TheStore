@@ -19,8 +19,8 @@ val TransparentColor = Color(0x00FFFFFF)
 val HintColor = Color(0xFF757575)
 val ErrorColor = Color(0xFFB61919)
 
-val Colors.navigationBackIconColor: Color
+val Colors.blackOrWhiteColor: Color
     @Composable get() = if (isLight) Black else White
 
-val Colors.navigationTopAppBarBackgroundColor: Color
+val Colors.whiteOrBlackColor: Color
     @Composable get() = if (isLight.not()) Black else White

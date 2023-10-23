@@ -1,6 +1,7 @@
 package com.example.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,3 +33,27 @@ val Typography = Typography(
     )
     */
 )
+
+val WhiteTextStyle
+    @Composable get() = TextStyle(
+        color = TheStoreColors.whiteOrBlackColor,
+    )
+
+
+val BlackTextStyle: TextStyle
+    @Composable get() = TextStyle(
+        color = TheStoreColors.blackOrWhiteColor,
+
+        )
+
+val WhiteBoldTextStyle: TextStyle
+    @Composable get() = TextStyle(
+        color = TheStoreColors.whiteOrBlackColor,
+        fontWeight = FontWeight.Bold
+    )
+
+val BlackBoldTextStyle: TextStyle
+    @Composable get() = TextStyle(
+        color = TheStoreColors.blackOrWhiteColor,
+        fontWeight = FontWeight.Bold
+    )

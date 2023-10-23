@@ -15,9 +15,9 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.core.ui.base.BaseButton
-import com.example.core.ui.base.SmallSpacer
-import com.example.core.ui.base.SpacerColorView
+import com.example.core.base.views.BaseButton
+import com.example.core.base.views.SmallSpacer
+import com.example.core.base.views.HorizontalSpacerColorView
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
@@ -109,16 +109,17 @@ fun RegistrationContent(
                 isError = data.inputDataErrorState.phoneErrorState.hasError,
             )
             SmallSpacer()
-            SpacerColorView(colorResource(id = R.color.white))
+            HorizontalSpacerColorView(colorResource(id = R.color.white))
             SmallSpacer()
             BaseButton(
                 text = stringResource(id = R.string.register),
                 onClick = {
                     registerClick.invoke()
-                }
+                },
+                buttonModifier = Modifier.fillMaxWidth()
             )
             SmallSpacer()
-            SpacerColorView(colorResource(id = R.color.white))
+            HorizontalSpacerColorView(colorResource(id = R.color.white))
             SmallSpacer()
         }
 

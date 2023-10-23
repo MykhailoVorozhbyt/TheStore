@@ -1,4 +1,4 @@
-package com.example.core.ui.base
+package com.example.core.base.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 
 @Composable
-fun SpacerColorView(color: Color) = Box(
+fun HorizontalSpacerColorView(color: Color) = Box(
     modifier = Modifier
         .background(color, baseRoundedCornerShape())
         .height(4.dp)
@@ -20,14 +20,14 @@ fun SpacerColorView(color: Color) = Box(
 )
 
 @Composable
-fun DefaultSpacer() = Spacer(
+fun DefaultHorizontalSpacer() = Spacer(
     modifier = Modifier
         .fillMaxWidth()
         .height(4.dp)
 )
 
 @Composable
-fun ExtraSmallSpacer() = Spacer(
+fun ExtraSmallHorizontalSpacer() = Spacer(
     modifier = Modifier
         .fillMaxWidth()
         .height(6.dp)

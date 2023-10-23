@@ -26,7 +26,18 @@ class LoginViewModel @Inject constructor(
             is LoginUiEvent.PhoneChanged -> submitPhoneChangedEvent(eventType.inputValue)
             is LoginUiEvent.PasswordChanged -> submitPasswordChangedEvent(eventType.inputValue)
             is LoginUiEvent.SubmitLoginClick -> submitSubmitLoginClickEvent()
+            is LoginUiEvent.DeleteAllStateExceptData -> submitDeleteAllStateExceptData()
         }
+    }
+
+    private fun submitDeleteAllStateExceptData() {
+        val currentState = uiState.value
+        setState(
+            LoginUiState(
+                phoneValue = currentState.phoneValue,
+                passwordValue = currentState.passwordValue,
+            )
+        )
     }
 
     private fun submitPhoneChangedEvent(phone: String) {

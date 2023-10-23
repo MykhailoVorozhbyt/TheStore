@@ -14,7 +14,6 @@ import com.example.core.utils.helpers.passwordEmptyErrorState
 import com.example.core.utils.helpers.passwordLengthErrorState
 import com.example.core.utils.helpers.phoneEmptyErrorState
 import com.example.core.utils.isValidUkrainianPhoneNumber
-import com.example.core.utils.singletons.WorkerSingleton
 import com.example.theme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
@@ -31,9 +30,6 @@ class RegistrationViewModel @Inject constructor(
     private val dispatchers: AppDispatchers,
     private val preferenceHelper: PreferenceHelper
 ) : MviViewModel<BaseViewState<RegistrationUiState>, RegistrationUiEvent>() {
-
-    @Inject
-    lateinit var workerSingleton: WorkerSingleton
 
     override fun onTriggerEvent(eventType: RegistrationUiEvent) {
         when (eventType) {
