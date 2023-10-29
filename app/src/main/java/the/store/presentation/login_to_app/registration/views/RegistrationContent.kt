@@ -5,9 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,8 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.base.views.BaseButton
-import com.example.core.base.views.SmallSpacer
 import com.example.core.base.views.HorizontalSpacerColorView
+import com.example.core.base.views.SmallSpacer
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
@@ -46,10 +46,12 @@ fun RegistrationContent(
     passwordChanged: (String) -> Unit,
     registerClick: () -> Unit,
 ) {
-    Surface(
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
     ) {
         Column(
             modifier = Modifier
@@ -61,8 +63,7 @@ fun RegistrationContent(
                     ), shape = baseRoundedCornerShape()
                 )
                 .defaultPadding(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             SmallSpacer()
             InputTextField(
@@ -122,6 +123,5 @@ fun RegistrationContent(
             HorizontalSpacerColorView(colorResource(id = R.color.white))
             SmallSpacer()
         }
-
     }
 }

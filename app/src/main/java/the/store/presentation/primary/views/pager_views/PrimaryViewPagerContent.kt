@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -37,36 +38,43 @@ fun PrimaryViewPagerContent() {
     }
     val pagerState = rememberPagerState(initialPage = 1)
 
-    HorizontalPager(
-//        modifier = Modifier.height(150.dp),
-        pageCount = items.size,
-        state = pagerState
-    ) { page ->
-        when (items[page]) {
-            Constants.DATA_OF_THE_CURRENT_SHIFT -> {
-                DataOfTheCurrentShiftView()
-            }
-            Constants.SIMPLE_MODE -> {
-                SimpleModeView()
-            }
-        }
-    }
-    Row(
-        Modifier
-            .height(25.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
-        repeat(items.size) { iteration ->
-            val color = if (pagerState.currentPage == iteration) Black else Black.copy(alpha = 0.4f)
-            Box(
-                modifier = Modifier
-                    .padding(4.dp)
-                    .clip(CircleShape)
-                    .background(color)
-                    .size(8.dp)
+        HorizontalPager(
+            pageCount = items.size,
+            state = pagerState
+        ) { page ->
+            when (items[page]) {
+                Constants.DATA_OF_THE_CURRENT_SHIFT -> {
+                    DataOfTheCurrentShiftView()
+                }
 
-            )
+                Constants.SIMPLE_MODE -> {
+                    SimpleModeView()
+                }
+            }
+        }
+        Row(
+            Modifier
+                .height(25.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            repeat(items.size) { iteration ->
+                val color =
+                    if (pagerState.currentPage == iteration) Black else Black.copy(alpha = 0.4f)
+                Box(
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .clip(CircleShape)
+                        .background(color)
+                        .size(8.dp)
+                )
+            }
         }
     }
+
+
 }

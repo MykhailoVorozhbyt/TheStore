@@ -4,5 +4,4 @@ sealed class PrimaryUiEvent {
     object SubmitXReportClick : PrimaryUiEvent()
     object SubmitShiftReportClick : PrimaryUiEvent()
     object SubmitCopyReportsClick : PrimaryUiEvent()
-
 }
