@@ -74,9 +74,9 @@ class LoginViewModel @Inject constructor(
                     uiState.value.passwordValue
                 )
                 if (result == null) {
-                    setState(uiState.value.copy(userNotLoggedIn = true))
+                    setState(uiState.value.copy(userNotLoggedIn = true, isLoading = false))
                 } else {
-                    setState(uiState.value.copy(userLoggedIn = true))
+                    setState(uiState.value.copy(userLoggedIn = true, isLoading = false))
                 }
                 AppLogger.log("getWorkerByPhoneAndPassword $result")
 
@@ -122,10 +122,12 @@ class LoginViewModel @Inject constructor(
                 setState(uiState.value.copy(inputDataErrorState = phoneValidate))
                 false
             }
+
             passwordValidate.passwordErrorState.hasError -> {
                 setState(uiState.value.copy(inputDataErrorState = passwordValidate))
                 false
             }
+
             else -> {
                 setState(uiState.value.copy(inputDataErrorState = LoginErrorState()))
                 true

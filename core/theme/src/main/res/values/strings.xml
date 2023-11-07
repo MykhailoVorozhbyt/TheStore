@@ -38,16 +38,16 @@
     <string name="cash_desk">Cash desk</string>
     <string name="cash_desk_with_dots_and_value">Cash desk: %s</string>
 
-
-
     <string name="x_report">X report</string>
     <string name="copy_reports">Copy reports</string>
-
     <string name="shift_action">Shift action</string>
     <string name="open_shift">Open shift</string>
     <string name="close_shift">Close shift</string>
-
     <string name="input_data">Input data</string>
+
+    <!--More Screen-->
+    <string name="profile">Profile</string>
+
 
 
 </resources>

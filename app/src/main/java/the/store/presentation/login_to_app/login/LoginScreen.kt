@@ -6,6 +6,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -26,11 +27,12 @@ fun LoginScreen(
     context: Context = LocalContext.current
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     when {
         uiState.userLoggedIn -> {
             AppLogger.log("uiState.userLoggedIn")
-            DisposableEffect(uiState) {
+            DisposableEffect(lifecycleOwner) {
                 navController.navigate(Graph.Primary.route) {
                     popUpTo(Graph.Login.route) {
                         inclusive = true
