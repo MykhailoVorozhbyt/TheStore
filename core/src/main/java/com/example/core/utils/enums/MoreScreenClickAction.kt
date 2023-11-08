@@ -1,6 +1,7 @@
-package the.store.utils.extensions.enums
+package com.example.core.utils.enums
 
 enum class MoreScreenClickAction {
     UserProfileClick,
+    CopyTheDeviceIdClick,
     ExitClick
 }

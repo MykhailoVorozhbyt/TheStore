@@ -46,8 +46,15 @@
     <string name="input_data">Input data</string>
 
     <!--More Screen-->
+    <string name="more">More</string>
+
+    <string name="main_information">Main information</string>
     <string name="profile">Profile</string>
 
+    <string name="additional_function">Additional function</string>
+    <string name="copy_the_device_id">Copy Device ID</string>
+
+    <string name="version_with_value">Version: %s</string>
 
 
 </resources>

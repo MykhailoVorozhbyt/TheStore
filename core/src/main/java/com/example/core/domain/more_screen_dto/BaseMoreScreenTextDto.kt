@@ -1,4 +1,4 @@
-package the.store.domain.dto.more_screen_dto
+package com.example.core.domain.more_screen_dto
 
 abstract class BaseMoreScreenTextDto : BaseMoreScreenItemDto() {
     abstract val text: String

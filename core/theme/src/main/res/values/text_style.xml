@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Primary text styles-->
+    <style name="PrimaryTextStyleRegular">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="PrimaryTextStyleBold">
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--   Primary 10sp    -->
+    <style name="PrimaryTextStyle10Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+
+    <style name="PrimaryTextStyle10Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/text_size_xs</item>
+    </style>
+    <!--   Primary 12sp    -->
+
+    <style name="PrimaryTextStyle12Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <style name="PrimaryTextStyle12Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
+    <!--   Primary 14sp    -->
+
+    <style name="PrimaryTextStyle14Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <style name="PrimaryTextStyle14Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/default_text_size</item>
+    </style>
+
+    <!--   Primary 16sp    -->
+
+    <style name="PrimaryTextStyle16Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <style name="PrimaryTextStyle16Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/text_size_m</item>
+    </style>
+
+    <!--   Primary 18sp    -->
+
+    <style name="PrimaryTextStyle18Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <style name="PrimaryTextStyle18Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/text_size_l</item>
+    </style>
+
+    <!--   Primary 20sp    -->
+
+    <style name="PrimaryTextStyle20Regular" parent="PrimaryTextStyleRegular">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+    <style name="PrimaryTextStyle20Bold" parent="PrimaryTextStyleBold">
+        <item name="android:textSize">@dimen/text_size_xl</item>
+    </style>
+
+</resources>

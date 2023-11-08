@@ -11,4 +11,9 @@
     <color name="transparentColor">#00FFFFFF</color>
     <color name="hintColor">#757575</color>
     <color name="errorColor">#B61919</color>
+
+    <color name="colorTextPrimary">#FF000000</color>
+    <color name="colorTextSecondary">#FFFFFFFF</color>
+
+
 </resources>
