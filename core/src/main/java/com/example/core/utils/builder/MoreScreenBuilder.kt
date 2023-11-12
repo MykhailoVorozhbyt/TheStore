@@ -2,7 +2,7 @@ package com.example.core.utils.builder
 
 import android.content.Context
 import com.example.core.domain.more_screen_dto.BaseMoreScreenItemDto
-import com.example.core.domain.more_screen_dto.MoreScreenButton
+import com.example.core.domain.more_screen_dto.MoreScreenButtonDto
 import com.example.core.domain.more_screen_dto.MoreScreenTitleDto
 import com.example.core.utils.enums.MoreScreenClickAction
 import com.example.theme.R
@@ -34,7 +34,7 @@ class MoreScreenBuilder(
     }
 
     private fun buildProfileButton(): BaseMoreScreenItemDto {
-        return MoreScreenButton(
+        return MoreScreenButtonDto(
             icon = R.drawable.ic_person,
             iconColor = R.color.black,
             clickAction = MoreScreenClickAction.UserProfileClick,
@@ -52,7 +52,7 @@ class MoreScreenBuilder(
     }
 
     private fun buildCopyTheDeviceIdButton(): BaseMoreScreenItemDto {
-        return MoreScreenButton(
+        return MoreScreenButtonDto(
             icon = androidx.appcompat.R.drawable.abc_ic_menu_copy_mtrl_am_alpha,
             iconColor = R.color.black,
             clickAction = MoreScreenClickAction.CopyTheDeviceIdClick,

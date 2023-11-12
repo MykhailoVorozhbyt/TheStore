@@ -2,9 +2,9 @@ package com.example.core.domain.more_screen_dto
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import the.store.utils.extensions.enums.MoreScreenClickAction
+import com.example.core.utils.enums.MoreScreenClickAction
 
-data class MoreScreenButton(
+data class MoreScreenButtonDto(
     @DrawableRes
     val icon: Int,
     @ColorRes
