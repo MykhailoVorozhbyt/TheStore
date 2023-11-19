@@ -14,7 +14,7 @@ import the.store.presentation.login_to_app.login.LoginScreen
 import the.store.presentation.login_to_app.registration.RegistrationScreen
 import the.store.presentation.login_to_app.splash.AnimatedSplashScreen
 
-fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.Login.route, startDestination = Screen.AnimatedSplash.route
     ) {
@@ -26,22 +26,6 @@ fun NavGraphBuilder.loginNavGraph(navController: NavHostController) {
         ) {
             LoginScreen(navController = navController)
         }
-//        composable(
-//            route = Screen.InputPassword.route,
-//            /*           arguments = listOf(
-//                           navArgument(Constants.USER_PHONE_NUMBER) {
-//                               type = NavType.StringType
-//                           }
-//                       )*/
-//        ) { backStackEntry ->
-////            val userPhoneNumber =
-////                backStackEntry.arguments?.getString(Constants.USER_PHONE_NUMBER).elvis()
-//            InputPasswordScreen(navController = navController)
-//        }
-//        composable(route = Screen.AvailableCashDesks.route) {
-//            AvailableCashDesksScreen(navController = navController)
-//        }
-
         composable(
             route = Screen.Registration.route,
             arguments = listOf(

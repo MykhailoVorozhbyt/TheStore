@@ -20,6 +20,7 @@ class MoreScreenViewModel @Inject constructor(
     override fun onTriggerEvent(eventType: MoreScreenUiEvent) {
         when (eventType) {
             is MoreScreenUiEvent.InitUiContent -> initUiContent()
+            is MoreScreenUiEvent.ExitButtonClick -> exitButtonClick()
         }
     }
 
@@ -32,6 +33,14 @@ class MoreScreenViewModel @Inject constructor(
                     isLoading = false,
                     screenUi = ui
                 )
+            )
+        }
+    }
+
+    private fun exitButtonClick() {
+        viewModelScope.launch {
+            setState(
+                uiState.value.copy(isExitButtonClicked = true)
             )
         }
     }

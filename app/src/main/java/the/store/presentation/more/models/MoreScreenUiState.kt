@@ -9,4 +9,5 @@ import kotlinx.parcelize.RawValue
 data class MoreScreenUiState(
     val isLoading: Boolean = false,
     val screenUi: @RawValue List<BaseMoreScreenItemDto> = listOf(),
+    val isExitButtonClicked: Boolean = false
 ) : Parcelable

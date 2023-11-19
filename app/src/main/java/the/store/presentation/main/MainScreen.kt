@@ -8,6 +8,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -22,22 +25,21 @@ import com.example.theme.R
 import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddItem
 
-@Preview
-@Composable
-fun MainScreenPreview() {
-    MainScreen()
-}
-
-
 @Composable
 fun MainScreen(navController: NavHostController = rememberNavController()) {
-    Scaffold(topBar = { TopBar() },
-        bottomBar = { BottomBar(navController = navController) },
+    Scaffold(
+        topBar = {
+//            TopBar()
+        },
+        bottomBar = {
+            BottomBar(navController = navController)
+        },
         content = { padding ->
             Box(modifier = Modifier.padding(padding)) {
                 BottomNavGraph(navController)
             }
-        })
+        }
+    )
 }
 
 @Composable
