@@ -58,6 +58,7 @@ dependencies {
     androidTestImplementation(Library.Tests.espressoCore)
 
     implementation(Library.Navigation.navigationCompose)
+    implementation(Library.Navigation.accompanistNavigationAnimatio)
     implementation(Library.Gson.gson)
 
     //COMPOSE

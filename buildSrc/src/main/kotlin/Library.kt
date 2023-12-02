@@ -10,6 +10,8 @@ object Library {
     object Navigation {
         const val navigationCompose =
             "androidx.navigation:navigation-compose:2.6.0"
+        const val accompanistNavigationAnimatio =
+            "com.google.accompanist:accompanist-navigation-animation:0.30.0"
     }
 
     object Platform {

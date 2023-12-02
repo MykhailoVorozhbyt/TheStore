@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.core.navigation.Graph
-import com.example.core.navigation.Screen
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.enums.MoreScreenClickAction
 import com.example.core.utils.helpers.showMessage
@@ -52,7 +51,7 @@ fun MoreScreen(
             uiState.isExitButtonClicked -> {
                 //TODO: fix navigation
                 navController.navigate(Graph.Root.route) {
-                    popUpTo(Graph.Primary.route) {
+                    popUpTo(Graph.PrimaryScreen.route) {
                         inclusive = true
                     }
                 }

@@ -74,6 +74,7 @@ dependencies {
     debugImplementation(Library.Tests.uiTestManifest)
 
     implementation(Library.Navigation.navigationCompose)
+    implementation(Library.Navigation.accompanistNavigationAnimatio)
 
     //Compose
     addCompose()

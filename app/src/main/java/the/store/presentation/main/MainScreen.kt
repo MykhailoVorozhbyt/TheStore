@@ -1,5 +1,6 @@
 package the.store.presentation.main
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
@@ -8,38 +9,31 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.base.BottomBarScreen
 import com.example.theme.R
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddItem
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainScreen(navController: NavHostController = rememberNavController()) {
+fun MainScreen(navController: NavHostController = rememberAnimatedNavController()) {
     Scaffold(
-        topBar = {
-//            TopBar()
-        },
         bottomBar = {
             BottomBar(navController = navController)
-        },
-        content = { padding ->
-            Box(modifier = Modifier.padding(padding)) {
-                BottomNavGraph(navController)
-            }
         }
-    )
+    ) { paddingValues ->
+        Box(modifier = Modifier.padding(paddingValues)) {
+            BottomNavGraph(navController)
+        }
+    }
 }
 
 @Composable
