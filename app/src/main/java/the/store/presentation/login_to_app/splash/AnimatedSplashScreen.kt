@@ -52,7 +52,7 @@ fun AnimatedSplashScreen(
         if (userIsLoggedIn.not()) {
             navController.navigate(Screen.Login.route)
         } else {
-            navController.navigate(Graph.Primary.route) {
+            navController.navigate(Graph.PrimaryScreen.route) {
                 popUpTo(Graph.Login.route)
             }
         }

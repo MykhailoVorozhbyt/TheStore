@@ -17,7 +17,6 @@ import com.example.core.ui.widget.LoadingDialogView
 import com.example.core.utils.AppLogger
 import com.example.core.utils.helpers.showMessage
 import the.store.presentation.login_to_app.login.models.LoginUiEvent
-import the.store.presentation.login_to_app.login.models.LoginUiState
 
 
 @Composable
@@ -33,7 +32,7 @@ fun LoginScreen(
         uiState.userLoggedIn -> {
             AppLogger.log("uiState.userLoggedIn")
             DisposableEffect(lifecycleOwner) {
-                navController.navigate(Graph.Primary.route) {
+                navController.navigate(Graph.PrimaryScreen.route) {
                     popUpTo(Graph.Login.route) {
                         inclusive = true
                     }

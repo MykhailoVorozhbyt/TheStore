@@ -39,7 +39,7 @@ fun RegistrationScreen(
                 val newState = uiState.cast<BaseViewState.Data<RegistrationUiState>>().value
                 if (newState.isRegister) {
                     DisposableEffect(uiState) {
-                        navController.navigate(Graph.Primary.route) {
+                        navController.navigate(Graph.PrimaryScreen.route) {
                             popUpTo(Graph.Login.route)
                         }
                         onDispose {}

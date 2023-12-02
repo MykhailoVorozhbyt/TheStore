@@ -117,7 +117,6 @@ class RegistrationViewModel @Inject constructor(
     }
 
     private fun createWorker() {
-//        startLoading()
         safeLaunch(dispatchers.io) {
             try {
                 val castState = uiState.filterIsInstance<BaseViewState.Data<RegistrationUiState>>()

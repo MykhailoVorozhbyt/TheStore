@@ -67,9 +67,7 @@ fun RowScope.AddItem(
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
                 launchSingleTop = true
-                // Restore state when reselecting a previously selected item
                 restoreState = true
-
             }
         },
         modifier = Modifier

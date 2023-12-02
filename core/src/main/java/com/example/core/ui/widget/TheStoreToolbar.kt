@@ -24,11 +24,11 @@ import com.example.theme.whiteOrBlackColor
 @Preview
 @Composable
 fun TheStoreToolbarPreview() {
-    TheStoreToolbar(titleResId = R.string.app_name) {}
+    TheStoreOnBackToolbar(titleResId = R.string.app_name) {}
 }
 
 @Composable
-fun TheStoreToolbar(
+fun TheStoreOnBackToolbar(
     @StringRes titleResId: Int,
     pressOnBack: () -> Unit
 ) {
