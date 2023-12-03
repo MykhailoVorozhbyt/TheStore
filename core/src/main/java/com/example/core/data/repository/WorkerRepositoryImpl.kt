@@ -7,8 +7,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class WorkerRepositoryImpl @Inject constructor(
-    private val workerDao: WorkerDao, private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+class WorkerRepositoryImpl
+@Inject constructor(
+    private val workerDao: WorkerDao,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : WorkerRepository {
     override suspend fun insertWorker(worker: WorkerEntity): Long = withContext(ioDispatcher) {
         workerDao.insertWorker(worker)
@@ -22,5 +24,9 @@ class WorkerRepositoryImpl @Inject constructor(
 
     override suspend fun getWorkerById(id: Long): WorkerEntity? =
         workerDao.getWorkerById(id)
+
+    override suspend fun getWorkersByName(name: String): List<WorkerEntity> =
+        workerDao.getWorkersByName(name)
+
 }
 

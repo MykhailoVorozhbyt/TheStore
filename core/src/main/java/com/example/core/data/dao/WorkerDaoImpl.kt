@@ -4,7 +4,8 @@ import com.example.core.data.db.TheStoreDatabase
 import com.example.core.domain.models.db_entity.WorkerEntity
 import javax.inject.Inject
 
-class WorkerDaoImpl @Inject constructor(
+class WorkerDaoImpl
+@Inject constructor(
     private val db: TheStoreDatabase
 ) : WorkerDao {
     override suspend fun insertWorker(worker: WorkerEntity): Long =
@@ -15,5 +16,8 @@ class WorkerDaoImpl @Inject constructor(
     ): WorkerEntity? = db.workerDao().getWorkerByPhoneAndPassword(phone, password)
 
     override suspend fun getWorkerById(id: Long): WorkerEntity? = db.workerDao().getWorkerById(id)
+    override suspend fun getWorkersByName(name: String): List<WorkerEntity> {
+        TODO("Not yet implemented")
+    }
 
 }

@@ -1,4 +1,4 @@
-package the.store.presentation.more
+package the.store.presentation.more.views
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row

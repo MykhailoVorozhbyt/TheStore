@@ -30,6 +30,13 @@
     <string name="surname">Surname</string>
     <string name="sign_up">Sign up</string>
 
+    <!--Primary view-->
+    <string name="primary">Primary</string>
+    <string name="goods">Goods</string>
+    <string name="basket">Basket</string>
+    <string name="workers">Workers</string>
+    <string name="more">More</string>
+
     <!--Primary view - view pager items-->
     <string name="data_of_the_current_shift">Data of the current shift</string>
     <string name="simple_mode">Simple mode</string>
@@ -46,17 +53,13 @@
     <string name="input_data">Input data</string>
 
     <!--More Screen-->
-    <string name="more">More</string>
-
     <string name="main_information">Main information</string>
     <string name="profile">Profile</string>
-
     <string name="additional_function">Additional function</string>
     <string name="copy_the_device_id">Copy Device ID</string>
-
     <string name="version_with_value">Version: %s</string>
-
-
-    <string name="basket">Basket</string>
+    <!--Workers Screen-->
+    <string name="input_worker_name">Input worker name</string>
+    <string name="worker_name">Worker name</string>
 
 </resources>
