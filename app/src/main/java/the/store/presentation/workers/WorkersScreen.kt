@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.core.base.states.BaseViewState
+import com.example.core.navigation.Screen
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
@@ -27,7 +28,11 @@ fun WorkersScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
-    WorkersScreenBody {
+    WorkersScreenBody(
+        {
+            navController.navigate(Screen.Worker.setUserData(0))
+        }
+    ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -44,7 +49,7 @@ fun WorkersScreen(
                                 )
                             )
                         }, { workerId ->
-
+                            navController.navigate(Screen.Worker.setUserData(workerId))
                         }
                     )
                 }

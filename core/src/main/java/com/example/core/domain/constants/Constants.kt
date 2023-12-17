@@ -12,4 +12,8 @@ object Constants {
     //PRIMARY FRAGMENT
     const val DATA_OF_THE_CURRENT_SHIFT = "DATA_OF_THE_CURRENT_SHIFT"
     const val SIMPLE_MODE = "SIMPLE_MODE"
+
+    //WORKER
+    const val CREATE_WORKER = "CREATE_WORKER"
+    const val WORKER_ID = "WORKER_ID"
 }

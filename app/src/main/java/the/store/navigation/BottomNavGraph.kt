@@ -5,11 +5,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.core.navigation.Graph
+import com.example.core.navigation.Screen
 import com.example.core.navigation.base.BottomBarScreen
-import the.store.presentation.products.ProductsScreen
 import the.store.presentation.more.MoreScreen
 import the.store.presentation.primary.PrimaryScreen
+import the.store.presentation.products.ProductsScreen
 import the.store.presentation.workers.WorkersScreen
+import the.store.presentation.workers.create_edit_worker.CreateEditWorkerScreen
 
 @Composable
 fun BottomNavGraph(navController: NavHostController) {
@@ -32,6 +34,10 @@ fun BottomNavGraph(navController: NavHostController) {
         }
         composable(route = BottomBarScreen.More.route) {
             MoreScreen(navController = navController)
+        }
+
+        composable(route = Screen.Worker.route) {
+            CreateEditWorkerScreen(navController = navController)
         }
     }
 

@@ -59,6 +59,7 @@
     <string name="copy_the_device_id">Copy Device ID</string>
     <string name="version_with_value">Version: %s</string>
     <!--Workers Screen-->
+    <string name="worker">Worker</string>
     <string name="input_worker_name">Input worker name</string>
     <string name="worker_name">Worker name</string>
 

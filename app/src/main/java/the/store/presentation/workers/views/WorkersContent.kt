@@ -10,7 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -73,8 +75,12 @@ fun WorkersScreenContent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            items(uiState.workersList) { item ->
-                WorkerItem(item) { id ->
+            itemsIndexed(uiState.workersList) { index, item ->
+                WorkerItem(
+                    item,
+                    index == 0,
+                    index == uiState.workersList.size - 1
+                ) { id ->
                     workerClick.invoke(id)
                 }
             }
@@ -85,6 +91,7 @@ fun WorkersScreenContent(
 
 @Composable
 fun WorkersScreenBody(
+    addWorker: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -108,7 +115,7 @@ fun WorkersScreenBody(
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
-
+                                addWorker.invoke()
                             }
 
                     )
@@ -131,16 +138,24 @@ fun WorkerItemPreview() {
             phone = "",
             emailAddress = "",
             vatIdentificationNumber = "",
-        )
+        ),
+        true,
+        false
     ) {}
 }
 
 @Composable
-fun WorkerItem(worker: WorkerEntity, click: (Long) -> Unit) {
+fun WorkerItem(
+    worker: WorkerEntity,
+    isFirsItem: Boolean,
+    isLastITem: Boolean,
+    click: (Long) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp, 1.dp)
+            .clip(itemRoundedCorner(isFirsItem, isLastITem))
             .background(TheStoreColors.whiteOrBlackColor)
             .clickable { click.invoke(worker.id) }
             .smallPadding(),
@@ -168,5 +183,24 @@ fun WorkerItem(worker: WorkerEntity, click: (Long) -> Unit) {
             tint = TheStoreColors.blackOrWhiteColor,
             modifier = Modifier
         )
+    }
+}
+
+
+private fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
+    isFirsItem && isLastITem -> {
+        RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
+    }
+
+    isFirsItem -> {
+        RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
+    }
+
+    isLastITem -> {
+        RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
+    }
+
+    else -> {
+        RoundedCornerShape(0.dp, 0.dp, 0.dp, 0.dp)
     }
 }

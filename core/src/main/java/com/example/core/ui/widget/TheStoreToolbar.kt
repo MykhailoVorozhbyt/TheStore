@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -48,6 +49,45 @@ fun TheStoreOnBackToolbar(
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressOnBack.invoke() }
+            )
+        },
+        backgroundColor = TheStoreColors.whiteOrBlackColor,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+fun TheStoreOnActionToolbar(
+    @StringRes titleResId: Int,
+    pressOnBack: () -> Unit,
+    pressEditCreate: () -> Unit,
+) {
+    TopAppBar(
+        title = {
+            Text(
+                stringResource(titleResId),
+                textAlign = TextAlign.Start,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        navigationIcon = {
+            Icon(
+                rememberVectorPainter(Icons.Filled.ArrowBack),
+                contentDescription = null,
+                tint = TheStoreColors.blackOrWhiteColor,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { pressOnBack.invoke() }
+            )
+        },
+        actions = {
+            Icon(
+                rememberVectorPainter(Icons.Filled.Check),
+                contentDescription = null,
+                tint = TheStoreColors.blackOrWhiteColor,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { pressEditCreate.invoke() }
             )
         },
         backgroundColor = TheStoreColors.whiteOrBlackColor,

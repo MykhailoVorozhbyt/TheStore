@@ -19,7 +19,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import the.store.presentation.login_to_app.registration.models.RegistrationErrorState
+import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import the.store.presentation.login_to_app.registration.models.RegistrationUiEvent
 import the.store.presentation.login_to_app.registration.models.RegistrationUiState
 import javax.inject.Inject
@@ -67,10 +67,10 @@ class RegistrationViewModel @Inject constructor(
             uiState.filterIsInstance<BaseViewState.Data<RegistrationUiState>>().map { it.value }
                 .first()
 
-        val phoneValidate: RegistrationErrorState = checkPhone(castState.phone)
-        val passwordValidate: RegistrationErrorState = checkPassword(castState.password)
-        val nameValidate: RegistrationErrorState = checkPassword(castState.name)
-        val surnameValidate: RegistrationErrorState = checkPassword(castState.surname)
+        val phoneValidate: WorkerErrorState = checkPhone(castState.phone)
+        val passwordValidate: WorkerErrorState = checkPassword(castState.password)
+        val nameValidate: WorkerErrorState = checkPassword(castState.name)
+        val surnameValidate: WorkerErrorState = checkPassword(castState.surname)
 
         return when {
             phoneValidate.phoneErrorState.hasError -> {
@@ -108,7 +108,7 @@ class RegistrationViewModel @Inject constructor(
             else -> {
                 setState(
                     castState.copy(
-                        inputDataErrorState = RegistrationErrorState()
+                        inputDataErrorState = WorkerErrorState()
                     )
                 )
                 true
@@ -158,18 +158,18 @@ class RegistrationViewModel @Inject constructor(
         )
     }
 
-    private fun checkPhone(phone: String): RegistrationErrorState {
+    private fun checkPhone(phone: String): WorkerErrorState {
         if (phone.isBlank()) {
-            return RegistrationErrorState(phoneEmptyErrorState)
+            return WorkerErrorState(phoneEmptyErrorState)
         }
         if (isValidUkrainianPhoneNumber(phone).not()) {
-            return RegistrationErrorState(
+            return WorkerErrorState(
                 phoneErrorState = FieldErrorState(
                     hasError = true, errorMessageStringResource = R.string.incorrect_phone_error
                 )
             )
         }
-        return RegistrationErrorState()
+        return WorkerErrorState()
     }
 
 
@@ -184,14 +184,14 @@ class RegistrationViewModel @Inject constructor(
         )
     }
 
-    private fun checkPassword(password: String): RegistrationErrorState {
+    private fun checkPassword(password: String): WorkerErrorState {
         if (password.isBlank()) {
-            return RegistrationErrorState(passwordErrorState = passwordEmptyErrorState)
+            return WorkerErrorState(passwordErrorState = passwordEmptyErrorState)
         }
         if (password.length <= 4) {
-            return RegistrationErrorState(passwordErrorState = passwordLengthErrorState)
+            return WorkerErrorState(passwordErrorState = passwordLengthErrorState)
         }
-        return RegistrationErrorState()
+        return WorkerErrorState()
     }
 
     private fun submitEvent(event: RegistrationUiEvent.NameChanged) = safeLaunch {
@@ -205,11 +205,11 @@ class RegistrationViewModel @Inject constructor(
         )
     }
 
-    private fun checkName(name: String): RegistrationErrorState {
+    private fun checkName(name: String): WorkerErrorState {
         if (name.isBlank()) {
-            return RegistrationErrorState(nameErrorState = emptyFieldErrorState)
+            return WorkerErrorState(nameErrorState = emptyFieldErrorState)
         }
-        return RegistrationErrorState()
+        return WorkerErrorState()
     }
 
     private fun submitEvent(event: RegistrationUiEvent.SurnameChanged) = safeLaunch {
@@ -223,10 +223,10 @@ class RegistrationViewModel @Inject constructor(
         )
     }
 
-    private fun checkSurname(surname: String): RegistrationErrorState {
+    private fun checkSurname(surname: String): WorkerErrorState {
         if (surname.isBlank()) {
-            return RegistrationErrorState(surnameErrorState = emptyFieldErrorState)
+            return WorkerErrorState(surnameErrorState = emptyFieldErrorState)
         }
-        return RegistrationErrorState()
+        return WorkerErrorState()
     }
 }

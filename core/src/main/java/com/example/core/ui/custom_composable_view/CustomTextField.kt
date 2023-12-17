@@ -68,12 +68,15 @@ fun InputTextField(
                 color = colorResource(id = R.color.white)
             )
         }
+        val containerColor = colorResource(R.color.white)
         TextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
             shape = baseRoundedCornerShape(),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = colorResource(R.color.white),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = containerColor,
+                unfocusedContainerColor = containerColor,
+                disabledContainerColor = containerColor,
                 focusedIndicatorColor = colorResource(R.color.transparentColor),
                 unfocusedIndicatorColor = colorResource(R.color.transparentColor),
                 errorIndicatorColor = colorResource(R.color.transparentColor),

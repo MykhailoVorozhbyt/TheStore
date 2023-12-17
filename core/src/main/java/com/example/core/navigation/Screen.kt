@@ -15,6 +15,7 @@ sealed class Screen(route: String) : BaseScreen(route) {
             )
         }
     }
+
     object Registration :
         BaseScreen("registration/{${Constants.USER_PHONE_NUMBER}}/{${Constants.USER_PASSWORD}}") {
         fun setUserData(phone: String, password: String): String {
@@ -25,10 +26,15 @@ sealed class Screen(route: String) : BaseScreen(route) {
     object Primary : BaseScreen("primary_screen")
     object Products : BaseScreen("goods_screen")
     object Basket : BaseScreen("basket_screen")
+
     object Workers : BaseScreen("workers_screen")
+    object Worker : BaseScreen("worker_screen/{${Constants.WORKER_ID}}") {
+        fun setUserData(id: Long): String {
+            return "worker_screen/${id}"
+        }
+    }
+
     object More : BaseScreen("more_screen")
-
-
 }
 
 fun String.appendParams(vararg params: Pair<String, Any?>): String {
