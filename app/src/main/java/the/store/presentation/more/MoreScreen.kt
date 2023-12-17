@@ -32,6 +32,7 @@ import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import the.store.presentation.more.models.MoreScreenUiEvent
+import the.store.presentation.more.views.MoreScreenContent
 
 @Composable
 fun MoreScreen(

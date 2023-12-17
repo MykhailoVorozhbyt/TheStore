@@ -6,8 +6,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
 
 abstract class MviViewModel<STATE : BaseViewState<*>, EVENT> : BaseViewModel() {
     private val _uiState = MutableStateFlow<BaseViewState<*>>(BaseViewState.Empty)
@@ -19,15 +17,6 @@ abstract class MviViewModel<STATE : BaseViewState<*>, EVENT> : BaseViewModel() {
         _uiState.emit(state)
     }
 
-//    suspend fun getState(): Any = suspendCoroutine { continuation ->
-//        safeLaunch {
-//            val castState = uiState.filterIsInstance<BaseViewState.Data<Any>>()
-//                .map { it.value }
-//                .first()
-//            continuation.resume(castState)
-//        }
-//    }
-
     override fun startLoading() {
         super.startLoading()
         _uiState.value = BaseViewState.Loading
@@ -37,4 +26,17 @@ abstract class MviViewModel<STATE : BaseViewState<*>, EVENT> : BaseViewModel() {
         super.handleError(exception)
         _uiState.value = BaseViewState.Error(exception)
     }
+
+    //    protected suspend inline fun <reified T : BaseViewState<*>> getCurrentState(): Any = suspendCoroutine { continuation ->
+//        safeLaunch {
+//            val castState = uiState.filterIsInstance<BaseViewState.Data<*>>()
+//                .map { it.value }
+//                .first()
+//            continuation.resume(castState as T)
+//        }
+//    }
+
+//    suspend inline fun <reified T : Any> getCurrentState() =
+//        uiState.filterIsInstance<BaseViewState.Data<*>>()
+//            .map { it.value }.first()
 }

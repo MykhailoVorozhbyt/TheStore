@@ -20,7 +20,7 @@ object Library {
     }
 
     object Plugins {
-        const val gradle = "com.android.tools.build:gradle:8.1.0"
+        const val gradle = "com.android.tools.build:gradle:8.2.0"
         const val kotlinGradlePlugin =
             "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.20"
     }
