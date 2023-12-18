@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -94,6 +96,7 @@ private fun moreScreenItemClick(
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoreScreenBody(
     viewModel: MoreScreenViewModel,
@@ -101,7 +104,7 @@ fun MoreScreenBody(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
                     Text(
                         stringResource(R.string.more),
@@ -110,7 +113,9 @@ fun MoreScreenBody(
                         color = TheStoreColors.whiteOrBlackColor,
                     )
                 },
-                backgroundColor = TheStoreColors.blackOrWhiteColor,
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = TheStoreColors.blackOrWhiteColor
+                ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
                     Icon(

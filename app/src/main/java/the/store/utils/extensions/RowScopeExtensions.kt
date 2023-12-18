@@ -1,18 +1,14 @@
 package the.store.utils.extensions
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.ContentAlpha
-import androidx.compose.material.Icon
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
@@ -22,6 +18,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.core.navigation.base.BottomBarScreen
+import com.example.theme.TheStoreColors
+import com.example.theme.blackOrWhiteColor
+import com.example.theme.whiteOrBlackColor
 
 @Preview
 @Composable
@@ -35,9 +34,12 @@ fun AddItemPreview() {
     )
     val navBackStackEntry by rememberNavController().currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
-    BottomNavigation {
+    NavigationBar(
+        containerColor = TheStoreColors.blackOrWhiteColor,
+//        contentColor = TheStoreColors.blackOrWhiteColor,
+    ) {
         screens.forEach { screen ->
-            AddItem(
+            AddNavigationBarItem(
                 screen = screen,
                 currentDestination = currentDestination,
                 navController = rememberNavController()
@@ -47,22 +49,22 @@ fun AddItemPreview() {
 }
 
 @Composable
-fun RowScope.AddItem(
+fun RowScope.AddNavigationBarItem(
     screen: BottomBarScreen, currentDestination: NavDestination?, navController: NavHostController
 ) {
-    BottomNavigationItem(label = {
-        Text(text = screen.title)
-    },
+    NavigationBarItem(
         icon = {
             Icon(
                 imageVector = ImageVector.vectorResource(id = screen.icon),
                 contentDescription = "Navigation Icon"
             )
         },
+        label = {
+            Text(text = screen.title)
+        },
         selected = currentDestination?.hierarchy?.any {
             it.route == screen.route
         } == true,
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route) {
                 popUpTo(navController.graph.findStartDestination().id)
@@ -70,8 +72,12 @@ fun RowScope.AddItem(
                 restoreState = true
             }
         },
-        modifier = Modifier
-            .background(colorResource(id = com.example.theme.R.color.black))
-
+        colors = NavigationBarItemDefaults.colors(
+            selectedIconColor = TheStoreColors.blackOrWhiteColor,
+            selectedTextColor = TheStoreColors.whiteOrBlackColor,
+            indicatorColor = TheStoreColors.whiteOrBlackColor,
+            unselectedIconColor = TheStoreColors.whiteOrBlackColor,
+            unselectedTextColor = TheStoreColors.whiteOrBlackColor,
+        )
     )
 }

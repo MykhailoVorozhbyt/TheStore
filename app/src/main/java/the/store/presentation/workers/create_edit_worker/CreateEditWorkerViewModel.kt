@@ -22,7 +22,16 @@ class CreateEditWorkerViewModel @Inject constructor(
             is CreateEditWorkerUiEvent.PhoneChanged -> {}
             is CreateEditWorkerUiEvent.SubmitCreateEditClick -> {}
             is CreateEditWorkerUiEvent.SurnameChanged -> {}
-            is CreateEditWorkerUiEvent.InitUI -> {}
+            is CreateEditWorkerUiEvent.InitUiContent -> triggerEvent(eventType)
         }
     }
+
+    private fun setDataState(state: CreateEditWorkerUiState) {
+        setState(BaseViewState.Data(state))
+    }
+
+    private fun triggerEvent(eventType: CreateEditWorkerUiEvent.InitUiContent) {
+        setDataState(CreateEditWorkerUiState())
+    }
+
 }

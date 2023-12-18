@@ -1,7 +1,7 @@
 package the.store.presentation.workers.create_edit_worker.models
 
 sealed class CreateEditWorkerUiEvent {
-    object InitUI: CreateEditWorkerUiEvent()
+    object InitUiContent: CreateEditWorkerUiEvent()
 
     data class NameChanged(val name: String) : CreateEditWorkerUiEvent()
     data class SurnameChanged(val surname: String) : CreateEditWorkerUiEvent()

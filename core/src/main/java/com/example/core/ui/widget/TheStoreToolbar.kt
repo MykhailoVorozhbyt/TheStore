@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -28,12 +30,13 @@ fun TheStoreToolbarPreview() {
     TheStoreOnBackToolbar(titleResId = R.string.app_name) {}
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TheStoreOnBackToolbar(
     @StringRes titleResId: Int,
     pressOnBack: () -> Unit
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 stringResource(titleResId),
@@ -51,22 +54,36 @@ fun TheStoreOnBackToolbar(
                     .clickable { pressOnBack.invoke() }
             )
         },
-        backgroundColor = TheStoreColors.whiteOrBlackColor,
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = TheStoreColors.whiteOrBlackColor
+        ),
         modifier = Modifier.fillMaxWidth()
     )
 }
 
+@Preview
+@Composable
+fun TheStoreOnActionToolbarPreview() {
+    TheStoreOnActionToolbar(
+        R.string.worker,
+        pressOnBack = { },
+        pressEditCreate = { }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TheStoreOnActionToolbar(
     @StringRes titleResId: Int,
     pressOnBack: () -> Unit,
     pressEditCreate: () -> Unit,
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 stringResource(titleResId),
                 textAlign = TextAlign.Start,
+                color = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier.fillMaxWidth(),
             )
         },
@@ -74,7 +91,7 @@ fun TheStoreOnActionToolbar(
             Icon(
                 rememberVectorPainter(Icons.Filled.ArrowBack),
                 contentDescription = null,
-                tint = TheStoreColors.blackOrWhiteColor,
+                tint = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressOnBack.invoke() }
@@ -84,13 +101,15 @@ fun TheStoreOnActionToolbar(
             Icon(
                 rememberVectorPainter(Icons.Filled.Check),
                 contentDescription = null,
-                tint = TheStoreColors.blackOrWhiteColor,
+                tint = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressEditCreate.invoke() }
             )
         },
-        backgroundColor = TheStoreColors.whiteOrBlackColor,
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = TheStoreColors.blackOrWhiteColor
+        ),
         modifier = Modifier.fillMaxWidth()
     )
 }

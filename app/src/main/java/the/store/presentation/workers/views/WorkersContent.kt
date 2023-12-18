@@ -15,11 +15,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -89,6 +91,7 @@ fun WorkersScreenContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkersScreenBody(
     addWorker: () -> Unit,
@@ -96,7 +99,7 @@ fun WorkersScreenBody(
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
                     Text(
                         stringResource(R.string.workers),
@@ -105,7 +108,9 @@ fun WorkersScreenBody(
                         color = TheStoreColors.whiteOrBlackColor,
                     )
                 },
-                backgroundColor = TheStoreColors.blackOrWhiteColor,
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = TheStoreColors.blackOrWhiteColor
+                ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
                     Icon(
