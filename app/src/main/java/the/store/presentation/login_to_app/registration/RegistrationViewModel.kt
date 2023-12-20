@@ -19,9 +19,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import the.store.presentation.login_to_app.registration.models.RegistrationUiEvent
 import the.store.presentation.login_to_app.registration.models.RegistrationUiState
+import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -81,6 +81,7 @@ class RegistrationViewModel @Inject constructor(
                 )
                 false
             }
+
             passwordValidate.passwordErrorState.hasError -> {
                 setState(
                     castState.copy(
@@ -89,6 +90,7 @@ class RegistrationViewModel @Inject constructor(
                 )
                 false
             }
+
             nameValidate.nameErrorState.hasError -> {
                 setState(
                     castState.copy(
@@ -97,6 +99,7 @@ class RegistrationViewModel @Inject constructor(
                 )
                 false
             }
+
             surnameValidate.surnameErrorState.hasError -> {
                 setState(
                     castState.copy(
@@ -105,6 +108,7 @@ class RegistrationViewModel @Inject constructor(
                 )
                 false
             }
+
             else -> {
                 setState(
                     castState.copy(
@@ -127,6 +131,7 @@ class RegistrationViewModel @Inject constructor(
                         surname = castState.surname,
                         password = castState.password,
                         phone = castState.phone,
+                        isOwner = true
                     )
                 )
                 workerSingleton.setWorker(

@@ -1,5 +1,7 @@
 package the.store.presentation.more.views
 
+import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +13,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.domain.more_screen_dto.BaseMoreScreenItemDto
@@ -22,6 +23,9 @@ import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.R
+import com.example.theme.TheStoreColors
+import com.example.theme.blackOrWhiteColor
+import com.example.theme.whiteOrBlackColor
 
 @Composable
 fun MoreScreenContent(
@@ -45,14 +49,24 @@ fun MoreScreenContent(
     }
 }
 
-@Preview
+
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun MoreScreenButtonItemPreview() {
     val context = LocalContext.current
     MoreScreenButtonItem(
         MoreScreenButtonDto(
             icon = R.drawable.ic_person,
-            iconColor = R.color.black,
+            iconColor = TheStoreColors.whiteOrBlackColor,
             clickAction = MoreScreenClickAction.UserProfileClick,
             text = context.getString(R.string.profile),
             textStyle = null,
@@ -70,11 +84,12 @@ private fun MoreScreenButtonItem(
             clickAction.invoke(model.clickAction)
         }
         .smallVerticalPadding()
+        .background(TheStoreColors.blackOrWhiteColor)
         .defaultHorizontalPadding()
     ) {
         Icon(
             painter = painterResource(id = model.icon),
-            tint = colorResource(id = model.iconColor),
+            tint = model.iconColor,
             contentDescription = model::class.java.name,
         )
 
@@ -82,16 +97,27 @@ private fun MoreScreenButtonItem(
             text = model.text,
             modifier = Modifier
                 .weight(1f)
-                .defaultTextStartPadding()
+                .defaultTextStartPadding(),
+            color = TheStoreColors.whiteOrBlackColor
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_navigate_next),
             contentDescription = "goTo",
+            tint = TheStoreColors.whiteOrBlackColor
         )
     }
 }
 
-@Preview
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Composable
 private fun MoreScreenTitleItemPreview() {
     val context = LocalContext.current

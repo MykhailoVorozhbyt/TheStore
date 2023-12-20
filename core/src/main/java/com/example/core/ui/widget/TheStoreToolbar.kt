@@ -27,22 +27,18 @@ import com.example.theme.whiteOrBlackColor
 @Preview
 @Composable
 fun TheStoreToolbarPreview() {
-    TheStoreOnBackToolbar(titleResId = R.string.app_name) {}
+    TheStoreOnBackCenterAlignedTopAppBar(titleResId = R.string.app_name) {}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TheStoreOnBackToolbar(
+fun TheStoreOnBackCenterAlignedTopAppBar(
     @StringRes titleResId: Int,
     pressOnBack: () -> Unit
 ) {
     CenterAlignedTopAppBar(
         title = {
-            Text(
-                stringResource(titleResId),
-                textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            Text(stringResource(titleResId))
         },
         navigationIcon = {
             Icon(
@@ -82,7 +78,7 @@ fun TheStoreOnActionToolbar(
         title = {
             Text(
                 stringResource(titleResId),
-                textAlign = TextAlign.Start,
+                textAlign = TextAlign.Center,
                 color = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier.fillMaxWidth(),
             )

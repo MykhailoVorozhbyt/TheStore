@@ -1,5 +1,7 @@
 package the.store.presentation.workers.views
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -45,10 +47,24 @@ import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.models.workersList
 
 
-@Preview
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
 @Composable
 fun WorkersScreenBodyPreview() {
-    WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {})
+    WorkersScreenBody(
+        {
+        }
+    ) {
+        WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {})
+    }
 }
 
 @Composable
@@ -68,7 +84,7 @@ fun WorkersScreenContent(
             onValueChange = { resultText ->
                 searchText.invoke(resultText)
             },
-            hintText = stringResource(id = R.string.input_worker_name),
+            hintText = stringResource(id = R.string.input_name),
             textValue = uiState.searchedName,
             columnModifier = Modifier.smallHorizontalPadding()
         )
@@ -142,7 +158,6 @@ fun WorkerItemPreview() {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         true,
         false
@@ -175,12 +190,14 @@ fun WorkerItem(
         Text(
             text = worker.name,
             modifier = Modifier.defaultTextStartPadding(),
+            color = TheStoreColors.blackOrWhiteColor
         )
         Text(
             text = worker.surname,
             modifier = Modifier
                 .weight(1f)
                 .defaultTextStartPadding(),
+            color = TheStoreColors.blackOrWhiteColor
         )
         Icon(
             rememberVectorPainter(Icons.Filled.KeyboardArrowRight),

@@ -2,8 +2,11 @@ package the.store.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import com.example.core.domain.constants.Constants
 import com.example.core.navigation.Graph
 import com.example.core.navigation.Screen
 import com.example.core.navigation.base.BottomBarScreen
@@ -36,7 +39,12 @@ fun BottomNavGraph(navController: NavHostController) {
             MoreScreen(navController = navController)
         }
 
-        composable(route = Screen.Worker.route) {
+        composable(route = Screen.Worker.route,
+            arguments = listOf(
+                navArgument(Constants.WORKER_ID) {
+                    type = NavType.LongType
+                }
+            )) {
             CreateEditWorkerScreen(navController = navController)
         }
     }

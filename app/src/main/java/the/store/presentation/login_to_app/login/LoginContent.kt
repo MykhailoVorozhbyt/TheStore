@@ -20,7 +20,7 @@ import com.example.core.base.views.BaseButton
 import com.example.core.base.views.SmallSpacer
 import com.example.core.base.views.HorizontalSpacerColorView
 import com.example.core.ui.custom_composable_view.InputTextField
-import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.extensions.modifiers.loginIconSize
 import com.example.theme.R
@@ -64,7 +64,7 @@ fun InputDataContainerContent(
             .background(
                 colorResource(
                     id = R.color.app_black
-                ), shape = baseRoundedCornerShape()
+                ), shape = BaseRoundedCornerShape()
             )
             .defaultPadding()
     ) {

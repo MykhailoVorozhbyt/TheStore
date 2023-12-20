@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.core.domain.models.db_entity.WorkerEntity
 
 @Dao
@@ -12,12 +13,15 @@ interface WorkerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWorker(worker: WorkerEntity): Long
 
-    @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :password AND ${WorkerEntity.COLUMN_PHONE} = :phone")
+    @Update
+    suspend fun updateWorker(worker: WorkerEntity)
+
+    @Query(GET_WORKERS_BY_PHONE_AND_PASSWORD)
     suspend fun getWorkerByPhoneAndPassword(
         phone: String, password: String
     ): WorkerEntity?
 
-    @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :id")
+    @Query(GET_WORKERS_BY_ID)
     suspend fun getWorkerById(
         id: Long
     ): WorkerEntity?

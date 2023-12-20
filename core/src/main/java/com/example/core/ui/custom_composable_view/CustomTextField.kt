@@ -1,5 +1,6 @@
 package com.example.core.ui.custom_composable_view
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -21,11 +22,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.domain.constants.Constants
 import com.example.core.utils.elvis
-import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
 import com.example.theme.R
+import com.example.theme.TheStoreColors
+import com.example.theme.whiteOrBlackColor
 
 
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
 @Preview
 @Composable
 fun CustomTextFieldPreview() {
@@ -65,14 +78,14 @@ fun InputTextField(
                     .fillMaxWidth()
                     .defaultTextBottomPadding(),
                 text = titleText.elvis(),
-                color = colorResource(id = R.color.white)
+                color = TheStoreColors.whiteOrBlackColor
             )
         }
-        val containerColor = colorResource(R.color.white)
+        val containerColor = TheStoreColors.whiteOrBlackColor
         TextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
-            shape = baseRoundedCornerShape(),
+            shape = BaseRoundedCornerShape(),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = containerColor,
                 unfocusedContainerColor = containerColor,

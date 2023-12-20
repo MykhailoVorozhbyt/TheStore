@@ -11,13 +11,16 @@ class WorkerDaoImpl
     override suspend fun insertWorker(worker: WorkerEntity): Long =
         db.workerDao().insertWorker(worker)
 
+    override suspend fun updateWorker(worker: WorkerEntity) =
+        db.workerDao().updateWorker(worker)
+
+
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String, password: String
     ): WorkerEntity? = db.workerDao().getWorkerByPhoneAndPassword(phone, password)
 
     override suspend fun getWorkerById(id: Long): WorkerEntity? = db.workerDao().getWorkerById(id)
-    override suspend fun getWorkersByName(name: String): List<WorkerEntity> {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getWorkersByName(name: String): List<WorkerEntity> =
+        db.workerDao().getWorkersByName(name)
 
 }

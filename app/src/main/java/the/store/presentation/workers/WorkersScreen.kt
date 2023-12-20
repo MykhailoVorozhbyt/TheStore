@@ -1,5 +1,6 @@
 package the.store.presentation.workers
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -8,8 +9,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.core.base.states.BaseViewState
 import com.example.core.navigation.Screen
 import com.example.core.ui.widget.EmptyView
@@ -30,7 +33,7 @@ fun WorkersScreen(
 
     WorkersScreenBody(
         {
-            navController.navigate(Screen.Worker.setUserData(0))
+            navController.navigate(Screen.Worker.setUserData(0L))
         }
     ) {
         Surface(

@@ -9,12 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 
 @Composable
 fun HorizontalSpacerColorView(color: Color) = Box(
     modifier = Modifier
-        .background(color, baseRoundedCornerShape())
+        .background(color, BaseRoundedCornerShape())
         .height(4.dp)
         .fillMaxWidth()
 )

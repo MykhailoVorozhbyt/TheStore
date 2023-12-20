@@ -16,6 +16,9 @@ class WorkerRepositoryImpl
         workerDao.insertWorker(worker)
     }
 
+    override suspend fun updateWorker(worker: WorkerEntity) =
+        workerDao.updateWorker(worker)
+
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String,
         password: String

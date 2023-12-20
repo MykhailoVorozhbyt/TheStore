@@ -16,7 +16,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 1,
@@ -25,7 +24,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 2,
@@ -34,7 +32,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 3,
             name = "Misha",
@@ -42,7 +39,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 4,
             name = "Misha",
@@ -50,7 +46,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 5,
             name = "Misha",
@@ -58,7 +53,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 6,
             name = "Misha",
@@ -66,7 +60,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 7,
@@ -75,7 +68,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 1,
@@ -84,7 +76,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 2,
@@ -93,7 +84,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 3,
             name = "Misha",
@@ -101,7 +91,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 4,
             name = "Misha",
@@ -109,7 +98,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 5,
             name = "Misha",
@@ -117,7 +105,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),   WorkerEntity(
             id = 6,
             name = "Misha",
@@ -125,7 +112,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
         WorkerEntity(
             id = 7,
@@ -134,7 +120,6 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
         ),
     )
 }

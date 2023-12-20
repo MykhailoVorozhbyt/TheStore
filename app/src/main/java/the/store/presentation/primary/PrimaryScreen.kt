@@ -12,11 +12,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,6 +27,9 @@ import com.example.core.base.views.BaseButton
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
 import com.example.theme.R
+import com.example.theme.TheStoreColors
+import com.example.theme.blackOrWhiteColor
+import com.example.theme.whiteOrBlackColor
 import the.store.presentation.primary.models.PrimaryUiEvent
 import the.store.presentation.primary.views.bottom_sheet_views.PrimaryBottomSheetView
 import the.store.presentation.primary.views.pager_views.PrimaryViewPagerContent
@@ -94,17 +95,17 @@ fun PrimaryScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PrimaryTopBar() {
-   CenterAlignedTopAppBar(
+    CenterAlignedTopAppBar(
         title = {
             Text(
                 text = stringResource(R.string.app_name),
                 fontSize = 18.sp,
-                color = Color.White
+                color = TheStoreColors.blackOrWhiteColor
             )
         },
         modifier = Modifier.fillMaxWidth(),
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = colorResource(id = R.color.black)
+            containerColor = TheStoreColors.whiteOrBlackColor
         ),
         actions = {}
     )
