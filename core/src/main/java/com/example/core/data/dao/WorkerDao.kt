@@ -26,7 +26,10 @@ interface WorkerDao {
         id: Long
     ): WorkerEntity?
 
-    @Query(GET_WORKERS_BY_NAME)
-    suspend fun getWorkersByName(name: String): List<WorkerEntity>
+    @Query(GET_WORKERS_BY_CHARACTER)
+    suspend fun getWorkersByName(character: String): List<WorkerEntity>
+
+    @Query(GET_WORKERS)
+    suspend fun getWorkers(): List<WorkerEntity>
 
 }

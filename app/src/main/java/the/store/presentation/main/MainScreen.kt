@@ -9,12 +9,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.core.navigation.base.BottomBarScreen
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
+import com.example.theme.whiteOrBlackColor
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddNavigationBarItem
@@ -56,7 +55,7 @@ fun BottomBar(navController: NavHostController) {
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
         NavigationBar(
-            containerColor = TheStoreColors.blackOrWhiteColor,
+            containerColor = TheStoreColors.whiteOrBlackColor,
         ) {
             screens.forEach { screen ->
                 AddNavigationBarItem(

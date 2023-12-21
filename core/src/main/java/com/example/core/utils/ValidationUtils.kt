@@ -4,11 +4,11 @@ import android.text.TextUtils
 import android.util.Patterns
 import java.util.regex.Pattern
 
-fun isValidEmail(target: CharSequence?): Boolean {
+fun mailValidation(target: CharSequence?): Boolean {
     return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target!!).matches()
 }
 
-fun isValidEmail(target: String): Boolean {
+fun mailValidation(target: String): Boolean {
     return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
 }
 

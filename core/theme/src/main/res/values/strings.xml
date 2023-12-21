@@ -19,6 +19,7 @@
     <string name="login_error_msg_empty_password">Please enter your password</string>
     <string name="login_error_msg_empty_name">Please enter your name</string>
     <string name="login_error_msg_empty_surname">Please enter your surname</string>
+    <string name="login_error_msg_empty_email">Please enter your surname email</string>
     <string name="password_length_must_be_more_than_4_characters">Password length must be more than 4 characters</string>
 
     <!--Registration-->
@@ -59,14 +60,14 @@
     <string name="copy_the_device_id">Copy Device ID</string>
     <string name="version_with_value">Version: %s</string>
     <!--Workers Screen-->
-    workerPassword
-    workerPhone
-    workerEmailAddress
     <string name="password">Password</string>
     <string name="worker">Worker</string>
     <string name="input_email_address">Input email address</string>
     <string name="email_address">Email address</string>
+    <string name="invalidate_email_address">Email address</string>
     <string name="phone">Phone</string>
     <string name="add_photo">Add photo</string>
+    <string name="employee_created_successfully">Працівника створено успішно</string>
+    <string name="employee_data_updated_successfully">Працівника дані оновлено успішно</string>
 
 </resources>

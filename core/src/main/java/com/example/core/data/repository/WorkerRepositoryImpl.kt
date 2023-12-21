@@ -28,8 +28,13 @@ class WorkerRepositoryImpl
     override suspend fun getWorkerById(id: Long): WorkerEntity? =
         workerDao.getWorkerById(id)
 
-    override suspend fun getWorkersByName(name: String): List<WorkerEntity> =
-        workerDao.getWorkersByName(name)
+    override suspend fun getWorkersByName(name: String): List<WorkerEntity> {
+        if (name.isEmpty()){
+            return workerDao.getWorkers()
+        }
+        return workerDao.getWorkersByName(name)
+    }
+
 
 }
 

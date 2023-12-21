@@ -1,5 +1,7 @@
 package the.store.utils.extensions
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -22,7 +24,16 @@ import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 
-@Preview
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
 @Composable
 fun AddItemPreview() {
     val screens = listOf(
@@ -35,8 +46,7 @@ fun AddItemPreview() {
     val navBackStackEntry by rememberNavController().currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     NavigationBar(
-        containerColor = TheStoreColors.blackOrWhiteColor,
-//        contentColor = TheStoreColors.blackOrWhiteColor,
+        containerColor = TheStoreColors.whiteOrBlackColor,
     ) {
         screens.forEach { screen ->
             AddNavigationBarItem(
@@ -73,11 +83,11 @@ fun RowScope.AddNavigationBarItem(
             }
         },
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = TheStoreColors.blackOrWhiteColor,
-            selectedTextColor = TheStoreColors.whiteOrBlackColor,
-            indicatorColor = TheStoreColors.whiteOrBlackColor,
-            unselectedIconColor = TheStoreColors.whiteOrBlackColor,
-            unselectedTextColor = TheStoreColors.whiteOrBlackColor,
+            selectedIconColor = TheStoreColors.whiteOrBlackColor,
+            selectedTextColor = TheStoreColors.blackOrWhiteColor,
+            indicatorColor = TheStoreColors.blackOrWhiteColor,
+            unselectedIconColor = TheStoreColors.blackOrWhiteColor,
+            unselectedTextColor = TheStoreColors.blackOrWhiteColor,
         )
     )
 }

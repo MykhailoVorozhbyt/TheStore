@@ -3,6 +3,7 @@ package the.store.presentation.workers.models
 import com.example.core.domain.models.db_entity.WorkerEntity
 
 data class WorkersUiState(
+    val isRefreshing: Boolean = false,
     val searchedName: String = "",
     val workersList: List<WorkerEntity> = listOf()
 )
@@ -32,28 +33,32 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 3,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 4,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 5,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 6,
             name = "Misha",
             surname = "Vorozhbyt 3",
@@ -84,28 +89,32 @@ val workersList by lazy {
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 3,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 4,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 5,
             name = "Misha",
             surname = "Vorozhbyt 3",
             password = "",
             phone = "",
             emailAddress = "",
-        ),   WorkerEntity(
+        ),
+        WorkerEntity(
             id = 6,
             name = "Misha",
             surname = "Vorozhbyt 3",

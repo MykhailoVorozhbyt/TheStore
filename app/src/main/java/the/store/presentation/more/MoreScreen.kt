@@ -110,18 +110,18 @@ fun MoreScreenBody(
                         stringResource(R.string.more),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth(),
-                        color = TheStoreColors.whiteOrBlackColor,
+                        color = TheStoreColors.blackOrWhiteColor,
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = TheStoreColors.blackOrWhiteColor
+                    containerColor = TheStoreColors.whiteOrBlackColor
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
                     Icon(
                         rememberVectorPainter(Icons.Filled.ArrowForward),
                         contentDescription = null,
-                        tint = TheStoreColors.whiteOrBlackColor,
+                        tint = TheStoreColors.blackOrWhiteColor,
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable { viewModel.onTriggerEvent(MoreScreenUiEvent.ExitButtonClick) }

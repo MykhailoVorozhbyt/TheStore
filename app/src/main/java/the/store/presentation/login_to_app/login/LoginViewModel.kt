@@ -44,7 +44,7 @@ class LoginViewModel @Inject constructor(
         AppLogger.log("submitPhoneChangedEvent")
         setState(
             uiState.value.copy(
-                phoneValue = phone, inputDataErrorState = checkPhone(phone)
+                phoneValue = phone, inputDataErrorState = isPhoneValid(phone)
             )
         )
     }
@@ -54,7 +54,7 @@ class LoginViewModel @Inject constructor(
         setState(
             uiState.value.copy(
                 passwordValue = password,
-                inputDataErrorState = checkPassword(password)
+                inputDataErrorState = isPasswordValid(password)
             )
         )
     }
@@ -87,7 +87,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun checkPhone(phone: String): LoginErrorState {
+    private fun isPhoneValid(phone: String): LoginErrorState {
         if (phone.isBlank()) {
             return LoginErrorState(phoneEmptyErrorState)
         }
@@ -95,14 +95,14 @@ class LoginViewModel @Inject constructor(
             return LoginErrorState(
                 phoneErrorState = FieldErrorState(
                     hasError = true,
-                    errorMessageStringResource = com.example.theme.R.string.incorrect_phone_error
+                    errorStringRes = com.example.theme.R.string.incorrect_phone_error
                 )
             )
         }
         return LoginErrorState()
     }
 
-    private fun checkPassword(password: String): LoginErrorState {
+    private fun isPasswordValid(password: String): LoginErrorState {
         if (password.isBlank()) {
             return LoginErrorState(passwordErrorState = passwordEmptyErrorState)
         }
@@ -113,8 +113,8 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun validateInputs(): Boolean {
-        val phoneValidate: LoginErrorState = checkPhone(uiState.value.phoneValue)
-        val passwordValidate: LoginErrorState = checkPassword(uiState.value.passwordValue)
+        val phoneValidate: LoginErrorState = isPhoneValid(uiState.value.phoneValue)
+        val passwordValidate: LoginErrorState = isPasswordValid(uiState.value.passwordValue)
         AppLogger.log("validateInputs")
 
         return when {

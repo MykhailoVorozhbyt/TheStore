@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -19,13 +18,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.core.domain.constants.Constants
 import com.example.core.utils.elvis
 import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
+import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 
 
@@ -43,17 +44,20 @@ import com.example.theme.whiteOrBlackColor
 @Composable
 fun CustomTextFieldPreview() {
     InputTextField(
-        titleText = "title text", onValueChange = {
+        titleText = "title text",
+        textValue = "041244",
+        onValueChange = {
 
-        }, hintText = "hint text"
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+        hintText = "hint text"
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InputTextField(
     onValueChange: (String) -> Unit,
-    textValue: String = Constants.EMPTY_STRING,
+    textValue: String,
     titleText: String? = null,
     hintText: String = stringResource(id = R.string.input_text),
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -86,6 +90,9 @@ fun InputTextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
             shape = BaseRoundedCornerShape(),
+            textStyle = TextStyle(
+                color = TheStoreColors.blackOrWhiteColor
+            ),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = containerColor,
                 unfocusedContainerColor = containerColor,

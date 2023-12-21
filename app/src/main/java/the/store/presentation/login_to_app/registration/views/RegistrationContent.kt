@@ -73,7 +73,7 @@ fun RegistrationContent(
                 textValue = data.name,
                 titleText = stringResource(id = R.string.input_name),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                errorMessage = stringResource(id = data.inputDataErrorState.nameErrorState.errorMessageStringResource),
+                errorMessage = stringResource(id = data.inputDataErrorState.nameErrorState.errorStringRes),
                 isError = data.inputDataErrorState.nameErrorState.hasError,
             )
             SmallSpacer()
@@ -84,7 +84,7 @@ fun RegistrationContent(
                 textValue = data.surname,
                 titleText = stringResource(id = R.string.input_surname),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                errorMessage = stringResource(id = data.inputDataErrorState.surnameErrorState.errorMessageStringResource),
+                errorMessage = stringResource(id = data.inputDataErrorState.surnameErrorState.errorStringRes),
                 isError = data.inputDataErrorState.surnameErrorState.hasError,
             )
             SmallSpacer()
@@ -95,7 +95,7 @@ fun RegistrationContent(
                 textValue = data.phone,
                 titleText = stringResource(id = R.string.input_phone),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                errorMessage = stringResource(id = data.inputDataErrorState.phoneErrorState.errorMessageStringResource),
+                errorMessage = stringResource(id = data.inputDataErrorState.phoneErrorState.errorStringRes),
                 isError = data.inputDataErrorState.phoneErrorState.hasError,
             )
             SmallSpacer()
@@ -106,7 +106,7 @@ fun RegistrationContent(
                 textValue = data.password,
                 titleText = stringResource(id = R.string.input_phone),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-                errorMessage = stringResource(id = data.inputDataErrorState.phoneErrorState.errorMessageStringResource),
+                errorMessage = stringResource(id = data.inputDataErrorState.phoneErrorState.errorStringRes),
                 isError = data.inputDataErrorState.phoneErrorState.hasError,
             )
             SmallSpacer()

@@ -1,5 +1,6 @@
 package the.store.presentation.workers.create_edit_worker.models
 
+import androidx.annotation.StringRes
 import com.example.core.domain.models.db_entity.WorkerEntity
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 
@@ -11,7 +12,10 @@ data class CreateEditWorkerUiState(
     var password: String = "",
     var emailAddress: String = "",
     var inputDataErrorState: WorkerErrorState = WorkerErrorState(),
-) {
+    @StringRes
+    var userDoneNotification: Int = 0,
+
+    ) {
     fun mapToWorkerEntity(): WorkerEntity =
         WorkerEntity(
             name = name,

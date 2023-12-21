@@ -87,7 +87,7 @@ fun LoginInputsView(
         textValue = uiState.phoneValue,
         titleText = stringResource(id = R.string.input_phone),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-        errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorMessageStringResource),
+        errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorStringRes),
         isError = uiState.inputDataErrorState.phoneErrorState.hasError,
     )
     SmallSpacer()
@@ -102,7 +102,7 @@ fun LoginInputsView(
         textValue = uiState.passwordValue,
         titleText = stringResource(id = R.string.input_password),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        errorMessage = stringResource(id = uiState.inputDataErrorState.passwordErrorState.errorMessageStringResource),
+        errorMessage = stringResource(id = uiState.inputDataErrorState.passwordErrorState.errorStringRes),
         isError = uiState.inputDataErrorState.passwordErrorState.hasError
     )
     SmallSpacer()

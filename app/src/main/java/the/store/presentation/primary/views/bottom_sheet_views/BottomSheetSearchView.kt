@@ -20,7 +20,7 @@ fun BottomSheetSearchView(viewModel: PrimaryViewModel) {
 //                                )
 //                            )
         },
-//                        textValue = uiState.phoneValue,
+        textValue = "",
         titleText = stringResource(id = R.string.input_data),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
 //                        errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorMessageStringResource),

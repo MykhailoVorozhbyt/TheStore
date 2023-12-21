@@ -20,7 +20,10 @@ class WorkerDaoImpl
     ): WorkerEntity? = db.workerDao().getWorkerByPhoneAndPassword(phone, password)
 
     override suspend fun getWorkerById(id: Long): WorkerEntity? = db.workerDao().getWorkerById(id)
-    override suspend fun getWorkersByName(name: String): List<WorkerEntity> =
-        db.workerDao().getWorkersByName(name)
+    override suspend fun getWorkersByName(character: String): List<WorkerEntity> =
+        db.workerDao().getWorkersByName(character)
+
+    override suspend fun getWorkers(): List<WorkerEntity> =
+        db.workerDao().getWorkers()
 
 }
