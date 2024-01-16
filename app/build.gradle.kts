@@ -1,7 +1,9 @@
 import extensions.CORE
 import extensions.CORE_THEME
 import extensions.addCompose
+import extensions.addDefaultApp
 import extensions.addHiltDi
+import extensions.addNavigation
 import extensions.addRoomDi
 
 plugins {
@@ -59,12 +61,6 @@ android {
     }
 }
 dependencies {
-
-    implementation(Library.Core.coreKtx)
-    implementation(platform(Library.Platform.kotlinBom))
-    implementation(Library.Core.lifecycleRuntimeKtx)
-    implementation(platform(Library.Platform.composeBom))
-    implementation(Library.Material.googleMaterial)
     testImplementation(Library.Tests.junit)
     androidTestImplementation(Library.Tests.testExtJunit)
     androidTestImplementation(Library.Tests.espressoCore)
@@ -73,16 +69,18 @@ dependencies {
     debugImplementation(Library.Tests.uiTooling)
     debugImplementation(Library.Tests.uiTestManifest)
 
-    implementation(Library.Navigation.navigationCompose)
-    implementation(Library.Navigation.accompanistNavigationAnimatio)
+    implementation(Library.Coil.coilCompose)
 
+
+    addDefaultApp()
+    //Navigation
+    addNavigation()
     //Compose
     addCompose()
     //HILT
     addHiltDi()
     //ROOM
     addRoomDi()
-
     //Modules
     CORE
     CORE_THEME

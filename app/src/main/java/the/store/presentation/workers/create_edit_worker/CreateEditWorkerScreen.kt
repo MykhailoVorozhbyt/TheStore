@@ -61,15 +61,22 @@ fun CreateEditWorkerScreen(
                 }
                 CreateEditWorkerContent(
                     currentState,
-                    { name ->
+                    workerPhotoUri = { uri ->
+                        viewModel.onTriggerEvent(CreateEditWorkerUiEvent.PhotoChanged(uri))
+                    },
+                    workerName = { name ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.NameChanged(name))
-                    }, { surname ->
+                    },
+                    workerSurname = { surname ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.SurnameChanged(surname))
-                    }, { password ->
+                    },
+                    workerPassword = { password ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.PasswordChanged(password))
-                    }, { phone ->
+                    },
+                    workerPhone = { phone ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.PhoneChanged(phone))
-                    }, { emailAddress ->
+                    },
+                    workerEmailAddress = { emailAddress ->
                         viewModel.onTriggerEvent(
                             CreateEditWorkerUiEvent.EmailAddressChanged(
                                 emailAddress

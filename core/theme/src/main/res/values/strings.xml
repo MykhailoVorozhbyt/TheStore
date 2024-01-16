@@ -67,7 +67,8 @@
     <string name="invalidate_email_address">Email address</string>
     <string name="phone">Phone</string>
     <string name="add_photo">Add photo</string>
-    <string name="employee_created_successfully">Працівника створено успішно</string>
-    <string name="employee_data_updated_successfully">Працівника дані оновлено успішно</string>
+    <string name="employee_created_successfully">Employee created successfully</string>
+    <string name="employee_data_updated_successfully">Employee data updated successfully</string>
+    <string name="empty_list">Empty list</string>
 
 </resources>

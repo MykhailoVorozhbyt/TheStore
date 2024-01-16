@@ -1,11 +1,15 @@
 package the.store.presentation.workers.create_edit_worker
 
+import android.content.Context
+import android.net.Uri
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
+import com.example.core.utils.BitmapConverters
 import com.example.theme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -24,10 +28,12 @@ import javax.inject.Inject
 class CreateEditWorkerViewModel @Inject constructor(
     private val workerRepository: WorkerRepository,
     private val dispatchers: AppDispatchers,
+    @ApplicationContext private val appContext: Context
 ) :
     MviViewModel<BaseViewState<CreateEditWorkerUiState>, CreateEditWorkerUiEvent>() {
     override fun onTriggerEvent(eventType: CreateEditWorkerUiEvent) {
         when (eventType) {
+            is CreateEditWorkerUiEvent.PhotoChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.NameChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.PasswordChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.PhoneChanged -> triggerEvent(eventType)
@@ -46,6 +52,16 @@ class CreateEditWorkerViewModel @Inject constructor(
 
     private fun setNewDataState(state: CreateEditWorkerUiState) {
         setState(BaseViewState.Data(state))
+    }
+
+    private fun triggerEvent(event: CreateEditWorkerUiEvent.PhotoChanged) {
+        safeLaunch {
+            setNewDataState(
+                getState().copy(
+                    photoUri = event.uri
+                )
+            )
+        }
     }
 
     private fun triggerEvent(event: CreateEditWorkerUiEvent.NameChanged) {
@@ -124,17 +140,20 @@ class CreateEditWorkerViewModel @Inject constructor(
                 val castState =
                     uiState.filterIsInstance<BaseViewState.Data<CreateEditWorkerUiState>>()
                         .map { it.value }.first()
+                val newModel = castState.mapToWorkerEntity(castState.photoUri.toString())
+
                 if (castState.id == 0L) {
-                    workerRepository.insertWorker(castState.mapToWorkerEntity())
+                    workerRepository.insertWorker(newModel)
                     setNewDataState(CreateEditWorkerUiState(userDoneNotification = R.string.employee_created_successfully))
                     return@safeLaunch
                 }
-                workerRepository.updateWorker(castState.mapToWorkerEntity())
+                workerRepository.updateWorker(newModel)
                 setNewDataState(CreateEditWorkerUiState(userDoneNotification = R.string.employee_data_updated_successfully))
             } catch (e: Exception) {
                 handleError(e)
             }
         }
     }
+
 
 }

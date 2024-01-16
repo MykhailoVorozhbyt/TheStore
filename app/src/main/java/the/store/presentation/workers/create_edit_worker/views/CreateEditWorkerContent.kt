@@ -3,6 +3,11 @@ package the.store.presentation.workers.create_edit_worker.views
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +21,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -23,12 +32,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultIconSize
 import com.example.core.utils.extensions.modifiers.defaultPadding
-import com.example.core.utils.helpers.showMessage
 import com.example.theme.R
 import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
@@ -49,13 +59,14 @@ import the.store.presentation.workers.create_edit_worker.models.CreateEditWorker
 @Preview
 @Composable
 fun CreateEditWorkerContentPreview() {
-    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {})
+    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {})
 }
 
 
 @Composable
 fun CreateEditWorkerContent(
     uiState: CreateEditWorkerUiState,
+    workerPhotoUri: (Uri) -> Unit,
     workerName: (String) -> Unit,
     workerSurname: (String) -> Unit,
     workerPassword: (String) -> Unit,
@@ -63,6 +74,20 @@ fun CreateEditWorkerContent(
     workerEmailAddress: (String) -> Unit,
 ) {
     val context: Context = LocalContext.current
+
+    var pickPhotoEnable by remember {
+        mutableStateOf(true)
+    }
+
+    val pickSinglePhoto = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.PickVisualMedia(),
+        onResult = { uri ->
+            if (uri != null) {
+                workerPhotoUri.invoke(uri)
+            }
+            pickPhotoEnable = true
+        }
+    )
 
     Column(
         modifier = Modifier
@@ -78,25 +103,44 @@ fun CreateEditWorkerContent(
                 .background(TheStoreColors.whiteOrBlackColor, BaseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    painter = rememberVectorPainter(Icons.Filled.Person),
-                    contentDescription = "worker icon",
-                    tint = TheStoreColors.blackOrWhiteColor
-                )
-                Text(
-                    text = stringResource(id = R.string.add_photo),
-                    color = TheStoreColors.blackOrWhiteColor,
-                )
+            if (uiState.photoUri == null) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = rememberVectorPainter(Icons.Filled.Person),
+                        contentDescription = "worker icon",
+                        tint = TheStoreColors.blackOrWhiteColor
+                    )
+                    Text(
+                        text = stringResource(id = R.string.add_photo),
+                        color = TheStoreColors.blackOrWhiteColor,
+                    )
+                }
+            } else {
+                rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(context)
+                        .data(uiState.photoUri)
+                        .crossfade(true)
+                        .build()
+                ).let { image ->
+                    Image(
+                        painter = image,
+                        contentDescription = null
+                    )
+                }
             }
 
             IconButton(
                 onClick = {
-                    //TODO: add photo logic
-                    showMessage(context, "Photo logic in developing process")
+                    pickSinglePhoto.launch(
+                        PickVisualMediaRequest(
+                            ActivityResultContracts.PickVisualMedia.ImageOnly
+                        )
+                    )
+                    pickPhotoEnable = false
                 },
+                enabled = pickPhotoEnable,
                 modifier = Modifier
                     .align(Alignment.TopEnd),
             ) {

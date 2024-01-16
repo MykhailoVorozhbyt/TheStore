@@ -3,12 +3,12 @@ package the.store.presentation.login_to_app.registration
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
-import com.example.core.domain.models.db_entity.WorkerEntity
+import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.utils.AppDispatchers
 import com.example.core.utils.AppLogger
 import com.example.core.utils.enums.PreferenceKey
+import com.example.core.utils.enums.WorkerAccess
 import com.example.core.utils.helpers.PreferenceHelper
-import com.example.core.utils.helpers.emptyFieldErrorState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
@@ -124,16 +124,16 @@ class RegistrationViewModel @Inject constructor(
                 val castState = uiState.filterIsInstance<BaseViewState.Data<RegistrationUiState>>()
                     .map { it.value }.first()
                 val worker = workerRepository.insertWorker(
-                    WorkerEntity(
+                    WorkerDbEntity(
                         name = castState.name,
                         surname = castState.surname,
                         password = castState.password,
                         phone = castState.phone,
-                        isOwner = true
+                        access = WorkerAccess.OWNER.access
                     )
                 )
                 workerSingleton.setWorker(
-                    WorkerEntity(
+                    WorkerDbEntity(
                         id = worker,
                         name = castState.name,
                         surname = castState.surname,

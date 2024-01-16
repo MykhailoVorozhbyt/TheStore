@@ -1,7 +1,9 @@
 package the.store.presentation.workers.views
 
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,12 +37,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.core.domain.models.db_entity.WorkerEntity
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.ui.custom_composable_view.InputTextField
+import com.example.core.ui.widget.EmptyListView
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
@@ -80,6 +88,9 @@ fun WorkersScreenContent(
     workerClick: (Long) -> Unit,
     refreshAction: () -> Unit,
 ) {
+    val pullRefreshState =
+        rememberPullRefreshState(uiState.isRefreshing, { refreshAction.invoke() })
+    val context: Context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,32 +106,32 @@ fun WorkersScreenContent(
             textValue = uiState.searchedName,
             columnModifier = Modifier.smallHorizontalPadding()
         )
-
-        val pullRefreshState =
-            rememberPullRefreshState(uiState.isRefreshing, { refreshAction.invoke() })
-
-        Box(Modifier.pullRefresh(pullRefreshState)) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                itemsIndexed(uiState.workersList) { index, item ->
-                    WorkerItem(
-                        item,
-                        index == 0,
-                        index == uiState.workersList.size - 1
-                    ) { id ->
-                        workerClick.invoke(id)
+        if (uiState.workersList.isEmpty()) {
+            EmptyListView()
+        } else {
+            Box(Modifier.pullRefresh(pullRefreshState)) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    itemsIndexed(uiState.workersList) { index, item ->
+                        WorkerItem(
+                            context,
+                            item,
+                            index == 0,
+                            index == uiState.workersList.size - 1
+                        ) { id ->
+                            workerClick.invoke(id)
+                        }
                     }
                 }
+                PullRefreshIndicator(
+                    uiState.isRefreshing,
+                    pullRefreshState,
+                    Modifier.align(Alignment.TopCenter)
+                )
             }
-            PullRefreshIndicator(
-                uiState.isRefreshing,
-                pullRefreshState,
-                Modifier.align(Alignment.TopCenter)
-            )
         }
-
     }
 }
 
@@ -168,7 +179,8 @@ fun WorkersScreenBody(
 @Composable
 fun WorkerItemPreview() {
     WorkerItem(
-        WorkerEntity(
+        LocalContext.current,
+        WorkerDbEntity(
             id = 0,
             name = "Misha",
             surname = "Vorozhbyt",
@@ -183,7 +195,8 @@ fun WorkerItemPreview() {
 
 @Composable
 fun WorkerItem(
-    worker: WorkerEntity,
+    context: Context,
+    worker: WorkerDbEntity,
     isFirsItem: Boolean,
     isLastITem: Boolean,
     click: (Long) -> Unit
@@ -199,22 +212,44 @@ fun WorkerItem(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            rememberVectorPainter(Icons.Filled.Person),
-            contentDescription = null,
-            tint = TheStoreColors.blackOrWhiteColor,
-        )
+        //TODO: fix photo visibility
+        if (worker.photoUri.isNullOrBlank()) {
+            Icon(
+                rememberVectorPainter(Icons.Filled.Person),
+                contentDescription = null,
+                tint = TheStoreColors.blackOrWhiteColor,
+                modifier = Modifier.size(50.dp)
+            )
+        } else {
+            rememberAsyncImagePainter(
+                model = ImageRequest.Builder(context)
+                    .data(worker.photoUri)
+                    .crossfade(true)
+                    .placeholder(R.drawable.ic_person)
+                    .build()
+            ).let { image ->
+                Image(
+                    painter = image,
+                    contentDescription = null,
+                    modifier = Modifier.size(50.dp)
+                )
+            }
+        }
         Text(
             text = worker.name,
             modifier = Modifier.defaultTextStartPadding(),
-            color = TheStoreColors.blackOrWhiteColor
+            style = TextStyle(
+                color = TheStoreColors.blackOrWhiteColor
+            )
         )
         Text(
             text = worker.surname,
             modifier = Modifier
                 .weight(1f)
                 .defaultTextStartPadding(),
-            color = TheStoreColors.blackOrWhiteColor
+            style = TextStyle(
+                color = TheStoreColors.blackOrWhiteColor
+            )
         )
         Icon(
             rememberVectorPainter(Icons.Filled.KeyboardArrowRight),

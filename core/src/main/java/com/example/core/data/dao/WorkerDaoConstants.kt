@@ -1,16 +1,19 @@
 package com.example.core.data.dao
 
-import com.example.core.domain.models.db_entity.WorkerEntity
+import com.example.core.domain.db_entity.WorkerDbEntity
+
+private const val WORKER_ACCESS =
+    "${WorkerDbEntity.COLUMN_ACCESS} = 2"
 
 const val GET_WORKERS =
-    "SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_IS_OWNER} = false"
+    "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE $WORKER_ACCESS"
 const val GET_WORKERS_BY_ID =
-    "SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :id"
+    "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE ${WorkerDbEntity.COLUMN_PASSWORD} = :id"
 
-const val GET_WORKERS_BY_CHARACTER = "SELECT * FROM ${WorkerEntity.TABLE_NAME} " +
-        "WHERE ${WorkerEntity.COLUMN_NAME} LIKE :character " +
-        "OR ${WorkerEntity.COLUMN_SURNAME} LIKE :character " +
-        "AND ${WorkerEntity.COLUMN_IS_OWNER} = false"
+const val GET_WORKERS_BY_CHARACTER = "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} " +
+        "WHERE ${WorkerDbEntity.COLUMN_NAME} LIKE :character " +
+        "OR ${WorkerDbEntity.COLUMN_SURNAME} LIKE :character " +
+        "AND $WORKER_ACCESS"
 
 const val GET_WORKERS_BY_PHONE_AND_PASSWORD =
-    "SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :password AND ${WorkerEntity.COLUMN_PHONE} = :phone"
+    "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE ${WorkerDbEntity.COLUMN_PASSWORD} = :password AND ${WorkerDbEntity.COLUMN_PHONE} = :phone"

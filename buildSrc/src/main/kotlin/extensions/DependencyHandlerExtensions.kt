@@ -18,6 +18,20 @@ val DependencyHandler.CORE_THEME
     get() = implementation(project(mapOf("path" to ":core:theme")))
 
 
+fun DependencyHandler.addDefaultLib() {
+    implementation(Library.Core.coreKtx)
+    implementation(Library.Core.appcompat)
+    implementation(Library.Material.googleMaterial)
+}
+
+fun DependencyHandler.addDefaultApp() {
+    implementation(Library.Core.coreKtx)
+    implementation(platform(Library.Platform.kotlinBom))
+    implementation(Library.Core.lifecycleRuntimeKtx)
+    implementation(platform(Library.Platform.composeBom))
+    implementation(Library.Material.googleMaterial)
+}
+
 fun DependencyHandler.addCompose() {
     implementation(Library.Compose.activityCompose)
     implementation(Library.Compose.ui)
@@ -25,6 +39,11 @@ fun DependencyHandler.addCompose() {
     implementation(Library.Compose.uiToolingPreview)
     implementation(Library.Compose.material3)
     implementation(Library.Compose.material)
+}
+
+fun DependencyHandler.addNavigation(){
+    implementation(Library.Navigation.navigationCompose)
+    implementation(Library.Navigation.accompanistNavigationAnimatio)
 }
 
 fun DependencyHandler.addHiltDi() {

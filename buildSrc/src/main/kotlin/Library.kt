@@ -64,4 +64,8 @@ object Library {
     object Gson {
         const val gson = "com.google.code.gson:gson:2.10.1"
     }
+
+    object Coil {
+        const val coilCompose = "io.coil-kt:coil-compose:2.5.0"
+    }
 }

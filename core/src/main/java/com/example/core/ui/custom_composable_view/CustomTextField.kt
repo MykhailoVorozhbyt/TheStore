@@ -19,7 +19,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.utils.elvis
 import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
@@ -44,12 +43,11 @@ import com.example.theme.whiteOrBlackColor
 @Composable
 fun CustomTextFieldPreview() {
     InputTextField(
-        titleText = "title text",
-        textValue = "041244",
         onValueChange = {
 
         },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+        titleText = "title text",
+        textValue = "041244",
         hintText = "hint text"
     )
 }
@@ -65,7 +63,6 @@ fun InputTextField(
     singleLine: Boolean = true,
     isError: Boolean = false,
     errorMessage: String = stringResource(id = R.string.error),
-    maxLength: Int = 100,
     enabled: Boolean = true,
     readOnly: Boolean = false,
     columnModifier: Modifier = Modifier
@@ -100,6 +97,8 @@ fun InputTextField(
                 focusedIndicatorColor = colorResource(R.color.transparentColor),
                 unfocusedIndicatorColor = colorResource(R.color.transparentColor),
                 errorIndicatorColor = colorResource(R.color.transparentColor),
+                cursorColor = TheStoreColors.blackOrWhiteColor,
+                focusedTextColor = TheStoreColors.blackOrWhiteColor,
             ),
             onValueChange = { text ->
                 isErrorState = false
