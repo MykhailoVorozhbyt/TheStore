@@ -70,6 +70,7 @@ dependencies {
     debugImplementation(Library.Tests.uiTestManifest)
 
     implementation(Library.Coil.coilCompose)
+    implementation(Library.Accompanist.accompanistPermissions)
 
 
     addDefaultApp()

@@ -10,3 +10,6 @@ fun Modifier.loginIconSize(): Modifier =
 
 fun Modifier.defaultIconSize(): Modifier =
     this.size(30.dp)
+
+fun Modifier.defaultListIconSize(): Modifier =
+    this.size(80.dp)

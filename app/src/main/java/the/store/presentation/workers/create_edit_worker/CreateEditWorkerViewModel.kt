@@ -1,18 +1,17 @@
 package the.store.presentation.workers.create_edit_worker
 
 import android.content.Context
-import android.net.Uri
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
-import com.example.core.utils.BitmapConverters
 import com.example.theme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import the.store.domain.mapper.mapToCreateEditWorkerUiState
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiEvent
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
@@ -41,6 +40,7 @@ class CreateEditWorkerViewModel @Inject constructor(
             is CreateEditWorkerUiEvent.SurnameChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.EmailAddressChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.InitUiContent -> triggerEvent(eventType)
+            is CreateEditWorkerUiEvent.DeletePhotoUri -> triggerEvent(eventType)
         }
     }
 
@@ -59,6 +59,16 @@ class CreateEditWorkerViewModel @Inject constructor(
             setNewDataState(
                 getState().copy(
                     photoUri = event.uri
+                )
+            )
+        }
+    }
+
+    private fun triggerEvent(event: CreateEditWorkerUiEvent.DeletePhotoUri) {
+        safeLaunch {
+            setNewDataState(
+                getState().copy(
+                    photoUri = null
                 )
             )
         }
@@ -115,7 +125,11 @@ class CreateEditWorkerViewModel @Inject constructor(
     }
 
     private fun triggerEvent(eventType: CreateEditWorkerUiEvent.InitUiContent) {
-        setNewDataState(CreateEditWorkerUiState())
+        if (eventType.workerId == 0L) {
+            setNewDataState(CreateEditWorkerUiState())
+        } else {
+            getWorkerById(eventType.workerId)
+        }
     }
 
     private fun triggerEvent(event: CreateEditWorkerUiEvent.SubmitCreateEditClick) = safeLaunch {
@@ -131,6 +145,7 @@ class CreateEditWorkerViewModel @Inject constructor(
             setNewDataState(getState().copy(inputDataErrorState = validation))
             return@safeLaunch
         }
+//        startLoading()
         createOrUpdateWorker()
     }
 
@@ -140,15 +155,30 @@ class CreateEditWorkerViewModel @Inject constructor(
                 val castState =
                     uiState.filterIsInstance<BaseViewState.Data<CreateEditWorkerUiState>>()
                         .map { it.value }.first()
-                val newModel = castState.mapToWorkerEntity(castState.photoUri.toString())
+                val newModel = castState.mapToWorkerEntity()
 
                 if (castState.id == 0L) {
                     workerRepository.insertWorker(newModel)
-                    setNewDataState(CreateEditWorkerUiState(userDoneNotification = R.string.employee_created_successfully))
+                    setNewDataState(castState.copy(userDoneNotification = R.string.employee_created_successfully))
                     return@safeLaunch
                 }
-                workerRepository.updateWorker(newModel)
-                setNewDataState(CreateEditWorkerUiState(userDoneNotification = R.string.employee_data_updated_successfully))
+                workerRepository.insertWorker(newModel)
+                setNewDataState(castState.copy(userDoneNotification = R.string.employee_data_updated_successfully))
+            } catch (e: Exception) {
+                handleError(e)
+            }
+        }
+    }
+
+    private fun getWorkerById(id: Long) {
+        safeLaunch {
+            try {
+                val worker = workerRepository.getWorkerById(id)
+                if (worker == null) {
+                    handleError(Exception("Worker Error"))
+                    return@safeLaunch
+                }
+                setNewDataState(worker.mapToCreateEditWorkerUiState())
             } catch (e: Exception) {
                 handleError(e)
             }

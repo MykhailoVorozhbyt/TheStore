@@ -18,8 +18,10 @@ data class CreateEditWorkerUiState(
     var userDoneNotification: Int = 0,
 
     ) {
-    fun mapToWorkerEntity(photoUri: String?): WorkerDbEntity =
-        WorkerDbEntity(
+    fun mapToWorkerEntity(): WorkerDbEntity {
+        val photoUri = if (this.photoUri == null) null else this.photoUri.toString()
+        return WorkerDbEntity(
+            id = id,
             name = name,
             photoUri = photoUri,
             surname = surname,
@@ -27,4 +29,5 @@ data class CreateEditWorkerUiState(
             phone = phone,
             emailAddress = emailAddress
         )
+    }
 }

@@ -14,6 +14,10 @@ object Library {
             "com.google.accompanist:accompanist-navigation-animation:0.32.0"
     }
 
+    object Accompanist {
+        const val accompanistPermissions = "com.google.accompanist:accompanist-permissions:0.32.0"
+    }
+
     object Platform {
         const val kotlinBom = "org.jetbrains.kotlin:kotlin-bom:1.8.0"
         const val composeBom = "androidx.compose:compose-bom:2022.10.00"

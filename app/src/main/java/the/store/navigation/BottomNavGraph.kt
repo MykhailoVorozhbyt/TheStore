@@ -56,7 +56,10 @@ fun BottomNavGraph(navController: NavHostController) {
                     )
                 },
                 workerClick = {
-                    navController.navigate(Screen.Worker.setUserData(it))
+                    navController.navigate(Screen.Worker.setUserData(it)) {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 },
                 refreshAction = {
                     viewModel.onTriggerEvent(
@@ -75,7 +78,8 @@ fun BottomNavGraph(navController: NavHostController) {
                     type = NavType.LongType
                 }
             )) {
-            CreateEditWorkerScreen(navController = navController)
+            val workerId = it.arguments?.getLong(Constants.WORKER_ID) ?: 0L
+            CreateEditWorkerScreen(navController = navController, workerId = workerId)
         }
     }
 

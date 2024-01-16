@@ -5,6 +5,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +30,7 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -37,17 +38,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
+import coil.compose.AsyncImagePainter
 import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
@@ -58,6 +61,7 @@ import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.models.workersList
+import the.store.utils.imageRequestBuilder
 
 
 @Preview(
@@ -212,28 +216,41 @@ fun WorkerItem(
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        //TODO: fix photo visibility
-        if (worker.photoUri.isNullOrBlank()) {
+        val photoUri = worker.photoUri
+        if (photoUri.isNullOrBlank()) {
             Icon(
                 rememberVectorPainter(Icons.Filled.Person),
                 contentDescription = null,
                 tint = TheStoreColors.blackOrWhiteColor,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.defaultListIconSize()
             )
         } else {
-            rememberAsyncImagePainter(
-                model = ImageRequest.Builder(context)
-                    .data(worker.photoUri)
-                    .crossfade(true)
-                    .placeholder(R.drawable.ic_person)
-                    .build()
-            ).let { image ->
+            val painter = imageRequestBuilder(
+                context,
+                photoUri,
+                R.drawable.ic_person
+            )
+            if (painter.state is AsyncImagePainter.State.Loading) {
+                CircularProgressIndicator(
+                    color = TheStoreColors.blackOrWhiteColor,
+                    modifier = Modifier.defaultListIconSize()
+                )
+            } else {
                 Image(
-                    painter = image,
+                    painter = painter,
                     contentDescription = null,
-                    modifier = Modifier.size(50.dp)
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp,
+                            color = TheStoreColors.blackOrWhiteColor,
+                            shape = BaseRoundedCornerShape()
+                        )
+                        .defaultListIconSize()
+                        .clip(BaseRoundedCornerShape())
                 )
             }
+
         }
         Text(
             text = worker.name,

@@ -70,5 +70,7 @@
     <string name="employee_created_successfully">Employee created successfully</string>
     <string name="employee_data_updated_successfully">Employee data updated successfully</string>
     <string name="empty_list">Empty list</string>
+    <string name="permission_was_denied">Permission was denied</string>
+    <string name="app_needs_access_to_photo">TheStore needs access to photo. Please grant access on the Settings screen.</string>
 
 </resources>

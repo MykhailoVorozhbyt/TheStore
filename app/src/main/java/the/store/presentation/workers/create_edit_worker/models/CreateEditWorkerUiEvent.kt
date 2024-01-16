@@ -6,6 +6,7 @@ sealed class CreateEditWorkerUiEvent {
     data class InitUiContent(val workerId: Long = 0) : CreateEditWorkerUiEvent()
 
     data class PhotoChanged(val uri: Uri) : CreateEditWorkerUiEvent()
+    object DeletePhotoUri : CreateEditWorkerUiEvent()
     data class NameChanged(val name: String) : CreateEditWorkerUiEvent()
     data class SurnameChanged(val surname: String) : CreateEditWorkerUiEvent()
     data class PhoneChanged(val phone: String) : CreateEditWorkerUiEvent()

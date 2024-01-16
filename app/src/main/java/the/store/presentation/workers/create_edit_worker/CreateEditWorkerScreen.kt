@@ -1,7 +1,6 @@
 package the.store.presentation.workers.create_edit_worker
 
 import android.content.Context
-import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -9,12 +8,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.base.states.BaseViewState
-import com.example.core.domain.constants.Constants
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
@@ -28,24 +25,21 @@ import the.store.presentation.workers.create_edit_worker.views.CreateEditWorkerC
 @Preview
 @Composable
 fun CreateEditWorkerScreenPreview() {
-    CreateEditWorkerScreen(navController = rememberNavController())
+    CreateEditWorkerScreen(navController = rememberNavController(), workerId = 1)
 }
 
 @Composable
 fun CreateEditWorkerScreen(
     viewModel: CreateEditWorkerViewModel = hiltViewModel(),
     navController: NavHostController,
-    bundle: Bundle = bundleOf()
+    workerId: Long
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val workerId = bundle.getLong(Constants.WORKER_ID, 0L)
     val context: Context = LocalContext.current
 
     CreateEditWorkerBody(
-        {
-            navController.popBackStack()
-        },
-        {
+        pressOnBack = { navController.popBackStack() },
+        pressEditCreate = {
             viewModel.onTriggerEvent(CreateEditWorkerUiEvent.SubmitCreateEditClick)
         }
     ) {
@@ -63,6 +57,9 @@ fun CreateEditWorkerScreen(
                     currentState,
                     workerPhotoUri = { uri ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.PhotoChanged(uri))
+                    },
+                    deletePhotoUri = {
+                        viewModel.onTriggerEvent(CreateEditWorkerUiEvent.DeletePhotoUri)
                     },
                     workerName = { name ->
                         viewModel.onTriggerEvent(CreateEditWorkerUiEvent.NameChanged(name))

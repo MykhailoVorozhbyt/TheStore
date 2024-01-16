@@ -1,5 +1,6 @@
 package the.store.presentation.workers.create_edit_worker.views
 
+import android.Manifest
 import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -9,6 +10,7 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +21,7 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,23 +30,29 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import coil.request.ImageRequest
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultIconSize
 import com.example.core.utils.extensions.modifiers.defaultPadding
+import com.example.core.utils.helpers.showMessage
 import com.example.theme.R
 import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
+import com.google.accompanist.permissions.shouldShowRationale
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
+import the.store.utils.imageRequestBuilder
 
 
 @Preview(
@@ -59,13 +68,14 @@ import the.store.presentation.workers.create_edit_worker.models.CreateEditWorker
 @Preview
 @Composable
 fun CreateEditWorkerContentPreview() {
-    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {})
+    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {}, {})
 }
 
-
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CreateEditWorkerContent(
     uiState: CreateEditWorkerUiState,
+    deletePhotoUri: () -> Unit,
     workerPhotoUri: (Uri) -> Unit,
     workerName: (String) -> Unit,
     workerSurname: (String) -> Unit,
@@ -74,6 +84,7 @@ fun CreateEditWorkerContent(
     workerEmailAddress: (String) -> Unit,
 ) {
     val context: Context = LocalContext.current
+    val cameraPermissionState = rememberPermissionState(Manifest.permission.READ_EXTERNAL_STORAGE)
 
     var pickPhotoEnable by remember {
         mutableStateOf(true)
@@ -89,6 +100,20 @@ fun CreateEditWorkerContent(
         }
     )
 
+    val requestPermissionLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            pickPhotoEnable = true
+            if (isGranted) {
+                pickSinglePhoto.launch(
+                    PickVisualMediaRequest(
+                        ActivityResultContracts.PickVisualMedia.ImageOnly
+                    )
+                )
+            } else {
+                showMessage(context, R.string.permission_was_denied)
+            }
+        }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -103,7 +128,8 @@ fun CreateEditWorkerContent(
                 .background(TheStoreColors.whiteOrBlackColor, BaseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
-            if (uiState.photoUri == null) {
+            val photoUri = uiState.photoUri
+            if (photoUri == null) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -118,27 +144,45 @@ fun CreateEditWorkerContent(
                     )
                 }
             } else {
-                rememberAsyncImagePainter(
-                    model = ImageRequest.Builder(context)
-                        .data(uiState.photoUri)
-                        .crossfade(true)
-                        .build()
-                ).let { image ->
-                    Image(
-                        painter = image,
-                        contentDescription = null
-                    )
-                }
+                Image(
+                    painter = imageRequestBuilder(
+                        context,
+                        photoUri,
+                        R.drawable.ic_person
+                    ),
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp,
+                            color = TheStoreColors.whiteOrBlackColor,
+                            shape = BaseRoundedCornerShape()
+                        )
+                        .clip(BaseRoundedCornerShape()),
+                    contentDescription = null
+                )
             }
 
             IconButton(
                 onClick = {
-                    pickSinglePhoto.launch(
-                        PickVisualMediaRequest(
-                            ActivityResultContracts.PickVisualMedia.ImageOnly
-                        )
-                    )
-                    pickPhotoEnable = false
+                    when {
+                        cameraPermissionState.status.isGranted -> {
+                            pickSinglePhoto.launch(
+                                PickVisualMediaRequest(
+                                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                                )
+                            )
+                            pickPhotoEnable = false
+                        }
+
+                        cameraPermissionState.status.shouldShowRationale -> {
+                            requestPermissionLauncher.launch(cameraPermissionState.permission)
+                            pickPhotoEnable = false
+                        }
+
+                        else -> {
+                            showMessage(context, R.string.app_needs_access_to_photo)
+                        }
+                    }
                 },
                 enabled = pickPhotoEnable,
                 modifier = Modifier
@@ -146,11 +190,29 @@ fun CreateEditWorkerContent(
             ) {
                 Icon(
                     painter = rememberVectorPainter(Icons.Filled.AddCircle),
-                    contentDescription = "worker icon",
+                    contentDescription = null,
                     tint = TheStoreColors.blackOrWhiteColor,
                     modifier = Modifier.defaultIconSize()
                 )
             }
+            if (photoUri != null) {
+                IconButton(
+                    onClick = {
+                        deletePhotoUri.invoke()
+                    },
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd),
+                ) {
+                    Icon(
+                        painter = rememberVectorPainter(Icons.Filled.Delete),
+                        contentDescription = null,
+                        tint = TheStoreColors.blackOrWhiteColor,
+                        modifier = Modifier.defaultIconSize()
+                    )
+                }
+            }
+
+
         }
         InputTextField(
             onValueChange = { resultText ->

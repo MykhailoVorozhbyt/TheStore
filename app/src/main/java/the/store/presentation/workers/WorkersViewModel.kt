@@ -52,7 +52,6 @@ class WorkersViewModel @Inject constructor(
         safeLaunch(dispatchers.io) {
             try {
                 val result = workerRepository.getWorkersByName(name)
-                delay(1000L)
                 setStateData(
                     WorkersUiState(
                         isRefreshing = false,

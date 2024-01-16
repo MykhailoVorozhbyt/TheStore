@@ -61,7 +61,7 @@ fun TheStoreOnBackCenterAlignedTopAppBar(
 @Composable
 fun TheStoreOnActionToolbarPreview() {
     TheStoreOnActionToolbar(
-        R.string.worker,
+        titleResId = R.string.worker,
         pressOnBack = { },
         pressEditCreate = { }
     )
@@ -74,12 +74,14 @@ fun TheStoreOnActionToolbar(
     pressOnBack: () -> Unit,
     pressEditCreate: () -> Unit,
 ) {
+    val bgColor = TheStoreColors.whiteOrBlackColor
+    val itemsColor = TheStoreColors.blackOrWhiteColor
     CenterAlignedTopAppBar(
         title = {
             Text(
                 stringResource(titleResId),
                 textAlign = TextAlign.Center,
-                color = TheStoreColors.whiteOrBlackColor,
+                color = itemsColor,
                 modifier = Modifier.fillMaxWidth(),
             )
         },
@@ -87,7 +89,7 @@ fun TheStoreOnActionToolbar(
             Icon(
                 rememberVectorPainter(Icons.Filled.ArrowBack),
                 contentDescription = null,
-                tint = TheStoreColors.whiteOrBlackColor,
+                tint = itemsColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressOnBack.invoke() }
@@ -97,14 +99,14 @@ fun TheStoreOnActionToolbar(
             Icon(
                 rememberVectorPainter(Icons.Filled.Check),
                 contentDescription = null,
-                tint = TheStoreColors.whiteOrBlackColor,
+                tint = itemsColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressEditCreate.invoke() }
             )
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = TheStoreColors.blackOrWhiteColor
+            containerColor = bgColor
         ),
         modifier = Modifier.fillMaxWidth()
     )

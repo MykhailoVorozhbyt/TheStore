@@ -8,7 +8,7 @@ private const val WORKER_ACCESS =
 const val GET_WORKERS =
     "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE $WORKER_ACCESS"
 const val GET_WORKERS_BY_ID =
-    "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE ${WorkerDbEntity.COLUMN_PASSWORD} = :id"
+    "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} WHERE ${WorkerDbEntity.COLUMN_ID} = :id"
 
 const val GET_WORKERS_BY_CHARACTER = "SELECT * FROM ${WorkerDbEntity.TABLE_NAME} " +
         "WHERE ${WorkerDbEntity.COLUMN_NAME} LIKE :character " +
