@@ -14,6 +14,6 @@ fun Modifier.inputTextFieldBorder() =
                 listOf(
                     colorResource(com.example.theme.R.color.white)
                 )
-            ), shape = baseRoundedCornerShape()
+            ), shape = BaseRoundedCornerShape()
         )
     }

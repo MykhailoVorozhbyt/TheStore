@@ -20,7 +20,7 @@ import com.example.core.base.views.BaseButton
 import com.example.core.base.views.SmallSpacer
 import com.example.core.base.views.HorizontalSpacerColorView
 import com.example.core.ui.custom_composable_view.InputTextField
-import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.extensions.modifiers.loginIconSize
 import com.example.theme.R
@@ -64,7 +64,7 @@ fun InputDataContainerContent(
             .background(
                 colorResource(
                     id = R.color.app_black
-                ), shape = baseRoundedCornerShape()
+                ), shape = BaseRoundedCornerShape()
             )
             .defaultPadding()
     ) {
@@ -87,7 +87,7 @@ fun LoginInputsView(
         textValue = uiState.phoneValue,
         titleText = stringResource(id = R.string.input_phone),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
-        errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorMessageStringResource),
+        errorMessage = stringResource(id = uiState.inputDataErrorState.phoneErrorState.errorStringRes),
         isError = uiState.inputDataErrorState.phoneErrorState.hasError,
     )
     SmallSpacer()
@@ -102,7 +102,7 @@ fun LoginInputsView(
         textValue = uiState.passwordValue,
         titleText = stringResource(id = R.string.input_password),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        errorMessage = stringResource(id = uiState.inputDataErrorState.passwordErrorState.errorMessageStringResource),
+        errorMessage = stringResource(id = uiState.inputDataErrorState.passwordErrorState.errorStringRes),
         isError = uiState.inputDataErrorState.passwordErrorState.hasError
     )
     SmallSpacer()

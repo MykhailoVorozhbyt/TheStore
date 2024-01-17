@@ -1,5 +1,6 @@
 package com.example.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -20,7 +21,7 @@ val HintColor = Color(0xFF757575)
 val ErrorColor = Color(0xFFB61919)
 
 val Colors.blackOrWhiteColor: Color
-    @Composable get() = if (isLight) Black else White
+    @Composable get() = if (isSystemInDarkTheme()) Black else White
 
 val Colors.whiteOrBlackColor: Color
-    @Composable get() = if (isLight.not()) Black else White
+    @Composable get() = if (isSystemInDarkTheme().not()) Black else White

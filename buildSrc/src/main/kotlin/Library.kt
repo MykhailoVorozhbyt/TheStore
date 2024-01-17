@@ -11,7 +11,11 @@ object Library {
         const val navigationCompose =
             "androidx.navigation:navigation-compose:2.6.0"
         const val accompanistNavigationAnimatio =
-            "com.google.accompanist:accompanist-navigation-animation:0.30.0"
+            "com.google.accompanist:accompanist-navigation-animation:0.32.0"
+    }
+
+    object Accompanist {
+        const val accompanistPermissions = "com.google.accompanist:accompanist-permissions:0.32.0"
     }
 
     object Platform {
@@ -28,11 +32,11 @@ object Library {
     object Compose {
         const val activityCompose =
             "androidx.activity:activity-compose:1.7.2"
-        const val ui = "androidx.compose.ui:ui:1.4.3"
-        const val uiGraphics = "androidx.compose.ui:ui-graphics:1.4.3"
-        const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:1.4.3"
-        const val material3 = "androidx.compose.material3:material3:1.1.1"
-        const val material = "androidx.compose.material:material:1.4.3"
+        const val ui = "androidx.compose.ui:ui:1.5.4"
+        const val uiGraphics = "androidx.compose.ui:ui-graphics:1.5.4"
+        const val uiToolingPreview = "androidx.compose.ui:ui-tooling-preview:1.5.4"
+        const val material3 = "androidx.compose.material3:material3:1.1.2"
+        const val material = "androidx.compose.material:material:1.5.4"
     }
 
     object Material {
@@ -63,5 +67,9 @@ object Library {
 
     object Gson {
         const val gson = "com.google.code.gson:gson:2.10.1"
+    }
+
+    object Coil {
+        const val coilCompose = "io.coil-kt:coil-compose:2.5.0"
     }
 }

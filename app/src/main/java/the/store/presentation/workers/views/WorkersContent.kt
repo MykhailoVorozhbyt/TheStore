@@ -1,8 +1,14 @@
 package the.store.presentation.workers.views
 
+import android.content.Context
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -10,25 +16,41 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.core.domain.models.db_entity.WorkerEntity
+import coil.compose.AsyncImagePainter
+import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.ui.custom_composable_view.InputTextField
+import com.example.core.ui.widget.EmptyListView
+import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
@@ -39,20 +61,40 @@ import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.models.workersList
+import the.store.utils.imageRequestBuilder
 
 
-@Preview
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
 @Composable
 fun WorkersScreenBodyPreview() {
-    WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {})
+    WorkersScreenBody(
+        {
+        }
+    ) {
+        WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {}, {})
+    }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WorkersScreenContent(
     uiState: WorkersUiState,
     searchText: (String) -> Unit,
-    workerClick: (Long) -> Unit
+    workerClick: (Long) -> Unit,
+    refreshAction: () -> Unit,
 ) {
+    val pullRefreshState =
+        rememberPullRefreshState(uiState.isRefreshing, { refreshAction.invoke() })
+    val context: Context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,51 +106,69 @@ fun WorkersScreenContent(
             onValueChange = { resultText ->
                 searchText.invoke(resultText)
             },
-            hintText = stringResource(id = R.string.input_worker_name),
+            hintText = stringResource(id = R.string.input_name),
             textValue = uiState.searchedName,
             columnModifier = Modifier.smallHorizontalPadding()
         )
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            items(uiState.workersList) { item ->
-                WorkerItem(item) { id ->
-                    workerClick.invoke(id)
+        if (uiState.workersList.isEmpty()) {
+            EmptyListView()
+        } else {
+            Box(Modifier.pullRefresh(pullRefreshState)) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    itemsIndexed(uiState.workersList) { index, item ->
+                        WorkerItem(
+                            context,
+                            item,
+                            index == 0,
+                            index == uiState.workersList.size - 1
+                        ) { id ->
+                            workerClick.invoke(id)
+                        }
+                    }
                 }
+                PullRefreshIndicator(
+                    uiState.isRefreshing,
+                    pullRefreshState,
+                    Modifier.align(Alignment.TopCenter)
+                )
             }
         }
-
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WorkersScreenBody(
+    addWorker: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
                     Text(
                         stringResource(R.string.workers),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth(),
-                        color = TheStoreColors.whiteOrBlackColor,
+                        color = TheStoreColors.blackOrWhiteColor,
                     )
                 },
-                backgroundColor = TheStoreColors.blackOrWhiteColor,
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = TheStoreColors.whiteOrBlackColor
+                ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
                     Icon(
                         rememberVectorPainter(Icons.Filled.Add),
                         contentDescription = null,
-                        tint = TheStoreColors.whiteOrBlackColor,
+                        tint = TheStoreColors.blackOrWhiteColor,
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
-
+                                addWorker.invoke()
                             }
 
                     )
@@ -123,44 +183,90 @@ fun WorkersScreenBody(
 @Composable
 fun WorkerItemPreview() {
     WorkerItem(
-        WorkerEntity(
+        LocalContext.current,
+        WorkerDbEntity(
             id = 0,
             name = "Misha",
             surname = "Vorozhbyt",
             password = "",
             phone = "",
             emailAddress = "",
-            vatIdentificationNumber = "",
-        )
+        ),
+        true,
+        false
     ) {}
 }
 
 @Composable
-fun WorkerItem(worker: WorkerEntity, click: (Long) -> Unit) {
+fun WorkerItem(
+    context: Context,
+    worker: WorkerDbEntity,
+    isFirsItem: Boolean,
+    isLastITem: Boolean,
+    click: (Long) -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp, 1.dp)
+            .clip(itemRoundedCorner(isFirsItem, isLastITem))
             .background(TheStoreColors.whiteOrBlackColor)
             .clickable { click.invoke(worker.id) }
             .smallPadding(),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            rememberVectorPainter(Icons.Filled.Person),
-            contentDescription = null,
-            tint = TheStoreColors.blackOrWhiteColor,
-        )
+        val photoUri = worker.photoUri
+        if (photoUri.isNullOrBlank()) {
+            Icon(
+                rememberVectorPainter(Icons.Filled.Person),
+                contentDescription = null,
+                tint = TheStoreColors.blackOrWhiteColor,
+                modifier = Modifier.defaultListIconSize()
+            )
+        } else {
+            val painter = imageRequestBuilder(
+                context,
+                photoUri,
+                R.drawable.ic_person
+            )
+            if (painter.state is AsyncImagePainter.State.Loading) {
+                CircularProgressIndicator(
+                    color = TheStoreColors.blackOrWhiteColor,
+                    modifier = Modifier.defaultListIconSize()
+                )
+            } else {
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .border(
+                            width = 2.dp,
+                            color = TheStoreColors.blackOrWhiteColor,
+                            shape = BaseRoundedCornerShape()
+                        )
+                        .defaultListIconSize()
+                        .clip(BaseRoundedCornerShape())
+                )
+            }
+
+        }
         Text(
             text = worker.name,
             modifier = Modifier.defaultTextStartPadding(),
+            style = TextStyle(
+                color = TheStoreColors.blackOrWhiteColor
+            )
         )
         Text(
             text = worker.surname,
             modifier = Modifier
                 .weight(1f)
                 .defaultTextStartPadding(),
+            style = TextStyle(
+                color = TheStoreColors.blackOrWhiteColor
+            )
         )
         Icon(
             rememberVectorPainter(Icons.Filled.KeyboardArrowRight),
@@ -168,5 +274,24 @@ fun WorkerItem(worker: WorkerEntity, click: (Long) -> Unit) {
             tint = TheStoreColors.blackOrWhiteColor,
             modifier = Modifier
         )
+    }
+}
+
+
+private fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
+    isFirsItem && isLastITem -> {
+        RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
+    }
+
+    isFirsItem -> {
+        RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
+    }
+
+    isLastITem -> {
+        RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
+    }
+
+    else -> {
+        RoundedCornerShape(0.dp, 0.dp, 0.dp, 0.dp)
     }
 }

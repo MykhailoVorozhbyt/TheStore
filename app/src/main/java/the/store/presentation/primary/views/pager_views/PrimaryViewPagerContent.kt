@@ -34,17 +34,22 @@ fun PrimaryViewPagerContentPreview() {
 @Composable
 fun PrimaryViewPagerContent() {
     val items by remember {
-        mutableStateOf(listOf(Constants.DATA_OF_THE_CURRENT_SHIFT, Constants.SIMPLE_MODE))
+        mutableStateOf(
+            listOf(
+                Constants.DATA_OF_THE_CURRENT_SHIFT,
+                Constants.SIMPLE_MODE
+            )
+        )
     }
-    val pagerState = rememberPagerState(initialPage = 1)
-
+    val pagerState = rememberPagerState(pageCount = {
+        items.size
+    })
     Column(
         modifier = Modifier
             .fillMaxWidth()
     ) {
         HorizontalPager(
-            pageCount = items.size,
-            state = pagerState
+            state = pagerState,
         ) { page ->
             when (items[page]) {
                 Constants.DATA_OF_THE_CURRENT_SHIFT -> {
@@ -64,7 +69,11 @@ fun PrimaryViewPagerContent() {
         ) {
             repeat(items.size) { iteration ->
                 val color =
-                    if (pagerState.currentPage == iteration) Black else Black.copy(alpha = 0.4f)
+                    if (pagerState.currentPage == iteration) {
+                        Black
+                    } else {
+                        Black.copy(alpha = 0.4f)
+                    }
                 Box(
                     modifier = Modifier
                         .padding(4.dp)

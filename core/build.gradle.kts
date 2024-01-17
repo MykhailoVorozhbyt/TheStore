@@ -1,5 +1,6 @@
 import extensions.CORE_THEME
 import extensions.addCompose
+import extensions.addDefaultLib
 import extensions.addHiltDi
 import extensions.addRoomDi
 
@@ -49,26 +50,18 @@ android {
 }
 
 dependencies {
-
-    implementation(Library.Core.coreKtx)
-    implementation(Library.Core.appcompat)
-    implementation(Library.Material.googleMaterial)
-    testImplementation(Library.Tests.junit)
-    androidTestImplementation(Library.Tests.testExtJunit)
-    androidTestImplementation(Library.Tests.espressoCore)
+    //coreKtx - appcompat - googleMaterial
+    addDefaultLib()
+    //COMPOSE
+    addCompose()
+    //HILT
+    addHiltDi()
+    //ROOM
+    addRoomDi()
 
     implementation(Library.Navigation.navigationCompose)
     implementation(Library.Navigation.accompanistNavigationAnimatio)
     implementation(Library.Gson.gson)
-
-    //COMPOSE
-    addCompose()
-
-    //HILT
-    addHiltDi()
-
-    //ROOM
-    addRoomDi()
 
     CORE_THEME
 }

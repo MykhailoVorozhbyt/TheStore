@@ -1,11 +1,10 @@
 object AppConfig {
     const val appName = "TheStore"
     const val namespace = "the.store"
-    const val compileSdk = 33
+    const val compileSdk = 34
     const val applicationId = "the.store"
     const val minSdk = 23
-    const val minSdk26 = 23
-    const val targetSdk = 33
+    const val targetSdk = 34
     const val versionCode = 1
 
     const val versionMajor = 1

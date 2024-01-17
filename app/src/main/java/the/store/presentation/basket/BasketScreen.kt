@@ -8,7 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.example.core.ui.widget.TheStoreOnBackToolbar
+import com.example.core.ui.widget.TheStoreOnBackCenterAlignedTopAppBar
 import com.example.theme.R
 
 @Composable
@@ -17,7 +17,7 @@ fun BasketScreen(navController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        TheStoreOnBackToolbar(
+        TheStoreOnBackCenterAlignedTopAppBar(
             R.string.basket,
             pressOnBack = { navController.popBackStack() }
         )

@@ -5,9 +5,10 @@ import com.example.core.base.states.FieldErrorState
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class RegistrationErrorState(
+data class WorkerErrorState(
     val nameErrorState: FieldErrorState = FieldErrorState(),
     val surnameErrorState: FieldErrorState = FieldErrorState(),
     val phoneErrorState: FieldErrorState = FieldErrorState(),
-    val passwordErrorState: FieldErrorState = FieldErrorState()
+    val passwordErrorState: FieldErrorState = FieldErrorState(),
+    val emailAddressErrorState: FieldErrorState = FieldErrorState(),
 ): Parcelable

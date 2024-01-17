@@ -3,24 +3,20 @@ package the.store.presentation.main
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.core.navigation.base.BottomBarScreen
-import com.example.theme.R
+import com.example.theme.TheStoreColors
+import com.example.theme.whiteOrBlackColor
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import the.store.navigation.BottomNavGraph
-import the.store.utils.extensions.AddItem
+import the.store.utils.extensions.AddNavigationBarItem
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -34,24 +30,6 @@ fun MainScreen(navController: NavHostController = rememberAnimatedNavController(
             BottomNavGraph(navController)
         }
     }
-}
-
-@Composable
-fun TopBar() {
-    TopAppBar(
-        title = {
-            Text(
-                text = stringResource(R.string.app_name),
-                fontSize = 18.sp,
-                color = Color.White
-            )
-        },
-        backgroundColor = colorResource(id = R.color.black),
-        contentColor = Color.White,
-        actions = {
-
-        }
-    )
 }
 
 @Composable
@@ -76,9 +54,11 @@ fun BottomBar(navController: NavHostController) {
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        BottomNavigation {
+        NavigationBar(
+            containerColor = TheStoreColors.whiteOrBlackColor,
+        ) {
             screens.forEach { screen ->
-                AddItem(
+                AddNavigationBarItem(
                     screen = screen,
                     currentDestination = currentDestination,
                     navController = navController

@@ -5,29 +5,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import com.example.core.base.states.BaseViewState
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.extensions.modifiers.cast
-import the.store.presentation.workers.models.WorkersUiEvent
 import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.views.WorkersScreenBody
 import the.store.presentation.workers.views.WorkersScreenContent
 
 @Composable
 fun WorkersScreen(
-    viewModel: WorkersViewModel = hiltViewModel(),
-    navController: NavHostController
+    uiState: BaseViewState<*>,
+    initUi: () -> Unit,
+    createWorker: () -> Unit,
+    searchText: (String) -> Unit,
+    workerClick: (Long) -> Unit,
+    refreshAction: () -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
-    WorkersScreenBody {
+    WorkersScreenBody(
+        {
+            createWorker.invoke()
+        }
+    ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -36,16 +37,10 @@ fun WorkersScreen(
                 is BaseViewState.Data -> {
                     val currentState = uiState.cast<BaseViewState.Data<WorkersUiState>>().value
                     WorkersScreenContent(
-                        currentState,
-                        { text ->
-                            viewModel.onTriggerEvent(
-                                WorkersUiEvent.InputValueChanged(
-                                    text
-                                )
-                            )
-                        }, { workerId ->
-
-                        }
+                        uiState = currentState,
+                        searchText = { searchText.invoke(it) },
+                        workerClick = { workerClick.invoke(it) },
+                        refreshAction = { refreshAction.invoke() },
                     )
                 }
 
@@ -54,14 +49,14 @@ fun WorkersScreen(
                 is BaseViewState.Error -> ErrorView(
                     e = uiState.cast<BaseViewState.Error>().throwable,
                     action = {
-                        viewModel.onTriggerEvent(WorkersUiEvent.InitUiScreen)
+                        initUi.invoke()
                     }
                 )
             }
         }
     }
-    LaunchedEffect(key1 = viewModel) {
-        viewModel.onTriggerEvent(WorkersUiEvent.InitUiScreen)
+    LaunchedEffect(key1 = true) {
+        initUi.invoke()
     }
 
 }

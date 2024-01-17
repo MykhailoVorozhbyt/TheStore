@@ -36,7 +36,6 @@ class MoreScreenBuilder(
     private fun buildProfileButton(): BaseMoreScreenItemDto {
         return MoreScreenButtonDto(
             icon = R.drawable.ic_person,
-            iconColor = R.color.black,
             clickAction = MoreScreenClickAction.UserProfileClick,
             text = context.getString(R.string.profile),
             textStyle = null,
@@ -54,7 +53,6 @@ class MoreScreenBuilder(
     private fun buildCopyTheDeviceIdButton(): BaseMoreScreenItemDto {
         return MoreScreenButtonDto(
             icon = androidx.appcompat.R.drawable.abc_ic_menu_copy_mtrl_am_alpha,
-            iconColor = R.color.black,
             clickAction = MoreScreenClickAction.CopyTheDeviceIdClick,
             text = context.getString(R.string.copy_the_device_id),
             textStyle = null,

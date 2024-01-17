@@ -19,6 +19,7 @@
     <string name="login_error_msg_empty_password">Please enter your password</string>
     <string name="login_error_msg_empty_name">Please enter your name</string>
     <string name="login_error_msg_empty_surname">Please enter your surname</string>
+    <string name="login_error_msg_empty_email">Please enter your surname email</string>
     <string name="password_length_must_be_more_than_4_characters">Password length must be more than 4 characters</string>
 
     <!--Registration-->
@@ -26,7 +27,7 @@
     <string name="register">Register</string>
     <string name="input_name">Input name</string>
     <string name="input_surname">Input surname</string>
-    <string name="Name">Name</string>
+    <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="sign_up">Sign up</string>
 
@@ -59,7 +60,17 @@
     <string name="copy_the_device_id">Copy Device ID</string>
     <string name="version_with_value">Version: %s</string>
     <!--Workers Screen-->
-    <string name="input_worker_name">Input worker name</string>
-    <string name="worker_name">Worker name</string>
+    <string name="password">Password</string>
+    <string name="worker">Worker</string>
+    <string name="input_email_address">Input email address</string>
+    <string name="email_address">Email address</string>
+    <string name="invalidate_email_address">Email address</string>
+    <string name="phone">Phone</string>
+    <string name="add_photo">Add photo</string>
+    <string name="employee_created_successfully">Employee created successfully</string>
+    <string name="employee_data_updated_successfully">Employee data updated successfully</string>
+    <string name="empty_list">Empty list</string>
+    <string name="permission_was_denied">Permission was denied</string>
+    <string name="app_needs_access_to_photo">TheStore needs access to photo. Please grant access on the Settings screen.</string>
 
 </resources>

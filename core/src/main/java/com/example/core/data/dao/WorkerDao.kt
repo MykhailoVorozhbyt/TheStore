@@ -4,25 +4,32 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.core.domain.models.db_entity.WorkerEntity
+import androidx.room.Update
+import com.example.core.domain.db_entity.WorkerDbEntity
 
 @Dao
 interface WorkerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorker(worker: WorkerEntity): Long
+    suspend fun insertWorker(worker: WorkerDbEntity): Long
 
-    @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :password AND ${WorkerEntity.COLUMN_PHONE} = :phone")
+    @Update
+    suspend fun updateWorker(worker: WorkerDbEntity)
+
+    @Query(GET_WORKERS_BY_PHONE_AND_PASSWORD)
     suspend fun getWorkerByPhoneAndPassword(
         phone: String, password: String
-    ): WorkerEntity?
+    ): WorkerDbEntity?
 
-    @Query("SELECT * FROM ${WorkerEntity.TABLE_NAME} WHERE ${WorkerEntity.COLUMN_PASSWORD} = :id")
+    @Query(GET_WORKERS_BY_ID)
     suspend fun getWorkerById(
         id: Long
-    ): WorkerEntity?
+    ): WorkerDbEntity?
 
-    @Query(GET_WORKERS_BY_NAME)
-    suspend fun getWorkersByName(name: String): List<WorkerEntity>
+    @Query(GET_WORKERS_BY_CHARACTER)
+    suspend fun getWorkersByName(character: String): List<WorkerDbEntity>
+
+    @Query(GET_WORKERS)
+    suspend fun getWorkers(): List<WorkerDbEntity>
 
 }

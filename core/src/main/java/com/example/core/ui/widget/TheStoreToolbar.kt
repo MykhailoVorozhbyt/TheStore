@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -24,21 +27,18 @@ import com.example.theme.whiteOrBlackColor
 @Preview
 @Composable
 fun TheStoreToolbarPreview() {
-    TheStoreOnBackToolbar(titleResId = R.string.app_name) {}
+    TheStoreOnBackCenterAlignedTopAppBar(titleResId = R.string.app_name) {}
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TheStoreOnBackToolbar(
+fun TheStoreOnBackCenterAlignedTopAppBar(
     @StringRes titleResId: Int,
     pressOnBack: () -> Unit
 ) {
-    TopAppBar(
+    CenterAlignedTopAppBar(
         title = {
-            Text(
-                stringResource(titleResId),
-                textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth(),
-            )
+            Text(stringResource(titleResId))
         },
         navigationIcon = {
             Icon(
@@ -50,7 +50,64 @@ fun TheStoreOnBackToolbar(
                     .clickable { pressOnBack.invoke() }
             )
         },
-        backgroundColor = TheStoreColors.whiteOrBlackColor,
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = TheStoreColors.whiteOrBlackColor
+        ),
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Preview
+@Composable
+fun TheStoreOnActionToolbarPreview() {
+    TheStoreOnActionToolbar(
+        titleResId = R.string.worker,
+        pressOnBack = { },
+        pressEditCreate = { }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TheStoreOnActionToolbar(
+    @StringRes titleResId: Int,
+    pressOnBack: () -> Unit,
+    pressEditCreate: () -> Unit,
+) {
+    val bgColor = TheStoreColors.whiteOrBlackColor
+    val itemsColor = TheStoreColors.blackOrWhiteColor
+    CenterAlignedTopAppBar(
+        title = {
+            Text(
+                stringResource(titleResId),
+                textAlign = TextAlign.Center,
+                color = itemsColor,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        },
+        navigationIcon = {
+            Icon(
+                rememberVectorPainter(Icons.Filled.ArrowBack),
+                contentDescription = null,
+                tint = itemsColor,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { pressOnBack.invoke() }
+            )
+        },
+        actions = {
+            Icon(
+                rememberVectorPainter(Icons.Filled.Check),
+                contentDescription = null,
+                tint = itemsColor,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .clickable { pressEditCreate.invoke() }
+            )
+        },
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = bgColor
+        ),
         modifier = Modifier.fillMaxWidth()
     )
 }
