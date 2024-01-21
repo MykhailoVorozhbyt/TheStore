@@ -16,6 +16,8 @@ import com.example.core.navigation.base.BottomBarScreen
 import the.store.presentation.more.MoreScreen
 import the.store.presentation.primary.PrimaryScreen
 import the.store.presentation.products.ProductsScreen
+import the.store.presentation.products.ProductsViewModel
+import the.store.presentation.products.models.ProductsUiEvent
 import the.store.presentation.workers.WorkersScreen
 import the.store.presentation.workers.WorkersViewModel
 import the.store.presentation.workers.create_edit_worker.CreateEditWorkerScreen
@@ -32,7 +34,26 @@ fun BottomNavGraph(navController: NavHostController) {
             PrimaryScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Products.route) {
-            ProductsScreen(navController = navController)
+            val viewModel = hiltViewModel<ProductsViewModel>()
+            val uiState by viewModel.uiState.collectAsState()
+            ProductsScreen(
+                uiState,
+                initUi = {
+                    viewModel.onTriggerEvent(ProductsUiEvent.InitUiScreen)
+                },
+                createProduct = {
+//                    viewModel.onTriggerEvent(ProductsUiEvent.)
+                },
+                searchText = {
+                    viewModel.onTriggerEvent(ProductsUiEvent.InputValueChanged(it))
+                },
+                productClick = {
+//                    viewModel.onTriggerEvent(ProductsUiEvent.InitUiScreen)
+                },
+                refreshAction = {
+                    viewModel.onTriggerEvent(ProductsUiEvent.RefreshList)
+                },
+            )
         }
 
         basketNavGraph(navController = navController)

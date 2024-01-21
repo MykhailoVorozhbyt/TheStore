@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.utils.elvis
-import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
@@ -86,7 +86,7 @@ fun InputTextField(
         TextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
-            shape = BaseRoundedCornerShape(),
+            shape = baseRoundedCornerShape(),
             textStyle = TextStyle(
                 color = TheStoreColors.blackOrWhiteColor
             ),

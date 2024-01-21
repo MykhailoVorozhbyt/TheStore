@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -49,7 +48,7 @@ import coil.compose.AsyncImagePainter
 import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
-import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
@@ -62,6 +61,7 @@ import com.example.theme.whiteOrBlackColor
 import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.models.workersList
 import the.store.utils.imageRequestBuilder
+import the.store.utils.itemRoundedCorner
 
 
 @Preview(
@@ -76,10 +76,7 @@ import the.store.utils.imageRequestBuilder
 )
 @Composable
 fun WorkersScreenBodyPreview() {
-    WorkersScreenBody(
-        {
-        }
-    ) {
+    AddTopAppBar(stringResource(R.string.workers), {}) {
         WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {}, {})
     }
 }
@@ -141,8 +138,9 @@ fun WorkersScreenContent(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkersScreenBody(
-    addWorker: () -> Unit,
+fun AddTopAppBar(
+    title: String,
+    addClick: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -150,7 +148,7 @@ fun WorkersScreenBody(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        stringResource(R.string.workers),
+                        title,
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth(),
                         color = TheStoreColors.blackOrWhiteColor,
@@ -168,7 +166,7 @@ fun WorkersScreenBody(
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
-                                addWorker.invoke()
+                                addClick.invoke()
                             }
 
                     )
@@ -244,10 +242,10 @@ fun WorkerItem(
                         .border(
                             width = 2.dp,
                             color = TheStoreColors.blackOrWhiteColor,
-                            shape = BaseRoundedCornerShape()
+                            shape = baseRoundedCornerShape()
                         )
                         .defaultListIconSize()
-                        .clip(BaseRoundedCornerShape())
+                        .clip(baseRoundedCornerShape())
                 )
             }
 
@@ -274,24 +272,5 @@ fun WorkerItem(
             tint = TheStoreColors.blackOrWhiteColor,
             modifier = Modifier
         )
-    }
-}
-
-
-private fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
-    isFirsItem && isLastITem -> {
-        RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
-    }
-
-    isFirsItem -> {
-        RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
-    }
-
-    isLastITem -> {
-        RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
-    }
-
-    else -> {
-        RoundedCornerShape(0.dp, 0.dp, 0.dp, 0.dp)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.core.data.dao
+package com.example.core.data.dao.worker
 
 import com.example.core.data.db.TheStoreDatabase
 import com.example.core.domain.db_entity.WorkerDbEntity

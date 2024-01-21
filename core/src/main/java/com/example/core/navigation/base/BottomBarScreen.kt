@@ -17,7 +17,7 @@ sealed class BottomBarScreen(
 
     object Products : BottomBarScreen(
         route = Screen.Products.route,
-        title = "Goods",
+        title = "Products",
         icon = com.example.theme.R.drawable.ic_list
     )
 
@@ -30,7 +30,7 @@ sealed class BottomBarScreen(
     object Workers : BottomBarScreen(
         route = Screen.Workers.route,
         title = "Workers",
-        icon = com.example.theme.R.drawable.ic_person
+        icon = com.example.theme.R.drawable.ic_persons
     )
 
     object More : BottomBarScreen(

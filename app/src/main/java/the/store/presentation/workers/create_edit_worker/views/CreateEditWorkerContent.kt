@@ -38,7 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.ui.custom_composable_view.InputTextField
-import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultIconSize
 import com.example.core.utils.extensions.modifiers.defaultPadding
@@ -125,7 +125,7 @@ fun CreateEditWorkerContent(
                 .fillMaxWidth()
                 .defaultPadding()
                 .height(120.dp)
-                .background(TheStoreColors.whiteOrBlackColor, BaseRoundedCornerShape()),
+                .background(TheStoreColors.whiteOrBlackColor, baseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
             val photoUri = uiState.photoUri
@@ -155,9 +155,9 @@ fun CreateEditWorkerContent(
                         .border(
                             width = 2.dp,
                             color = TheStoreColors.whiteOrBlackColor,
-                            shape = BaseRoundedCornerShape()
+                            shape = baseRoundedCornerShape()
                         )
-                        .clip(BaseRoundedCornerShape()),
+                        .clip(baseRoundedCornerShape()),
                     contentDescription = null
                 )
             }

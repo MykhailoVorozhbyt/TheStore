@@ -1,6 +1,6 @@
 package com.example.core.data.repository
 
-import com.example.core.data.dao.WorkerDao
+import com.example.core.data.dao.worker.WorkerDao
 import com.example.core.domain.db_entity.WorkerDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
