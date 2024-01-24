@@ -1,7 +1,9 @@
 package the.store.presentation.products.models
 
+import androidx.compose.runtime.Stable
 import com.example.core.domain.entities.ProductEntity
 
+@Stable
 data class ProductsUiState(
     val isRefreshing: Boolean = false,
     val searchedName: String = "",

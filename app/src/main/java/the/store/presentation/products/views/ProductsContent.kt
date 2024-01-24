@@ -10,11 +10,21 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +45,6 @@ import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
-import com.example.core.utils.extensions.modifiers.smallTopPadding
 import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
@@ -63,6 +73,7 @@ fun WorkersScreenBodyPreview() {
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProductsContent(
     dataState: ProductsUiState,
@@ -71,6 +82,8 @@ fun ProductsContent(
     refreshAction: () -> Unit,
 ) {
     val context: Context = LocalContext.current
+    val pullRefreshState =
+        rememberPullRefreshState(dataState.isRefreshing, { refreshAction.invoke() })
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,22 +102,29 @@ fun ProductsContent(
         if (dataState.productList.isEmpty()) {
             EmptyListView()
         } else {
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(count = 3),
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(horizontal = 10.dp),
-                horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
-                verticalItemSpacing = 4.dp
-            ) {
-                itemsIndexed(dataState.productList) { index, item ->
-                    ProductItem(
-                        context,
-                        item
-                    ) {
-                        productClick.invoke(it)
+            Box(Modifier.pullRefresh(pullRefreshState)) {
+                LazyVerticalStaggeredGrid(
+                    columns = StaggeredGridCells.Fixed(count = 3),
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+                    verticalItemSpacing = 4.dp
+                ) {
+                    itemsIndexed(dataState.productList) { index, item ->
+                        ProductItem(
+                            context,
+                            item
+                        ) {
+                            productClick.invoke(it)
+                        }
                     }
                 }
+                PullRefreshIndicator(
+                    dataState.isRefreshing,
+                    pullRefreshState,
+                    Modifier.align(Alignment.TopCenter)
+                )
             }
         }
     }
@@ -149,8 +169,9 @@ fun ProductItem(
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
+                            .fillMaxWidth()
                             .border(
-                                width = 2.dp,
+                                width = 1.dp,
                                 color = TheStoreColors.blackOrWhiteColor,
                                 shape = baseRoundedCornerShape()
                             )
@@ -159,10 +180,35 @@ fun ProductItem(
                     )
                 }
             }
+            val topPadding = if (photoUri.isNullOrBlank()) 0.dp else 6.dp
             Text(
                 text = product.name,
                 color = TheStoreColors.blackOrWhiteColor,
+                modifier = Modifier.padding(top = topPadding)
             )
+
+            IconButton(
+                onClick = {
+                    productClick.invoke(product.id)
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 6.dp)
+                    .background(TheStoreColors.blackOrWhiteColor, CircleShape)
+                    .size(25.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = stringResource(id = com.example.theme.R.string.more),
+                        color = TheStoreColors.whiteOrBlackColor
+                    )
+                    Icon(
+                        painter = painterResource(com.example.theme.R.drawable.ic_navigate_next),
+                        contentDescription = null,
+                        tint = TheStoreColors.whiteOrBlackColor
+                    )
+                }
+            }
         }
     }
 }

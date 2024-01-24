@@ -7,7 +7,6 @@ import com.example.core.domain.mapper.DomainMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import the.store.presentation.products.models.ProductsUiEvent
 import the.store.presentation.products.models.ProductsUiState
-import the.store.presentation.products.models.productList
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,8 +31,8 @@ class ProductsViewModel @Inject constructor(
         startLoading()
         successLaunch {
             val workers = repository.getAllProducts()
-//            setStateData(ProductsUiState(productList = mapper.mapToProductsEntity(workers)))
-            setStateData(ProductsUiState(productList = productList))
+            setStateData(ProductsUiState(productList = mapper.mapToProductsEntity(workers)))
+//            setStateData(ProductsUiState(productList = productList))
         }
     }
 
@@ -41,10 +40,14 @@ class ProductsViewModel @Inject constructor(
         startLoading()
         successLaunch {
             val workers = repository.getAllProductsByName(event.inputValue)
+            setStateData(ProductsUiState(productList = mapper.mapToProductsEntity(workers)))
         }
     }
 
     private fun triggerEvent(event: ProductsUiEvent.RefreshList) {
-
+        successLaunch {
+            val workers = repository.getAllProducts()
+            setStateData(ProductsUiState(productList = mapper.mapToProductsEntity(workers)))
+        }
     }
 }

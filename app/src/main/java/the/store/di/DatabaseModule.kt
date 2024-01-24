@@ -11,6 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+
 @InstallIn(SingletonComponent::class)
 @Module
 class DatabaseModule {
@@ -22,7 +23,8 @@ class DatabaseModule {
             appContext,
             TheStoreDatabase::class.java,
             Constants.THE_STORE_APP_DATABASE
-        ).build()
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
-
 }
