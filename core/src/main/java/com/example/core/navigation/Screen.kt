@@ -24,7 +24,14 @@ sealed class Screen(route: String) : BaseScreen(route) {
     }
 
     object Primary : BaseScreen("primary_screen")
-    object Products : BaseScreen("goods_screen")
+
+    object Products : BaseScreen("products_screen")
+    object Product : BaseScreen("product_screen/{${Constants.PRODUCT_ID}}") {
+        fun setProductId(id: Long): String {
+            return "product_screen/${id}"
+        }
+    }
+
     object Basket : BaseScreen("basket_screen")
 
     object Workers : BaseScreen("workers_screen")

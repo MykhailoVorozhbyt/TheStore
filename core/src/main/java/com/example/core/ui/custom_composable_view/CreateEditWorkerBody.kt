@@ -1,5 +1,6 @@
-package the.store.presentation.workers.create_edit_worker.views
+package com.example.core.ui.custom_composable_view
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -8,22 +9,23 @@ import com.example.core.ui.widget.TheStoreOnActionToolbar
 
 @Preview
 @Composable
-fun CreateEditWorkerBodyPreview() {
-    CreateEditWorkerBody({}, {}) {}
+fun CreateEditContentBodyPreview() {
+    CreateEditContentBody(com.example.theme.R.string.worker,{}, {}) {}
 }
 
 @Composable
-fun CreateEditWorkerBody(
+fun CreateEditContentBody(
+    @StringRes titleResId: Int,
     pressOnBack: () -> Unit = {},
-    pressEditCreate: () -> Unit,
+    editCreateClick: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
         topBar = {
             TheStoreOnActionToolbar(
-                com.example.theme.R.string.worker,
+                titleResId,
                 pressOnBack = pressOnBack,
-                pressEditCreate = pressEditCreate
+                pressEditCreate = editCreateClick
             )
         },
         content = { pageContent.invoke(it) }

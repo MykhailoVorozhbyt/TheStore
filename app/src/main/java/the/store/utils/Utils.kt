@@ -53,3 +53,5 @@ fun imageRequestBuilder(context: Context, uri: Uri, @DrawableRes placeholderResI
             .placeholder(placeholderResId)
             .build()
     )
+
+fun Double.format(digits: Int = 3) = "%.${digits}f".format(this).toDouble()

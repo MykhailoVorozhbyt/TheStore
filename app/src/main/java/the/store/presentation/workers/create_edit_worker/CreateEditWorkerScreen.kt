@@ -19,7 +19,7 @@ import com.example.core.utils.extensions.modifiers.cast
 import com.example.core.utils.helpers.showMessage
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiEvent
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
-import the.store.presentation.workers.create_edit_worker.views.CreateEditWorkerBody
+import com.example.core.ui.custom_composable_view.CreateEditContentBody
 import the.store.presentation.workers.create_edit_worker.views.CreateEditWorkerContent
 
 @Preview
@@ -37,9 +37,10 @@ fun CreateEditWorkerScreen(
     val uiState by viewModel.uiState.collectAsState()
     val context: Context = LocalContext.current
 
-    CreateEditWorkerBody(
+    CreateEditContentBody(
+        com.example.theme.R.string.worker,
         pressOnBack = { navController.popBackStack() },
-        pressEditCreate = {
+        editCreateClick = {
             viewModel.onTriggerEvent(CreateEditWorkerUiEvent.SubmitCreateEditClick)
         }
     ) {

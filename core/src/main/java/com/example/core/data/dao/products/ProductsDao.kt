@@ -10,11 +10,16 @@ import com.example.core.domain.db_entity.ProductDbEntity
 interface ProductsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWorker(worker: ProductDbEntity): Long
+    suspend fun insertProduct(worker: ProductDbEntity): Long
+
+    @Query(GET_PRODUCT_BY_ID)
+    suspend fun getProductById(id: Long): ProductDbEntity?
 
     @Query(GET_ALL_PRODUCTS)
     suspend fun getAllProducts(): List<ProductDbEntity>
 
     @Query(GET_PRODUCTS_BY_NAME)
     suspend fun getAllProductsByName(name: String): List<ProductDbEntity>
+
+
 }

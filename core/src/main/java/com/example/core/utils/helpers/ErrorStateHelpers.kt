@@ -69,3 +69,12 @@ val invalidateEmailAddressErrorState = FieldErrorState(
     hasError = true,
     errorStringRes = R.string.invalidate_email_address
 )
+
+/**
+ * PRODUCT PRICE ERROR STATE
+ * */
+
+val invalidatePriceErrorState = FieldErrorState(
+    hasError = true,
+    errorStringRes = R.string.the_price_must_be_greater_than_zero
+)

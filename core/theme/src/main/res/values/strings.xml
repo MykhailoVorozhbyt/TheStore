@@ -75,7 +75,18 @@
     <!--Products Screen-->
     <string name="products">Products</string>
     <string name="product">Product</string>
-
-
-
+    <string name="price">Price</string>
+    <string name="input_price">Input price</string>
+    <string name="measurements">Measurements</string>
+    <string name="select_measurements">Select measurements</string>
+    <string name="the_price_must_be_greater_than_zero">The price must be greater than 0.0</string>
+    <string name="the_price_must_be_greater_than_zero_with_value">The price must be greater than 0.0 %s</string>
+    <string name="product_created_successfully">Product created successfully</string>
+    <string name="product_data_updated_successfully">Product data updated successfully</string>
+    <string name="description">Description</string>
+    <string name="input_description">Input description</string>
+    <string name="barcode">Barcode</string>
+    <string name="input_barcode">Input barcode</string>
+    <string name="select_currency">Select currency</string>
+    <string name="currency">Currency</string>
 </resources>

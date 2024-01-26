@@ -16,10 +16,10 @@ import kotlinx.coroutines.flow.map
 import the.store.presentation.login_to_app.registration.models.RegistrationUiEvent
 import the.store.presentation.login_to_app.registration.models.RegistrationUiState
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
-import the.store.utils.isNameValid
-import the.store.utils.isPasswordValid
-import the.store.utils.isPhoneValid
-import the.store.utils.isSurnameValid
+import the.store.utils.validations.isNameValid
+import the.store.utils.validations.isPasswordValid
+import the.store.utils.validations.isPhoneValid
+import the.store.utils.validations.isSurnameValid
 import javax.inject.Inject
 
 @HiltViewModel

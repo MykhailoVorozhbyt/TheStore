@@ -11,8 +11,12 @@ class ProductsRepositoryImpl @Inject constructor(
     private val workerDao: ProductsDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ProductsRepository {
-    override suspend fun insertWorker(worker: ProductDbEntity): Long = withContext(ioDispatcher) {
-        return@withContext workerDao.insertWorker(worker)
+    override suspend fun insertProduct(worker: ProductDbEntity): Long = withContext(ioDispatcher) {
+        return@withContext workerDao.insertProduct(worker)
+    }
+
+    override suspend fun getProductById(id: Long): ProductDbEntity? = withContext(ioDispatcher) {
+        return@withContext workerDao.getProductById(id)
     }
 
     override suspend fun getAllProducts(): List<ProductDbEntity> = withContext(ioDispatcher) {

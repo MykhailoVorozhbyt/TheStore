@@ -9,3 +9,6 @@ const val GET_ALL_PRODUCTS =
 
 const val GET_PRODUCTS_BY_NAME =
     "SELECT * FROM ${ProductDbEntity.TABLE_NAME} WHERE ${ProductDbEntity.COLUMN_NAME} = :name $SORT_BY_CREATED_AT"
+
+const val GET_PRODUCT_BY_ID =
+    "SELECT * FROM ${ProductDbEntity.TABLE_NAME}  WHERE ${ProductDbEntity.COLUMN_ID} = :id"

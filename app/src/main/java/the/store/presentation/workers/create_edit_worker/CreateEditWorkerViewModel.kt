@@ -15,12 +15,12 @@ import the.store.domain.mapper.mapToCreateEditWorkerUiState
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiEvent
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
-import the.store.utils.isNameValid
-import the.store.utils.isPasswordValid
-import the.store.utils.isPhoneValid
-import the.store.utils.isSurnameValid
-import the.store.utils.isValidEmail
-import the.store.utils.workerValidateInputs
+import the.store.utils.validations.isNameValid
+import the.store.utils.validations.isPasswordValid
+import the.store.utils.validations.isPhoneValid
+import the.store.utils.validations.isSurnameValid
+import the.store.utils.validations.isValidEmail
+import the.store.utils.validations.workerValidateInputs
 import javax.inject.Inject
 
 @HiltViewModel
@@ -156,6 +156,7 @@ class CreateEditWorkerViewModel @Inject constructor(
                     uiState.filterIsInstance<BaseViewState.Data<CreateEditWorkerUiState>>()
                         .map { it.value }.first()
                 val newModel = castState.mapToWorkerEntity()
+
 
                 if (castState.id == 0L) {
                     workerRepository.insertWorker(newModel)

@@ -6,16 +6,16 @@ import com.example.core.domain.db_entity.WorkerDbEntity
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 
 data class CreateEditWorkerUiState(
-    var id: Long = 0,
-    var photoUri: Uri? = null,
-    var name: String = "",
-    var surname: String = "",
-    var phone: String = "",
-    var password: String = "",
-    var emailAddress: String = "",
-    var inputDataErrorState: WorkerErrorState = WorkerErrorState(),
+    val id: Long = 0,
+    val photoUri: Uri? = null,
+    val name: String = "",
+    val surname: String = "",
+    val phone: String = "",
+    val password: String = "",
+    val emailAddress: String = "",
+    val inputDataErrorState: WorkerErrorState = WorkerErrorState(),
     @StringRes
-    var userDoneNotification: Int = 0,
+    val userDoneNotification: Int = 0,
 
     ) {
     fun mapToWorkerEntity(): WorkerDbEntity {
@@ -31,3 +31,4 @@ data class CreateEditWorkerUiState(
         )
     }
 }
+

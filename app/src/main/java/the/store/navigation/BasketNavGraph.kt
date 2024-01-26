@@ -18,5 +18,4 @@ fun NavGraphBuilder.basketNavGraph(navController: NavHostController) {
             BasketScreen(navController = navController)
         }
     }
-
 }

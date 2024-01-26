@@ -7,8 +7,11 @@ import javax.inject.Inject
 class ProductsDaoImpl @Inject constructor(
     private val db: TheStoreDatabase
 ) : ProductsDao {
-    override suspend fun insertWorker(worker: ProductDbEntity): Long =
-        db.productsDao().insertWorker(worker)
+    override suspend fun insertProduct(worker: ProductDbEntity): Long =
+        db.productsDao().insertProduct(worker)
+
+    override suspend fun getProductById(id: Long): ProductDbEntity? =
+        db.productsDao().getProductById(id)
 
     override suspend fun getAllProducts(): List<ProductDbEntity> =
         db.productsDao().getAllProducts()

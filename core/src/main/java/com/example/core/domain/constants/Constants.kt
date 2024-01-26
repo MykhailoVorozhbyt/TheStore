@@ -16,4 +16,8 @@ object Constants {
     //WORKER
     const val CREATE_WORKER = "CREATE_WORKER"
     const val WORKER_ID = "WORKER_ID"
+
+    //PRODUCTS
+    const val PRODUCT_ID = "PRODUCT_ID"
+
 }
