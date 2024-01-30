@@ -89,4 +89,18 @@
     <string name="input_barcode">Input barcode</string>
     <string name="select_currency">Select currency</string>
     <string name="currency">Currency</string>
+
+    <!--ProductInputChipEntity-->
+    <string name="kilogram">Kilogram</string>
+    <string name="liters">Liters</string>
+    <string name="milliliters">Milliliters</string>
+    <string name="grams">Grams</string>
+    <string name="gallons">Gallons</string>
+    <string name="portion">Portion</string>
+    <string name="single_item">Single item</string>
+    <string name="uah">UAH</string>
+    <string name="usd">USD</string>
+    <string name="euro">Euro </string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="franc">Franc</string>
 </resources>

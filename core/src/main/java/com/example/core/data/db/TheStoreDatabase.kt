@@ -9,7 +9,7 @@ import com.example.core.domain.db_entity.WorkerDbEntity
 
 @Database(
     entities = [WorkerDbEntity::class, ProductDbEntity::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class TheStoreDatabase : RoomDatabase() {

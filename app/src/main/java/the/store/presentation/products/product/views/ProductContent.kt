@@ -50,7 +50,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.entities.CurrencyList
-import com.example.core.domain.entities.MeasurementsEntity
 import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductInputChipEntity
 import com.example.core.ui.custom_composable_view.InputTextField
@@ -298,7 +297,7 @@ fun ProductContent(
             items(CurrencyList) { item ->
                 MeasurementsInputChip(item, item.id == selectedCurrencyItem) {
                     selectedCurrencyItem = it
-                    measurementsChanged.invoke(it)
+                    currencyChanged.invoke(it)
                 }
             }
         }
@@ -338,7 +337,7 @@ fun MeasurementsInputChip(
             itemClick.invoke(item.id)
         },
         label = {
-            Text(item.name)
+            Text(stringResource(id = item.textId))
         },
         avatar = {
             if (selectedItem) {
@@ -358,9 +357,6 @@ fun MeasurementsInputChip(
                     )
                 )
             }
-        },
-        trailingIcon = {
-
         },
         colors = InputChipDefaults.inputChipColors(
             labelColor = TheStoreColors.whiteOrBlackColor,
