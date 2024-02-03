@@ -19,6 +19,10 @@ class WorkerRepositoryImpl
     override suspend fun updateWorker(worker: WorkerDbEntity) =
         workerDao.updateWorker(worker)
 
+    override suspend fun deleteEmployerById(id: Long) = withContext(ioDispatcher){
+        workerDao.deleteEmployerById(id)
+    }
+
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String,
         password: String

@@ -19,12 +19,8 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,21 +65,16 @@ fun WorkersScreenBodyPreview() {
         dataState = ProductsUiState(productList = productList),
         searchText = {},
         productClick = {},
-        refreshAction = {},
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ProductsContent(
     dataState: ProductsUiState,
     searchText: (String) -> Unit,
     productClick: (Long) -> Unit,
-    refreshAction: () -> Unit,
 ) {
     val context: Context = LocalContext.current
-    val pullRefreshState =
-        rememberPullRefreshState(dataState.isRefreshing, { refreshAction.invoke() })
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -102,29 +93,22 @@ fun ProductsContent(
         if (dataState.productList.isEmpty()) {
             EmptyListView()
         } else {
-            Box(Modifier.pullRefresh(pullRefreshState)) {
-                LazyVerticalStaggeredGrid(
-                    columns = StaggeredGridCells.Fixed(count = 3),
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentPadding = PaddingValues(horizontal = 10.dp),
-                    horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
-                    verticalItemSpacing = 4.dp
-                ) {
-                    itemsIndexed(dataState.productList) { index, item ->
-                        ProductItem(
-                            context,
-                            item
-                        ) {
-                            productClick.invoke(it)
-                        }
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(count = 3),
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentPadding = PaddingValues(horizontal = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(space = 4.dp),
+                verticalItemSpacing = 4.dp
+            ) {
+                itemsIndexed(dataState.productList) { index, item ->
+                    ProductItem(
+                        context,
+                        item
+                    ) {
+                        productClick.invoke(it)
                     }
                 }
-                PullRefreshIndicator(
-                    dataState.isRefreshing,
-                    pullRefreshState,
-                    Modifier.align(Alignment.TopCenter)
-                )
             }
         }
     }

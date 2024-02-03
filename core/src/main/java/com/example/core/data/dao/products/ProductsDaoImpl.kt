@@ -10,12 +10,18 @@ class ProductsDaoImpl @Inject constructor(
     override suspend fun insertProduct(worker: ProductDbEntity): Long =
         db.productsDao().insertProduct(worker)
 
+    override suspend fun updateProduct(worker: ProductDbEntity) =
+        db.productsDao().updateProduct(worker)
+
     override suspend fun getProductById(id: Long): ProductDbEntity? =
         db.productsDao().getProductById(id)
+
+    override suspend fun deleteProductById(id: Long) =
+        db.productsDao().deleteProductById(id)
 
     override suspend fun getAllProducts(): List<ProductDbEntity> =
         db.productsDao().getAllProducts()
 
-    override suspend fun getAllProductsByName(name: String): List<ProductDbEntity> =
-        db.productsDao().getAllProductsByName(name)
+    override suspend fun getProductsByName(name: String): List<ProductDbEntity> =
+        db.productsDao().getProductsByName(name)
 }

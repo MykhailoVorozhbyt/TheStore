@@ -55,3 +55,7 @@ fun imageRequestBuilder(context: Context, uri: Uri, @DrawableRes placeholderResI
     )
 
 fun Double.format(digits: Int = 3) = "%.${digits}f".format(this).toDouble()
+
+fun String?.toUriOrNull(): Uri? = if (this != null) Uri.parse(this) else null
+
+

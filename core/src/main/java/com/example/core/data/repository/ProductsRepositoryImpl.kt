@@ -15,18 +15,26 @@ class ProductsRepositoryImpl @Inject constructor(
         return@withContext workerDao.insertProduct(worker)
     }
 
+    override suspend fun updateProduct(worker: ProductDbEntity) = withContext(ioDispatcher) {
+        return@withContext workerDao.updateProduct(worker)
+    }
+
     override suspend fun getProductById(id: Long): ProductDbEntity? = withContext(ioDispatcher) {
         return@withContext workerDao.getProductById(id)
+    }
+
+    override suspend fun deleteProductById(id: Long) = withContext(ioDispatcher) {
+        return@withContext workerDao.deleteProductById(id)
     }
 
     override suspend fun getAllProducts(): List<ProductDbEntity> = withContext(ioDispatcher) {
         return@withContext workerDao.getAllProducts()
     }
 
-    override suspend fun getAllProductsByName(name: String): List<ProductDbEntity> {
+    override suspend fun getProductsByName(name: String): List<ProductDbEntity> {
         if (name.isBlank()) {
             return workerDao.getAllProducts()
         }
-        return workerDao.getAllProductsByName(name)
+        return workerDao.getProductsByName(name)
     }
 }

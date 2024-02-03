@@ -13,5 +13,6 @@ sealed class ProductUiEvent {
     data class DescriptionChanged(val description: String) : ProductUiEvent()
     data class BarcodeChanged(val barcode: String) : ProductUiEvent()
 
+    data class  DeleteProductClick(val productId: Long) : ProductUiEvent()
     object SubmitCreateEditClick : ProductUiEvent()
 }

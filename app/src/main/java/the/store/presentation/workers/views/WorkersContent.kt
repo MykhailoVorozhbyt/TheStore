@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -25,9 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
-import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -77,20 +72,16 @@ import the.store.utils.itemRoundedCorner
 @Composable
 fun WorkersScreenBodyPreview() {
     AddTopAppBar(stringResource(R.string.workers), {}) {
-        WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {}, {})
+        WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {})
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WorkersScreenContent(
     uiState: WorkersUiState,
     searchText: (String) -> Unit,
     workerClick: (Long) -> Unit,
-    refreshAction: () -> Unit,
 ) {
-    val pullRefreshState =
-        rememberPullRefreshState(uiState.isRefreshing, { refreshAction.invoke() })
     val context: Context = LocalContext.current
     Column(
         modifier = Modifier
@@ -110,27 +101,20 @@ fun WorkersScreenContent(
         if (uiState.workersList.isEmpty()) {
             EmptyListView()
         } else {
-            Box(Modifier.pullRefresh(pullRefreshState)) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    itemsIndexed(uiState.workersList) { index, item ->
-                        WorkerItem(
-                            context,
-                            item,
-                            index == 0,
-                            index == uiState.workersList.size - 1
-                        ) { id ->
-                            workerClick.invoke(id)
-                        }
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                itemsIndexed(uiState.workersList) { index, item ->
+                    WorkerItem(
+                        context,
+                        item,
+                        index == 0,
+                        index == uiState.workersList.size - 1
+                    ) { id ->
+                        workerClick.invoke(id)
                     }
                 }
-                PullRefreshIndicator(
-                    uiState.isRefreshing,
-                    pullRefreshState,
-                    Modifier.align(Alignment.TopCenter)
-                )
             }
         }
     }

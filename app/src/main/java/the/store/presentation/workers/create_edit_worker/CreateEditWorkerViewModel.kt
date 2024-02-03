@@ -5,13 +5,13 @@ import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
-import com.example.theme.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import the.store.domain.mapper.mapToCreateEditWorkerUiState
+import the.store.domain.mapper.mapToWorkerEntity
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiEvent
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateEditWorkerViewModel @Inject constructor(
-    private val workerRepository: WorkerRepository,
+    private val repository: WorkerRepository,
     private val dispatchers: AppDispatchers,
     @ApplicationContext private val appContext: Context
 ) :
@@ -41,6 +41,7 @@ class CreateEditWorkerViewModel @Inject constructor(
             is CreateEditWorkerUiEvent.EmailAddressChanged -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.InitUiContent -> triggerEvent(eventType)
             is CreateEditWorkerUiEvent.DeletePhotoUri -> triggerEvent(eventType)
+            is CreateEditWorkerUiEvent.DeleteEmployerClick -> triggerEvent(eventType)
         }
     }
 
@@ -132,6 +133,17 @@ class CreateEditWorkerViewModel @Inject constructor(
         }
     }
 
+    private fun triggerEvent(eventType: CreateEditWorkerUiEvent.DeleteEmployerClick) {
+        deleteEmployer(eventType.workerId)
+    }
+
+    private fun deleteEmployer(id: Long) {
+        successLaunch {
+            repository.deleteEmployerById(id)
+            setNewDataState(getState().copy(deleteProduct = true))
+        }
+    }
+
     private fun triggerEvent(event: CreateEditWorkerUiEvent.SubmitCreateEditClick) = safeLaunch {
         val state = getState()
         val validation = workerValidateInputs(
@@ -145,26 +157,20 @@ class CreateEditWorkerViewModel @Inject constructor(
             setNewDataState(getState().copy(inputDataErrorState = validation))
             return@safeLaunch
         }
-//        startLoading()
         createOrUpdateWorker()
     }
 
     private fun createOrUpdateWorker() {
         safeLaunch(dispatchers.io) {
             try {
-                val castState =
-                    uiState.filterIsInstance<BaseViewState.Data<CreateEditWorkerUiState>>()
-                        .map { it.value }.first()
-                val newModel = castState.mapToWorkerEntity()
-
-
-                if (castState.id == 0L) {
-                    workerRepository.insertWorker(newModel)
-                    setNewDataState(castState.copy(userDoneNotification = R.string.employee_created_successfully))
+                val newModel = getState().mapToWorkerEntity()
+                if (newModel.id == 0L) {
+                    repository.insertWorker(newModel)
+                    setNewDataState(getState().copy(actionProduct = true))
                     return@safeLaunch
                 }
-                workerRepository.insertWorker(newModel)
-                setNewDataState(castState.copy(userDoneNotification = R.string.employee_data_updated_successfully))
+                repository.updateWorker(newModel)
+                setNewDataState(getState().copy(actionProduct = true))
             } catch (e: Exception) {
                 handleError(e)
             }
@@ -174,7 +180,7 @@ class CreateEditWorkerViewModel @Inject constructor(
     private fun getWorkerById(id: Long) {
         safeLaunch {
             try {
-                val worker = workerRepository.getWorkerById(id)
+                val worker = repository.getWorkerById(id)
                 if (worker == null) {
                     handleError(Exception("Worker Error"))
                     return@safeLaunch

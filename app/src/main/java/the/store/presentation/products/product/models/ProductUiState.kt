@@ -1,7 +1,6 @@
 package the.store.presentation.products.product.models
 
 import android.net.Uri
-import androidx.annotation.StringRes
 import androidx.compose.runtime.Stable
 
 @Stable
@@ -16,6 +15,6 @@ data class ProductUiState(
     val barcode: String = "",
     val createdAt: Long = 0L,
     var inputDataErrorState: ProductErrorState = ProductErrorState(),
-    @StringRes
-    val userDoneNotification: Int = 0,
+    val actionProduct: Boolean = false,
+    val deleteProduct: Boolean = false
 )

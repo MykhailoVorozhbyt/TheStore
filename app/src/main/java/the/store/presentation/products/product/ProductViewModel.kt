@@ -35,6 +35,7 @@ class ProductViewModel @Inject constructor(
             is ProductUiEvent.PriceChanged -> triggerEvent(eventType)
             is ProductUiEvent.DescriptionChanged -> triggerEvent(eventType)
             is ProductUiEvent.BarcodeChanged -> triggerEvent(eventType)
+            is ProductUiEvent.DeleteProductClick -> triggerEvent(eventType)
             is ProductUiEvent.SubmitCreateEditClick -> triggerEvent(eventType)
         }
     }
@@ -138,6 +139,17 @@ class ProductViewModel @Inject constructor(
         }
     }
 
+    private fun triggerEvent(eventType: ProductUiEvent.DeleteProductClick) {
+        deleteProduct(eventType.productId)
+    }
+
+    private fun deleteProduct(id: Long) {
+        successLaunch {
+            repository.deleteProductById(id)
+            setNewDataState(getState().copy(deleteProduct = true))
+        }
+    }
+
     private fun triggerEvent(eventType: ProductUiEvent.SubmitCreateEditClick) {
         successLaunch {
             val state = getState()
@@ -160,11 +172,11 @@ class ProductViewModel @Inject constructor(
                     .copy(createdAt = Calendar.getInstance().timeInMillis)
                 if (getState().id == 0L) {
                     repository.insertProduct(newModel)
-                    setNewDataState(getState().copy(userDoneNotification = com.example.theme.R.string.product_created_successfully))
+                    setNewDataState(getState().copy(actionProduct = true))
                     return@successLaunch
                 }
-                repository.insertProduct(newModel)
-                setNewDataState(getState().copy(userDoneNotification = com.example.theme.R.string.product_data_updated_successfully))
+                repository.updateProduct(newModel)
+                setNewDataState(getState().copy(actionProduct = true))
             } catch (e: Exception) {
                 handleError(e)
             }

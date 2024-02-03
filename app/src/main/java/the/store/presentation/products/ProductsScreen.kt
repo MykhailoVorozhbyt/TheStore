@@ -18,8 +18,7 @@ fun ProductsScreen(
     initUi: () -> Unit,
     createProduct: () -> Unit,
     searchText: (String) -> Unit,
-    productClick: (Long) -> Unit,
-    refreshAction: () -> Unit,
+    productClick: (Long) -> Unit
 ) {
     AddTopAppBar(
         title = stringResource(
@@ -35,8 +34,7 @@ fun ProductsScreen(
                 ProductsContent(
                     currentState,
                     searchText = searchText,
-                    productClick = productClick,
-                    refreshAction = refreshAction,
+                    productClick = productClick
                 )
             }
 

@@ -72,6 +72,9 @@
     <string name="empty_list">Empty list</string>
     <string name="permission_was_denied">Permission was denied</string>
     <string name="app_needs_access_to_photo">TheStore needs access to photo. Please grant access on the Settings screen.</string>
+    <string name="employer_deleted_successfully">Employer deleted successfully</string>
+    <string name="delete_employer">Delete employer</string>
+
     <!--Products Screen-->
     <string name="products">Products</string>
     <string name="product">Product</string>
@@ -89,6 +92,8 @@
     <string name="input_barcode">Input barcode</string>
     <string name="select_currency">Select currency</string>
     <string name="currency">Currency</string>
+    <string name="delete_product">Delete product</string>
+    <string name="product_deleted_successfully">Product deleted successfully</string>
 
     <!--ProductInputChipEntity-->
     <string name="kilogram">Kilogram</string>

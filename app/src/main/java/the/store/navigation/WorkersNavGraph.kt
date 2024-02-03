@@ -47,12 +47,7 @@ fun NavGraphBuilder.workersNavGraph(navController: NavHostController) {
                     navController.navigate(Screen.Worker.setUserData(it)) {
                         launchSingleTop = true
                     }
-                },
-                refreshAction = {
-                    viewModel.onTriggerEvent(
-                        WorkersUiEvent.RefreshList
-                    )
-                },
+                }
             )
         }
         composable(route = Screen.Worker.route,

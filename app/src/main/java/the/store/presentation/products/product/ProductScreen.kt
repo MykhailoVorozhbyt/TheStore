@@ -13,6 +13,7 @@ import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.extensions.modifiers.cast
 import com.example.core.utils.helpers.showMessage
+import com.example.theme.R
 import the.store.presentation.products.product.models.ProductUiState
 import the.store.presentation.products.product.views.ProductContent
 
@@ -23,7 +24,7 @@ fun ProductScreen(
     uiState: BaseViewState<*>,
     pressOnBack: () -> Unit,
     initUi: (Long) -> Unit,
-    createProduct: () -> Unit,
+    productActionClick: () -> Unit,
     photoChanged: (Uri) -> Unit,
     deletePhotoUri: () -> Unit,
     nameChanged: (String) -> Unit,
@@ -32,6 +33,7 @@ fun ProductScreen(
     currencyChanged: (Long) -> Unit,
     descriptionChanged: (String) -> Unit,
     barcodeChanged: (String) -> Unit,
+    deleteProduct: (Long) -> Unit,
 ) {
     val context: Context = LocalContext.current
 
@@ -41,16 +43,31 @@ fun ProductScreen(
             pressOnBack.invoke()
         },
         editCreateClick = {
-            createProduct.invoke()
+            productActionClick.invoke()
         }
     ) {
         when (uiState) {
             is BaseViewState.Data -> {
                 val currentState = uiState.cast<BaseViewState.Data<ProductUiState>>().value
-                if (currentState.userDoneNotification != 0) {
+                if (currentState.actionProduct) {
                     DisposableEffect(uiState) {
-                        createProduct.invoke()
-                        showMessage(context, currentState.userDoneNotification)
+                        pressOnBack.invoke()
+                        when (currentState.id) {
+                            0L -> {
+                                showMessage(context, R.string.product_created_successfully)
+                            }
+
+                            else -> {
+                                showMessage(context, R.string.product_data_updated_successfully)
+                            }
+                        }
+                        onDispose {}
+                    }
+                }
+                if (currentState.deleteProduct) {
+                    DisposableEffect(uiState) {
+                        pressOnBack.invoke()
+                        showMessage(context, R.string.product_deleted_successfully)
                         onDispose {}
                     }
                 }
@@ -65,6 +82,7 @@ fun ProductScreen(
                     currencyChanged = currencyChanged,
                     descriptionChanged = descriptionChanged,
                     barcodeChanged = barcodeChanged,
+                    deleteProduct = deleteProduct
                 )
             }
 

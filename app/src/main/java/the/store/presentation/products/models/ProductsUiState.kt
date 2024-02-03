@@ -5,7 +5,6 @@ import com.example.core.domain.entities.ProductEntity
 
 @Stable
 data class ProductsUiState(
-    val isRefreshing: Boolean = false,
     val searchedName: String = "",
     val productList: List<ProductEntity> = listOf()
 )

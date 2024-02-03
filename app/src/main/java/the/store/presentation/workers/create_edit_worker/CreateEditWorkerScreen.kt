@@ -12,14 +12,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.core.base.states.BaseViewState
+import com.example.core.ui.custom_composable_view.CreateEditContentBody
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.extensions.modifiers.cast
 import com.example.core.utils.helpers.showMessage
+import com.example.theme.R
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiEvent
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
-import com.example.core.ui.custom_composable_view.CreateEditContentBody
 import the.store.presentation.workers.create_edit_worker.views.CreateEditWorkerContent
 
 @Preview
@@ -47,10 +48,27 @@ fun CreateEditWorkerScreen(
         when (uiState) {
             is BaseViewState.Data -> {
                 val currentState = uiState.cast<BaseViewState.Data<CreateEditWorkerUiState>>().value
-                if (currentState.userDoneNotification != 0) {
+                if (currentState.actionProduct) {
                     DisposableEffect(uiState) {
                         navController.popBackStack()
-                        showMessage(context, currentState.userDoneNotification)
+                        when (currentState.id) {
+                            0L -> {
+                                showMessage(context, R.string.employee_created_successfully)
+                            }
+
+                            else -> {
+                                showMessage(
+                                    context, R.string.employee_data_updated_successfully
+                                )
+                            }
+                        }
+                        onDispose {}
+                    }
+                }
+                if (currentState.deleteProduct) {
+                    DisposableEffect(uiState) {
+                        navController.popBackStack()
+                        showMessage(context, R.string.employer_deleted_successfully)
                         onDispose {}
                     }
                 }
@@ -80,6 +98,9 @@ fun CreateEditWorkerScreen(
                                 emailAddress
                             )
                         )
+                    },
+                    deleteEmployer = { id ->
+                        viewModel.onTriggerEvent(CreateEditWorkerUiEvent.DeleteEmployerClick(id))
                     }
                 )
             }

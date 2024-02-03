@@ -19,7 +19,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Delete
@@ -49,6 +51,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.base.views.BaseButton
 import com.example.core.domain.entities.CurrencyList
 import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductInputChipEntity
@@ -82,7 +85,7 @@ import the.store.utils.imageRequestBuilder
 )
 @Composable
 fun ProductScreenPreview() {
-    ProductContent(LocalContext.current, ProductUiState(), {}, {}, {}, {}, {}, {}, {}, {})
+    ProductContent(LocalContext.current, ProductUiState(), {}, {}, {}, {}, {}, {}, {}, {}, {})
 }
 
 @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
@@ -98,8 +101,8 @@ fun ProductContent(
     currencyChanged: (Long) -> Unit,
     descriptionChanged: (String) -> Unit,
     barcodeChanged: (String) -> Unit,
-
-    ) {
+    deleteProduct: (Long) -> Unit
+) {
     val cameraPermissionState = rememberPermissionState(Manifest.permission.READ_EXTERNAL_STORAGE)
 
     var pickPhotoEnable by remember {
@@ -133,9 +136,9 @@ fun ProductContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(TheStoreColors.blackOrWhiteColor)
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -320,6 +323,17 @@ fun ProductContent(
             textValue = state.name,
             columnModifier = Modifier.defaultHorizontalPadding()
         )
+
+        if (state.id != 0L) {
+            BaseButton(
+                text = stringResource(id = R.string.delete_product),
+                buttonModifier = Modifier
+                    .fillMaxWidth()
+                    .defaultHorizontalPadding()
+            ) {
+                deleteProduct.invoke(state.id)
+            }
+        }
     }
 }
 

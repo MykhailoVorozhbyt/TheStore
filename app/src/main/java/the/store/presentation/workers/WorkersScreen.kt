@@ -23,7 +23,6 @@ fun WorkersScreen(
     createWorker: () -> Unit,
     searchText: (String) -> Unit,
     workerClick: (Long) -> Unit,
-    refreshAction: () -> Unit,
 ) {
     AddTopAppBar(stringResource(com.example.theme.R.string.workers), { createWorker.invoke() }) {
         Surface(
@@ -37,7 +36,6 @@ fun WorkersScreen(
                         uiState = currentState,
                         searchText = { searchText.invoke(it) },
                         workerClick = { workerClick.invoke(it) },
-                        refreshAction = { refreshAction.invoke() },
                     )
                 }
 

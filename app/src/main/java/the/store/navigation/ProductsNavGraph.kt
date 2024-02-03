@@ -45,10 +45,7 @@ fun NavGraphBuilder.productsNavGraph(navController: NavHostController) {
                     navController.navigate(Screen.Product.setProductId(it)) {
                         launchSingleTop = true
                     }
-                },
-                refreshAction = {
-                    viewModel.onTriggerEvent(ProductsUiEvent.RefreshList)
-                },
+                }
             )
         }
 
@@ -72,7 +69,7 @@ fun NavGraphBuilder.productsNavGraph(navController: NavHostController) {
                 initUi = { id ->
                     viewModel.onTriggerEvent(ProductUiEvent.InitUiContent(id))
                 },
-                createProduct = {
+                productActionClick = {
                     viewModel.onTriggerEvent(ProductUiEvent.SubmitCreateEditClick)
                 },
                 photoChanged = { uri ->
@@ -99,6 +96,9 @@ fun NavGraphBuilder.productsNavGraph(navController: NavHostController) {
                 barcodeChanged = { barcode ->
                     viewModel.onTriggerEvent(ProductUiEvent.BarcodeChanged(barcode))
                 },
+                deleteProduct = { id ->
+                    viewModel.onTriggerEvent(ProductUiEvent.DeleteProductClick(id))
+                }
             )
         }
     }
