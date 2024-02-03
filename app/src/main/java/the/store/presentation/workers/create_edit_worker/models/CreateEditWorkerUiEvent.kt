@@ -12,6 +12,7 @@ sealed class CreateEditWorkerUiEvent {
     data class PhoneChanged(val phone: String) : CreateEditWorkerUiEvent()
     data class PasswordChanged(val password: String) : CreateEditWorkerUiEvent()
     data class EmailAddressChanged(val email: String) : CreateEditWorkerUiEvent()
+    data class DeleteEmployerClick(val workerId: Long) : CreateEditWorkerUiEvent()
 
     object SubmitCreateEditClick : CreateEditWorkerUiEvent()
 }

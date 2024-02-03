@@ -19,9 +19,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.core.utils.elvis
-import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
@@ -65,6 +66,7 @@ fun InputTextField(
     errorMessage: String = stringResource(id = R.string.error),
     enabled: Boolean = true,
     readOnly: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     columnModifier: Modifier = Modifier
 ) {
     var fieldText by remember { mutableStateOf(textValue) }
@@ -86,7 +88,7 @@ fun InputTextField(
         TextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
-            shape = BaseRoundedCornerShape(),
+            shape = baseRoundedCornerShape(),
             textStyle = TextStyle(
                 color = TheStoreColors.blackOrWhiteColor
             ),
@@ -118,6 +120,7 @@ fun InputTextField(
             keyboardOptions = keyboardOptions,
             maxLines = maxLines,
             isError = isError,
+            visualTransformation = visualTransformation,
             supportingText = {
                 if (isError) {
                     Text(

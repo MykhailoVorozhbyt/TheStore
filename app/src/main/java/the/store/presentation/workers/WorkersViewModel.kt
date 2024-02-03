@@ -3,9 +3,7 @@ package the.store.presentation.workers
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
-import com.example.core.utils.AppDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -15,26 +13,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WorkersViewModel @Inject constructor(
-    private val workerRepository: WorkerRepository,
-    private val dispatchers: AppDispatchers,
+    private val workerRepository: WorkerRepository
 ) : MviViewModel<BaseViewState<WorkersUiState>, WorkersUiEvent>() {
 
     override fun onTriggerEvent(eventType: WorkersUiEvent) {
         when (eventType) {
-            is WorkersUiEvent.InputValueChanged -> {
-                setStateData(WorkersUiState(isRefreshing = true))
-                getWorkersByName(eventType.inputValue)
-            }
-
-            is WorkersUiEvent.InitUiScreen -> {
-                startLoading()
-                getWorkersByName("")
-            }
-
-            is WorkersUiEvent.RefreshList -> {
-                setStateData(WorkersUiState(isRefreshing = true))
-                getWorkersByName("")
-            }
+            is WorkersUiEvent.InputValueChanged -> triggerEvent(eventType)
+            is WorkersUiEvent.InitUiScreen -> triggerEvent(eventType)
         }
     }
 
@@ -48,20 +33,32 @@ class WorkersViewModel @Inject constructor(
             .first()
     }
 
+    private fun triggerEvent(event: WorkersUiEvent.InputValueChanged) {
+        getWorkersByName(event.inputValue)
+    }
+
+    private fun triggerEvent(event: WorkersUiEvent.InitUiScreen) {
+        startLoading()
+        getAllEmployers()
+    }
+
     private fun getWorkersByName(name: String) {
-        safeLaunch(dispatchers.io) {
-            try {
-                val result = workerRepository.getWorkersByName(name)
-                setStateData(
-                    WorkersUiState(
-                        isRefreshing = false,
-                        searchedName = name,
-                        workersList = result
-                    )
+        successLaunch {
+            val result = workerRepository.getWorkersByName(name)
+            setStateData(
+                getState().copy(
+                    isRefreshing = false,
+                    searchedName = name,
+                    workersList = result
                 )
-            } catch (e: Exception) {
-                handleError(e)
-            }
+            )
+        }
+    }
+
+    private fun getAllEmployers() {
+        successLaunch {
+            val result = workerRepository.getWorkersByName("")
+            setStateData(WorkersUiState(searchedName = "", workersList = result))
         }
     }
 

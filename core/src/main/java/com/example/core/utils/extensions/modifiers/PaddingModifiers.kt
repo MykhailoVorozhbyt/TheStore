@@ -1,12 +1,23 @@
 package com.example.core.utils.extensions.modifiers
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 fun Modifier.smallPadding(): Modifier =
     this.padding(10.dp)
+
+fun Modifier.smallStartPadding(): Modifier =
+    this.padding(start = 10.dp)
+
+fun Modifier.smallTopPadding(): Modifier =
+    this.padding(top = 10.dp)
+
+fun Modifier.smallEndPadding(): Modifier =
+    this.padding(end = 10.dp)
+
+fun Modifier.smallBottomPadding(): Modifier =
+    this.padding(bottom = 10.dp)
 
 fun Modifier.smallHorizontalPadding(): Modifier =
     this.padding(horizontal = 10.dp)

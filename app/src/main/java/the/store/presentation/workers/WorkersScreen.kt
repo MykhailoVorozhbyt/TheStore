@@ -6,13 +6,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.example.core.base.states.BaseViewState
 import com.example.core.ui.widget.EmptyView
 import com.example.core.ui.widget.ErrorView
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.extensions.modifiers.cast
 import the.store.presentation.workers.models.WorkersUiState
-import the.store.presentation.workers.views.WorkersScreenBody
+import the.store.presentation.workers.views.AddTopAppBar
 import the.store.presentation.workers.views.WorkersScreenContent
 
 @Composable
@@ -22,13 +23,8 @@ fun WorkersScreen(
     createWorker: () -> Unit,
     searchText: (String) -> Unit,
     workerClick: (Long) -> Unit,
-    refreshAction: () -> Unit,
 ) {
-    WorkersScreenBody(
-        {
-            createWorker.invoke()
-        }
-    ) {
+    AddTopAppBar(stringResource(com.example.theme.R.string.workers), { createWorker.invoke() }) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -40,7 +36,6 @@ fun WorkersScreen(
                         uiState = currentState,
                         searchText = { searchText.invoke(it) },
                         workerClick = { workerClick.invoke(it) },
-                        refreshAction = { refreshAction.invoke() },
                     )
                 }
 

@@ -8,4 +8,6 @@ sealed class Graph(graphRoute: String) : BaseGraph(graphRoute) {
     object Login : BaseGraph("LOGIN_GRAPH")
     object PrimaryScreen : BaseGraph("PRIMARY_GRAPH")
     object Basket : BaseGraph("BASKET_GRAPH")
+    object Products : BaseGraph("PRODUCTS_GRAPH")
+    object Workers : BaseGraph("WORKERS_GRAPH")
 }

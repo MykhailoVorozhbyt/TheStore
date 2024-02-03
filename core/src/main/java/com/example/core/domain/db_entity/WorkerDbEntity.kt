@@ -18,7 +18,7 @@ data class WorkerDbEntity(
     @ColumnInfo(name = COLUMN_MAIL) val emailAddress: String = "",
 ) {
     companion object {
-        const val TABLE_NAME = "WORKER_TABLE_ENTITY"
+        const val TABLE_NAME = "workerTable"
         const val COLUMN_ID = "id"
         const val COLUMN_ACCESS = "access"
         const val COLUMN_PHOTO = "photo"

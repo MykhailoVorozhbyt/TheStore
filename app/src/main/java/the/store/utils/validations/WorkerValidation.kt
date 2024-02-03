@@ -1,9 +1,9 @@
-package the.store.utils
+package the.store.utils.validations
 
 import com.example.core.utils.helpers.emailEmptyErrorState
-import com.example.core.utils.helpers.invalidateEmailAddressErrorState
 import com.example.core.utils.helpers.emptyFieldErrorState
 import com.example.core.utils.helpers.incorrectPhoneErrorState
+import com.example.core.utils.helpers.invalidateEmailAddressErrorState
 import com.example.core.utils.helpers.passwordEmptyErrorState
 import com.example.core.utils.helpers.passwordLengthErrorState
 import com.example.core.utils.helpers.phoneEmptyErrorState

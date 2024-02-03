@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -37,8 +39,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.base.views.BaseButton
 import com.example.core.ui.custom_composable_view.InputTextField
-import com.example.core.utils.extensions.modifiers.BaseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultIconSize
 import com.example.core.utils.extensions.modifiers.defaultPadding
@@ -68,7 +71,7 @@ import the.store.utils.imageRequestBuilder
 @Preview
 @Composable
 fun CreateEditWorkerContentPreview() {
-    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {}, {})
+    CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {}, {}, {})
 }
 
 @OptIn(ExperimentalPermissionsApi::class)
@@ -82,6 +85,7 @@ fun CreateEditWorkerContent(
     workerPassword: (String) -> Unit,
     workerPhone: (String) -> Unit,
     workerEmailAddress: (String) -> Unit,
+    deleteEmployer: (Long) -> Unit,
 ) {
     val context: Context = LocalContext.current
     val cameraPermissionState = rememberPermissionState(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -117,15 +121,15 @@ fun CreateEditWorkerContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(TheStoreColors.blackOrWhiteColor)
     ) {
-
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultPadding()
                 .height(120.dp)
-                .background(TheStoreColors.whiteOrBlackColor, BaseRoundedCornerShape()),
+                .background(TheStoreColors.whiteOrBlackColor, baseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
             val photoUri = uiState.photoUri
@@ -155,9 +159,9 @@ fun CreateEditWorkerContent(
                         .border(
                             width = 2.dp,
                             color = TheStoreColors.whiteOrBlackColor,
-                            shape = BaseRoundedCornerShape()
+                            shape = baseRoundedCornerShape()
                         )
-                        .clip(BaseRoundedCornerShape()),
+                        .clip(baseRoundedCornerShape()),
                     contentDescription = null
                 )
             }
@@ -269,5 +273,15 @@ fun CreateEditWorkerContent(
             errorMessage = stringResource(id = uiState.inputDataErrorState.emailAddressErrorState.errorStringRes),
             isError = uiState.inputDataErrorState.emailAddressErrorState.hasError,
         )
+        if (uiState.id != 0L) {
+            BaseButton(
+                text = stringResource(id = R.string.delete_employer),
+                buttonModifier = Modifier
+                    .fillMaxWidth()
+                    .defaultHorizontalPadding()
+            ) {
+                deleteEmployer.invoke(uiState.id)
+            }
+        }
     }
 }

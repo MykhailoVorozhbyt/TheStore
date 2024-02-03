@@ -1,4 +1,4 @@
-package com.example.core.data.dao
+package com.example.core.data.dao.worker
 
 import com.example.core.data.db.TheStoreDatabase
 import com.example.core.domain.db_entity.WorkerDbEntity
@@ -14,12 +14,15 @@ class WorkerDaoImpl
     override suspend fun updateWorker(worker: WorkerDbEntity) =
         db.workerDao().updateWorker(worker)
 
+    override suspend fun deleteEmployerById(id: Long) =
+        db.workerDao().deleteEmployerById(id)
 
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String, password: String
     ): WorkerDbEntity? = db.workerDao().getWorkerByPhoneAndPassword(phone, password)
 
     override suspend fun getWorkerById(id: Long): WorkerDbEntity? = db.workerDao().getWorkerById(id)
+
     override suspend fun getWorkersByName(character: String): List<WorkerDbEntity> =
         db.workerDao().getWorkersByName(character)
 

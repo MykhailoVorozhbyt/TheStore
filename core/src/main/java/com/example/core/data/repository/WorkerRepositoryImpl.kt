@@ -1,6 +1,6 @@
 package com.example.core.data.repository
 
-import com.example.core.data.dao.WorkerDao
+import com.example.core.data.dao.worker.WorkerDao
 import com.example.core.domain.db_entity.WorkerDbEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +18,10 @@ class WorkerRepositoryImpl
 
     override suspend fun updateWorker(worker: WorkerDbEntity) =
         workerDao.updateWorker(worker)
+
+    override suspend fun deleteEmployerById(id: Long) = withContext(ioDispatcher){
+        workerDao.deleteEmployerById(id)
+    }
 
     override suspend fun getWorkerByPhoneAndPassword(
         phone: String,

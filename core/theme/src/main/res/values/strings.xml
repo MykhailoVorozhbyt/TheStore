@@ -72,5 +72,40 @@
     <string name="empty_list">Empty list</string>
     <string name="permission_was_denied">Permission was denied</string>
     <string name="app_needs_access_to_photo">TheStore needs access to photo. Please grant access on the Settings screen.</string>
+    <string name="employer_deleted_successfully">Employer deleted successfully</string>
+    <string name="delete_employer">Delete employer</string>
 
+    <!--Products Screen-->
+    <string name="products">Products</string>
+    <string name="product">Product</string>
+    <string name="price">Price</string>
+    <string name="input_price">Input price</string>
+    <string name="measurements">Measurements</string>
+    <string name="select_measurements">Select measurements</string>
+    <string name="the_price_must_be_greater_than_zero">The price must be greater than 0.0</string>
+    <string name="the_price_must_be_greater_than_zero_with_value">The price must be greater than 0.0 %s</string>
+    <string name="product_created_successfully">Product created successfully</string>
+    <string name="product_data_updated_successfully">Product data updated successfully</string>
+    <string name="description">Description</string>
+    <string name="input_description">Input description</string>
+    <string name="barcode">Barcode</string>
+    <string name="input_barcode">Input barcode</string>
+    <string name="select_currency">Select currency</string>
+    <string name="currency">Currency</string>
+    <string name="delete_product">Delete product</string>
+    <string name="product_deleted_successfully">Product deleted successfully</string>
+
+    <!--ProductInputChipEntity-->
+    <string name="kilogram">Kilogram</string>
+    <string name="liters">Liters</string>
+    <string name="milliliters">Milliliters</string>
+    <string name="grams">Grams</string>
+    <string name="gallons">Gallons</string>
+    <string name="portion">Portion</string>
+    <string name="single_item">Single item</string>
+    <string name="uah">UAH</string>
+    <string name="usd">USD</string>
+    <string name="euro">Euro </string>
+    <string name="bitcoin">Bitcoin</string>
+    <string name="franc">Franc</string>
 </resources>
