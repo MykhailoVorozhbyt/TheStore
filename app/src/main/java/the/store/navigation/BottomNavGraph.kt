@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.core.navigation.Graph
 import com.example.core.navigation.base.BottomBarScreen
-import the.store.presentation.more.MoreScreen
 import the.store.presentation.primary.PrimaryScreen
 
 @Composable
@@ -22,9 +21,7 @@ fun BottomNavGraph(navController: NavHostController) {
         productsNavGraph(navController)
         basketNavGraph(navController)
         workersNavGraph(navController)
-        composable(route = BottomBarScreen.More.route) {
-            MoreScreen(navController = navController)
-        }
+        moreNavGraph(navController)
     }
 
 }

@@ -10,4 +10,5 @@ sealed class Graph(graphRoute: String) : BaseGraph(graphRoute) {
     object Basket : BaseGraph("BASKET_GRAPH")
     object Products : BaseGraph("PRODUCTS_GRAPH")
     object Workers : BaseGraph("WORKERS_GRAPH")
+    object More : BaseGraph("MORE_GRAPH")
 }

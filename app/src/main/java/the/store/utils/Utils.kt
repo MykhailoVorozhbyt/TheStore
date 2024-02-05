@@ -10,6 +10,13 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.size.Size.Companion.ORIGINAL
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.shouldShowRationale
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
@@ -59,3 +66,29 @@ fun Double.format(digits: Int = 3) = "%.${digits}f".format(this).toDouble()
 fun String?.toUriOrNull(): Uri? = if (this != null) Uri.parse(this) else null
 
 
+@OptIn(ExperimentalPermissionsApi::class)
+inline fun checkPermissionState(
+    state: PermissionState,
+    isGranted: () -> Unit,
+    showRationale: () -> Unit,
+    showSettings: () -> Unit,
+) {
+    when {
+        state.status.isGranted -> {
+            isGranted.invoke()
+        }
+
+        state.status.isGranted.not() || state.status.shouldShowRationale -> {
+            showRationale.invoke()
+        }
+
+        else -> {
+            showSettings.invoke()
+        }
+    }
+}
+
+fun Long.convertToDate(format: String = DateConvertPatterns.dayMonthYearHourMinuteSecond): String {
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
+    return formatter.format(Date(this))
+}

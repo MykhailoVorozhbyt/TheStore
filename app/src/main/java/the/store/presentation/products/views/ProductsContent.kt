@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +36,7 @@ import coil.compose.AsyncImagePainter
 import com.example.core.domain.entities.ProductEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
+import com.example.core.ui.widget.ProgressIndicator
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
@@ -143,7 +143,7 @@ fun ProductItem(
                     com.example.theme.R.drawable.ic_hourglass_empty
                 )
                 if (painter.state is AsyncImagePainter.State.Loading) {
-                    CircularProgressIndicator(
+                    ProgressIndicator(
                         color = TheStoreColors.blackOrWhiteColor,
                         modifier = Modifier.defaultListIconSize()
                     )

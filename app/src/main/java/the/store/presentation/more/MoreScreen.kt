@@ -1,11 +1,10 @@
 package the.store.presentation.more
 
-import android.content.Context
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -15,91 +14,53 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.example.core.navigation.Graph
 import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.enums.MoreScreenClickAction
-import com.example.core.utils.helpers.showMessage
 import com.example.theme.R
 import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
-import the.store.presentation.more.models.MoreScreenUiEvent
+import the.store.presentation.more.models.MoreScreenUiState
 import the.store.presentation.more.views.MoreScreenContent
 
 @Composable
 fun MoreScreen(
-    viewModel: MoreScreenViewModel = hiltViewModel(),
-    navController: NavHostController
+    state: MoreScreenUiState,
+    initUiContent: () -> Unit,
+    itemClick: (MoreScreenClickAction) -> Unit,
+    exitClick: () -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
-    val context = LocalContext.current
-
-    MoreScreenBody(viewModel) {
+    MoreScreenBody(exitClick) {
         when {
-            uiState.isLoading -> {
+            state.isLoading -> {
                 LoadingView()
             }
 
-            uiState.isExitButtonClicked -> {
-                //TODO: fix navigation
-                navController.navigate(Graph.Root.route) {
-                    popUpTo(Graph.PrimaryScreen.route) {
-                        inclusive = true
-                    }
-                }
+            state.isExitButtonClicked -> {
+                exitClick.invoke()
             }
 
-            uiState.screenUi.isNotEmpty() -> {
-                MoreScreenContent(uiState.screenUi) {
-                    moreScreenItemClick(context, it, navController)
+            state.screenUi.isNotEmpty() -> {
+                MoreScreenContent(state.screenUi) {
+                    itemClick.invoke(it)
                 }
             }
         }
     }
-    LaunchedEffect(key1 = viewModel, block = {
-        viewModel.onTriggerEvent(
-            MoreScreenUiEvent.InitUiContent
-        )
-    })
-}
-
-
-private fun moreScreenItemClick(
-    context: Context,
-    clickAction: MoreScreenClickAction,
-    navController: NavHostController
-) {
-    when (clickAction) {
-        MoreScreenClickAction.UserProfileClick -> {
-            showMessage(context, clickAction.name)
-        }
-
-        MoreScreenClickAction.CopyTheDeviceIdClick -> {
-            showMessage(context, clickAction.name)
-        }
-
-        MoreScreenClickAction.ExitClick -> {
-            showMessage(context, clickAction.name)
-        }
+    LaunchedEffect(key1 = true) {
+        initUiContent.invoke()
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MoreScreenBody(
-    viewModel: MoreScreenViewModel,
+    exitClick: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {
     Scaffold(
@@ -118,15 +79,18 @@ fun MoreScreenBody(
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
-                    Icon(
-                        rememberVectorPainter(Icons.Filled.ArrowForward),
-                        contentDescription = null,
-                        tint = TheStoreColors.blackOrWhiteColor,
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clickable { viewModel.onTriggerEvent(MoreScreenUiEvent.ExitButtonClick) }
-
-                    )
+                    IconButton(
+                        onClick = {
+                            exitClick.invoke()
+                        }
+                    ) {
+                        Icon(
+                            rememberVectorPainter(Icons.Filled.ArrowForward),
+                            contentDescription = null,
+                            tint = TheStoreColors.blackOrWhiteColor,
+                            modifier = Modifier.padding(8.dp)
+                        )
+                    }
                 }
             )
         },

@@ -16,7 +16,7 @@ fun CreateEditContentBodyPreview() {
 @Composable
 fun CreateEditContentBody(
     @StringRes titleResId: Int,
-    pressOnBack: () -> Unit = {},
+    pressOnBack: () -> Unit,
     editCreateClick: () -> Unit,
     pageContent: @Composable (PaddingValues) -> Unit,
 ) {

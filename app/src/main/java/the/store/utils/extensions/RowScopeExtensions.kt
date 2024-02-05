@@ -10,6 +10,9 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,8 +63,13 @@ fun AddItemPreview() {
 
 @Composable
 fun RowScope.AddNavigationBarItem(
-    screen: BottomBarScreen, currentDestination: NavDestination?, navController: NavHostController
+    screen: BottomBarScreen,
+    currentDestination: NavDestination?,
+    navController: NavHostController
 ) {
+    var prevDest by remember {
+        mutableStateOf("")
+    }
     NavigationBarItem(
         icon = {
             Icon(
@@ -76,11 +84,15 @@ fun RowScope.AddNavigationBarItem(
             it.route == screen.route
         } == true,
         onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
-                restoreState = true
-            }
+            //TODO: fix
+//            if (prevDest != currentDestination?.route) {
+//                prevDest = currentDestination?.route.orEmpty()
+                navController.navigate(screen.route) {
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                    restoreState = true
+                }
+//            }
         },
         colors = NavigationBarItemDefaults.colors(
             selectedIconColor = TheStoreColors.whiteOrBlackColor,

@@ -1,8 +1,11 @@
 package the.store.di
 
+import com.example.core.data.dao.company.CompanyDao
 import com.example.core.data.dao.products.ProductsDao
 import com.example.core.data.dao.worker.WorkerDao
 import com.example.core.data.db.TheStoreDatabase
+import com.example.core.data.repository.CompanyRepository
+import com.example.core.data.repository.CompanyRepositoryImpl
 import com.example.core.data.repository.ProductsRepository
 import com.example.core.data.repository.ProductsRepositoryImpl
 import com.example.core.data.repository.WorkerRepository
@@ -21,6 +24,9 @@ class RepositoryModule {
     @Provides
     fun provideDomainMapper(): DomainMapper = DomainMapperImpl()
 
+    /**
+     * Worker
+     * */
     @Provides
     fun provideWorkerDao(appDatabase: TheStoreDatabase): WorkerDao =
         appDatabase.workerDao()
@@ -29,6 +35,9 @@ class RepositoryModule {
     fun provideWorkerRepository(workerDao: WorkerDao): WorkerRepository =
         WorkerRepositoryImpl(workerDao)
 
+    /**
+     * Products
+     * */
     @Provides
     fun provideProductsDao(appDatabase: TheStoreDatabase): ProductsDao =
         appDatabase.productsDao()
@@ -37,4 +46,14 @@ class RepositoryModule {
     fun provideProductsRepository(productsDao: ProductsDao): ProductsRepository =
         ProductsRepositoryImpl(productsDao)
 
+    /**
+     * Company
+     * */
+    @Provides
+    fun provideCompanyDao(appDatabase: TheStoreDatabase): CompanyDao =
+        appDatabase.companyDao()
+
+    @Provides
+    fun provideCompanyRepository(productsDao: CompanyDao): CompanyRepository =
+        CompanyRepositoryImpl(productsDao)
 }

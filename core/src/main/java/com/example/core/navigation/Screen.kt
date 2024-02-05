@@ -42,6 +42,7 @@ sealed class Screen(route: String) : BaseScreen(route) {
     }
 
     object More : BaseScreen("more_screen")
+    object Company : BaseScreen("company_screen")
 }
 
 fun String.appendParams(vararg params: Pair<String, Any?>): String {
