@@ -1,7 +1,9 @@
 package the.store.domain.mapper
 
+import com.example.core.domain.db_entity.CompanyDbEntity
 import com.example.core.domain.db_entity.ProductDbEntity
 import com.example.core.domain.db_entity.WorkerDbEntity
+import the.store.presentation.company.models.CompanyUiState
 import the.store.presentation.products.product.models.ProductUiState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
 import the.store.utils.toUriOrNull
@@ -50,5 +52,23 @@ fun ProductDbEntity.mapToProductUiState(): ProductUiState = ProductUiState(
     measurementId = measurementId,
     description = description,
     barcode = barcode,
+    createdAt = createdAt,
+)
+
+fun CompanyDbEntity.mapToCompanyUiState(): CompanyUiState = CompanyUiState(
+    id = id,
+    photoUri = photoUri.toUriOrNull(),
+    companyName = name,
+    description = description,
+    companyCreated = companyCreated,
+    createdAt = createdAt,
+)
+
+fun CompanyUiState.mapToCompanyDbEntity(): CompanyDbEntity = CompanyDbEntity(
+    id = id,
+    photoUri = photoUri?.toString(),
+    name = companyName,
+    description = description,
+    companyCreated = companyCreated,
     createdAt = createdAt,
 )

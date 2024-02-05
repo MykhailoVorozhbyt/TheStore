@@ -1,12 +1,10 @@
 package the.store.presentation.workers.create_edit_worker
 
-import android.content.Context
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.WorkerRepository
 import com.example.core.utils.AppDispatchers
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -26,8 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CreateEditWorkerViewModel @Inject constructor(
     private val repository: WorkerRepository,
-    private val dispatchers: AppDispatchers,
-    @ApplicationContext private val appContext: Context
+    private val dispatchers: AppDispatchers
 ) :
     MviViewModel<BaseViewState<CreateEditWorkerUiState>, CreateEditWorkerUiEvent>() {
     override fun onTriggerEvent(eventType: CreateEditWorkerUiEvent) {

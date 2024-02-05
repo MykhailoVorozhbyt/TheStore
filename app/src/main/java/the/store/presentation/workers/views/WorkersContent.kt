@@ -24,7 +24,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -43,6 +42,7 @@ import coil.compose.AsyncImagePainter
 import com.example.core.domain.db_entity.WorkerDbEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
+import com.example.core.ui.widget.ProgressIndicator
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
@@ -213,7 +213,7 @@ fun WorkerItem(
                 R.drawable.ic_person
             )
             if (painter.state is AsyncImagePainter.State.Loading) {
-                CircularProgressIndicator(
+                ProgressIndicator(
                     color = TheStoreColors.blackOrWhiteColor,
                     modifier = Modifier.defaultListIconSize()
                 )

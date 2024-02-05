@@ -5,7 +5,7 @@ import android.net.Uri
 sealed class ProductUiEvent {
     data class InitUiContent(val productId: Long) : ProductUiEvent()
     data class PhotoChanged(val uri: Uri) : ProductUiEvent()
-    object DeletePhotoUri : ProductUiEvent()
+    data object DeletePhotoUri : ProductUiEvent()
     data class NameChanged(val name: String) : ProductUiEvent()
     data class PriceChanged(val price: String) : ProductUiEvent()
     data class MeasurementsChanged(val measurementsId: Long) : ProductUiEvent()
@@ -14,5 +14,5 @@ sealed class ProductUiEvent {
     data class BarcodeChanged(val barcode: String) : ProductUiEvent()
 
     data class  DeleteProductClick(val productId: Long) : ProductUiEvent()
-    object SubmitCreateEditClick : ProductUiEvent()
+    data object SubmitCreateEditClick : ProductUiEvent()
 }

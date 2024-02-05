@@ -66,11 +66,10 @@ import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
-import com.google.accompanist.permissions.shouldShowRationale
 import the.store.presentation.products.product.models.ProductUiState
 import the.store.utils.DecimalVisualTransformation
+import the.store.utils.checkPermissionState
 import the.store.utils.imageRequestBuilder
 
 @Preview(
@@ -88,7 +87,7 @@ fun ProductScreenPreview() {
     ProductContent(LocalContext.current, ProductUiState(), {}, {}, {}, {}, {}, {}, {}, {}, {})
 }
 
-@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun ProductContent(
     context: Context,
@@ -183,25 +182,20 @@ fun ProductContent(
 
             IconButton(
                 onClick = {
-                    when {
-                        cameraPermissionState.status.isGranted -> {
-                            pickSinglePhoto.launch(
-                                PickVisualMediaRequest(
-                                    ActivityResultContracts.PickVisualMedia.ImageOnly
-                                )
+                    checkPermissionState(cameraPermissionState, {
+                        pickSinglePhoto.launch(
+                            PickVisualMediaRequest(
+                                ActivityResultContracts.PickVisualMedia.ImageOnly
                             )
-                            pickPhotoEnable = false
-                        }
+                        )
+                        pickPhotoEnable = false
+                    }, {
+                        requestPermissionLauncher.launch(cameraPermissionState.permission)
+                        pickPhotoEnable = false
+                    }, {
+                        showMessage(context, R.string.app_needs_access_to_photo)
 
-                        cameraPermissionState.status.shouldShowRationale -> {
-                            requestPermissionLauncher.launch(cameraPermissionState.permission)
-                            pickPhotoEnable = false
-                        }
-
-                        else -> {
-                            showMessage(context, R.string.app_needs_access_to_photo)
-                        }
-                    }
+                    })
                 },
                 enabled = pickPhotoEnable,
                 modifier = Modifier

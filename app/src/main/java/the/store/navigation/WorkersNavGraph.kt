@@ -50,7 +50,8 @@ fun NavGraphBuilder.workersNavGraph(navController: NavHostController) {
                 }
             )
         }
-        composable(route = Screen.Worker.route,
+        composable(
+            route = Screen.Worker.route,
             arguments = listOf(
                 navArgument(Constants.WORKER_ID) {
                     type = NavType.LongType

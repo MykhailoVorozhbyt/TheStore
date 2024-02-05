@@ -6,10 +6,10 @@ object AppConfig {
     const val targetSdk = 34
     const val versionCode = 1
 
-    const val versionMajor = 1
-    const val versionMinor = 0
-    const val versionPatch = 0
-    const val versionBuild = 0
+    private const val versionMajor = 1
+    private const val versionMinor = 0
+    private const val versionPatch = 0
+    private const val versionBuild = 0
     const val versionName = "$versionMajor$versionMinor$versionPatch$versionBuild"
 
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

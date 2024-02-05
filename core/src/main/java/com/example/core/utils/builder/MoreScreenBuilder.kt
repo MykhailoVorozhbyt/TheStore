@@ -15,7 +15,7 @@ class MoreScreenBuilder(
         val resultList: MutableList<BaseMoreScreenItemDto> = mutableListOf()
 
         resultList.add(buildMainInformationTitle())
-        resultList.add(buildProfileButton())
+        resultList.add(buildOwnerButton())
 
         resultList.add(buildAdditionalFunctionTitle())
         resultList.add(buildCopyTheDeviceIdButton())
@@ -33,11 +33,11 @@ class MoreScreenBuilder(
         )
     }
 
-    private fun buildProfileButton(): BaseMoreScreenItemDto {
+    private fun buildOwnerButton(): BaseMoreScreenItemDto {
         return MoreScreenButtonDto(
-            icon = R.drawable.ic_person,
-            clickAction = MoreScreenClickAction.UserProfileClick,
-            text = context.getString(R.string.profile),
+            icon = R.drawable.ic_warehouse,
+            clickAction = MoreScreenClickAction.CompanyClick,
+            text = context.getString(R.string.company),
             textStyle = null,
         )
     }

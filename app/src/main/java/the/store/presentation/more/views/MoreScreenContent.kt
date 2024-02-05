@@ -89,9 +89,9 @@ private fun MoreScreenButtonItemPreview() {
     val context = LocalContext.current
     MoreScreenButtonItem(
         MoreScreenButtonDto(
-            icon = R.drawable.ic_person,
-            clickAction = MoreScreenClickAction.UserProfileClick,
-            text = context.getString(R.string.profile),
+            icon = R.drawable.ic_warehouse,
+            clickAction = MoreScreenClickAction.CompanyClick,
+            text = context.getString(R.string.company),
             textStyle = null,
         )
     ) {}

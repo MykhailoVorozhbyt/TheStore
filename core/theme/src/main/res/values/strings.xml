@@ -56,6 +56,7 @@
     <!--More Screen-->
     <string name="main_information">Main information</string>
     <string name="profile">Profile</string>
+    <string name="owner">Owner</string>
     <string name="additional_function">Additional function</string>
     <string name="copy_the_device_id">Copy Device ID</string>
     <string name="version_with_value">Version: %s</string>
@@ -108,4 +109,12 @@
     <string name="euro">Euro </string>
     <string name="bitcoin">Bitcoin</string>
     <string name="franc">Franc</string>
+
+    <!--Company-->
+    <string name="company">Company</string>
+    <string name="company_name">Company name</string>
+    <string name="company_description">Company description</string>
+    <string name="company_data_updated_successfully">Company data updated successfully</string>
+    <string name="the_latest_update_with_value">The latest update: %s</string>
+
 </resources>

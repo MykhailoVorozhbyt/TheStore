@@ -1,7 +1,7 @@
 package com.example.core.utils.enums
 
 enum class MoreScreenClickAction {
-    UserProfileClick,
+    CompanyClick,
     CopyTheDeviceIdClick,
-    ExitClick
+//    ExitClick
 }
