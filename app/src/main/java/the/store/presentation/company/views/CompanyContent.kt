@@ -46,7 +46,6 @@ import com.example.theme.whiteOrBlackColor
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import the.store.presentation.company.models.CompanyUiState
-import the.store.utils.DateConvertPatterns
 import the.store.utils.checkPermissionState
 import the.store.utils.convertToDate
 import the.store.utils.imageRequestBuilder
@@ -78,7 +77,6 @@ fun CompanyContent(
 
     val requestPermissionLauncher =
         rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            pickPhotoEnable = true
             if (isGranted) {
                 pickSinglePhoto.launch(
                     PickVisualMediaRequest(
@@ -88,19 +86,20 @@ fun CompanyContent(
             } else {
                 showMessage(context, R.string.permission_was_denied)
             }
+            pickPhotoEnable = true
         }
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultPadding()
                 .height(150.dp)
-                .background(TheStoreColors.whiteOrBlackColor, baseRoundedCornerShape()),
+                .background(TheStoreColors.blackOrWhiteColor, baseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
             val photoUri = state.photoUri
@@ -111,11 +110,11 @@ fun CompanyContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.Person),
                         contentDescription = "worker icon",
-                        tint = TheStoreColors.blackOrWhiteColor
+                        tint = TheStoreColors.whiteOrBlackColor
                     )
                     Text(
                         text = stringResource(id = R.string.add_photo),
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                     )
                 }
             } else {
@@ -129,7 +128,7 @@ fun CompanyContent(
                     modifier = Modifier
                         .border(
                             width = 2.dp,
-                            color = TheStoreColors.whiteOrBlackColor,
+                            color = TheStoreColors.blackOrWhiteColor,
                             shape = baseRoundedCornerShape()
                         )
                         .clip(baseRoundedCornerShape()),
@@ -139,20 +138,23 @@ fun CompanyContent(
 
             IconButton(
                 onClick = {
-                    checkPermissionState(cameraPermissionState, {
-                        pickSinglePhoto.launch(
-                            PickVisualMediaRequest(
-                                ActivityResultContracts.PickVisualMedia.ImageOnly
+                    checkPermissionState(cameraPermissionState,
+                        isGranted = {
+                            pickSinglePhoto.launch(
+                                PickVisualMediaRequest(
+                                    ActivityResultContracts.PickVisualMedia.ImageOnly
+                                )
                             )
-                        )
-                        pickPhotoEnable = false
-                    }, {
-                        requestPermissionLauncher.launch(cameraPermissionState.permission)
-                        pickPhotoEnable = false
-                    }, {
-                        showMessage(context, R.string.app_needs_access_to_photo)
+                            pickPhotoEnable = false
+                        },
+                        showRationale = {
+                            requestPermissionLauncher.launch(cameraPermissionState.permission)
+                            pickPhotoEnable = false
+                        },
+                        showSettings = {
+                            showMessage(context, R.string.app_needs_access_to_photo)
 
-                    })
+                        })
                 },
                 enabled = pickPhotoEnable,
                 modifier = Modifier
@@ -161,7 +163,7 @@ fun CompanyContent(
                 Icon(
                     painter = rememberVectorPainter(Icons.Filled.AddCircle),
                     contentDescription = null,
-                    tint = TheStoreColors.blackOrWhiteColor,
+                    tint = TheStoreColors.whiteOrBlackColor,
                     modifier = Modifier.defaultIconSize()
                 )
             }
@@ -176,7 +178,7 @@ fun CompanyContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.Delete),
                         contentDescription = null,
-                        tint = TheStoreColors.blackOrWhiteColor,
+                        tint = TheStoreColors.whiteOrBlackColor,
                         modifier = Modifier.defaultIconSize()
                     )
                 }
@@ -210,7 +212,7 @@ fun CompanyContent(
                     id = R.string.the_latest_update_with_value,
                     state.createdAt.convertToDate()
                 ),
-                color = TheStoreColors.whiteOrBlackColor,
+                color = TheStoreColors.blackOrWhiteColor,
                 modifier = Modifier.defaultHorizontalPadding(),
             )
         }

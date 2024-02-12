@@ -23,8 +23,8 @@ import com.example.core.ui.widget.LoadingView
 import com.example.core.utils.enums.MoreScreenClickAction
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 import the.store.presentation.more.models.MoreScreenUiState
 import the.store.presentation.more.views.MoreScreenContent
 
@@ -71,11 +71,11 @@ fun MoreScreenBody(
                         stringResource(R.string.more),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth(),
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = TheStoreColors.whiteOrBlackColor
+                    containerColor = TheStoreColors.blackOrWhiteColor
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
@@ -87,7 +87,7 @@ fun MoreScreenBody(
                         Icon(
                             rememberVectorPainter(Icons.Filled.ArrowForward),
                             contentDescription = null,
-                            tint = TheStoreColors.blackOrWhiteColor,
+                            tint = TheStoreColors.whiteOrBlackColor,
                             modifier = Modifier.padding(8.dp)
                         )
                     }

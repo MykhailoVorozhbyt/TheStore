@@ -1,9 +1,9 @@
 package the.store.presentation.products.models
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import com.example.core.domain.entities.ProductEntity
 
-@Stable
+@Immutable
 data class ProductsUiState(
     val searchedName: String = "",
     val productList: List<ProductEntity> = listOf()

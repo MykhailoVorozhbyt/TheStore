@@ -18,7 +18,10 @@ import the.store.presentation.more.MoreScreen
 import the.store.presentation.more.MoreScreenViewModel
 import the.store.presentation.more.models.MoreScreenUiEvent
 
-fun NavGraphBuilder.moreNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.moreNavGraph(
+    navController: NavHostController,
+    logout: () -> Unit
+) {
     navigation(
         route = Graph.More.route,
         startDestination = BottomBarScreen.More.route
@@ -37,6 +40,7 @@ fun NavGraphBuilder.moreNavGraph(navController: NavHostController) {
                     moreScreenItemClick(navController, it)
                 },
                 exitClick = {
+                    logout.invoke()
 //                    navController.navigate(Graph.Root.route) {
 //                        popUpTo(Graph.PrimaryScreen.route) {
 //                            inclusive = true

@@ -1,8 +1,10 @@
 package the.store.presentation.workers.create_edit_worker.models
 
 import android.net.Uri
+import androidx.compose.runtime.Immutable
 import the.store.presentation.login_to_app.registration.models.WorkerErrorState
 
+@Immutable
 data class CreateEditWorkerUiState(
     val id: Long = 0,
     val photoUri: Uri? = null,

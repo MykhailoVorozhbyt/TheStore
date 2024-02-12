@@ -1,9 +1,9 @@
 package the.store.presentation.workers.models
 
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import com.example.core.domain.db_entity.WorkerDbEntity
 
-@Stable
+@Immutable
 data class WorkersUiState(
     val isRefreshing: Boolean = false,
     val searchedName: String = "",

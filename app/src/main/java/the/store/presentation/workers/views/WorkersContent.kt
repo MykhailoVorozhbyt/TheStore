@@ -51,12 +51,12 @@ import com.example.core.utils.extensions.modifiers.smallPadding
 import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 import the.store.presentation.workers.models.WorkersUiState
 import the.store.presentation.workers.models.workersList
 import the.store.utils.imageRequestBuilder
-import the.store.utils.itemRoundedCorner
+import the.store.utils.workerItemRoundedCorner
 
 
 @Preview(
@@ -86,7 +86,7 @@ fun WorkersScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor)
             .smallVerticalPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -135,18 +135,18 @@ fun AddTopAppBar(
                         title,
                         textAlign = TextAlign.Start,
                         modifier = Modifier.fillMaxWidth(),
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = TheStoreColors.whiteOrBlackColor
+                    containerColor = TheStoreColors.blackOrWhiteColor
                 ),
                 modifier = Modifier.fillMaxWidth(),
                 actions = {
                     Icon(
                         rememberVectorPainter(Icons.Filled.Add),
                         contentDescription = null,
-                        tint = TheStoreColors.blackOrWhiteColor,
+                        tint = TheStoreColors.whiteOrBlackColor,
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
@@ -191,8 +191,8 @@ fun WorkerItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp, 1.dp)
-            .clip(itemRoundedCorner(isFirsItem, isLastITem))
-            .background(TheStoreColors.whiteOrBlackColor)
+            .clip(workerItemRoundedCorner(isFirsItem, isLastITem))
+            .background(TheStoreColors.blackOrWhiteColor)
             .clickable { click.invoke(worker.id) }
             .smallPadding(),
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -203,7 +203,7 @@ fun WorkerItem(
             Icon(
                 rememberVectorPainter(Icons.Filled.Person),
                 contentDescription = null,
-                tint = TheStoreColors.blackOrWhiteColor,
+                tint = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier.defaultListIconSize()
             )
         } else {
@@ -214,7 +214,7 @@ fun WorkerItem(
             )
             if (painter.state is AsyncImagePainter.State.Loading) {
                 ProgressIndicator(
-                    color = TheStoreColors.blackOrWhiteColor,
+                    color = TheStoreColors.whiteOrBlackColor,
                     modifier = Modifier.defaultListIconSize()
                 )
             } else {
@@ -225,7 +225,7 @@ fun WorkerItem(
                     modifier = Modifier
                         .border(
                             width = 2.dp,
-                            color = TheStoreColors.blackOrWhiteColor,
+                            color = TheStoreColors.whiteOrBlackColor,
                             shape = baseRoundedCornerShape()
                         )
                         .defaultListIconSize()
@@ -238,7 +238,7 @@ fun WorkerItem(
             text = worker.name,
             modifier = Modifier.defaultTextStartPadding(),
             style = TextStyle(
-                color = TheStoreColors.blackOrWhiteColor
+                color = TheStoreColors.whiteOrBlackColor
             )
         )
         Text(
@@ -247,13 +247,13 @@ fun WorkerItem(
                 .weight(1f)
                 .defaultTextStartPadding(),
             style = TextStyle(
-                color = TheStoreColors.blackOrWhiteColor
+                color = TheStoreColors.whiteOrBlackColor
             )
         )
         Icon(
             rememberVectorPainter(Icons.Filled.KeyboardArrowRight),
             contentDescription = null,
-            tint = TheStoreColors.blackOrWhiteColor,
+            tint = TheStoreColors.whiteOrBlackColor,
             modifier = Modifier
         )
     }

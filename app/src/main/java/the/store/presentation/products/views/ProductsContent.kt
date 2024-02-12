@@ -43,8 +43,8 @@ import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
 import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 import the.store.presentation.products.models.ProductsUiState
 import the.store.presentation.products.models.productList
 import the.store.utils.imageRequestBuilder
@@ -78,7 +78,7 @@ fun ProductsContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor)
             .smallVerticalPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -124,7 +124,7 @@ fun ProductItem(
         modifier = Modifier
             .fillMaxWidth()
             .clip(baseRoundedCornerShape())
-            .background(TheStoreColors.whiteOrBlackColor)
+            .background(TheStoreColors.blackOrWhiteColor)
             .clickable {
                 productClick.invoke(product.id)
             }
@@ -144,7 +144,7 @@ fun ProductItem(
                 )
                 if (painter.state is AsyncImagePainter.State.Loading) {
                     ProgressIndicator(
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                         modifier = Modifier.defaultListIconSize()
                     )
                 } else {
@@ -156,7 +156,7 @@ fun ProductItem(
                             .fillMaxWidth()
                             .border(
                                 width = 1.dp,
-                                color = TheStoreColors.blackOrWhiteColor,
+                                color = TheStoreColors.whiteOrBlackColor,
                                 shape = baseRoundedCornerShape()
                             )
                             .defaultListIconSize()
@@ -167,7 +167,7 @@ fun ProductItem(
             val topPadding = if (photoUri.isNullOrBlank()) 0.dp else 6.dp
             Text(
                 text = product.name,
-                color = TheStoreColors.blackOrWhiteColor,
+                color = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier.padding(top = topPadding)
             )
 
@@ -178,18 +178,18 @@ fun ProductItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 6.dp)
-                    .background(TheStoreColors.blackOrWhiteColor, CircleShape)
+                    .background(TheStoreColors.whiteOrBlackColor, CircleShape)
                     .size(25.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = stringResource(id = com.example.theme.R.string.more),
-                        color = TheStoreColors.whiteOrBlackColor
+                        color = TheStoreColors.blackOrWhiteColor
                     )
                     Icon(
                         painter = painterResource(com.example.theme.R.drawable.ic_navigate_next),
                         contentDescription = null,
-                        tint = TheStoreColors.whiteOrBlackColor
+                        tint = TheStoreColors.blackOrWhiteColor
                     )
                 }
             }

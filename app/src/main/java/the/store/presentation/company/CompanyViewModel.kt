@@ -3,6 +3,7 @@ package the.store.presentation.company
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.CompanyRepository
+import com.example.core.domain.constants.Constants.COMPANY_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.first
@@ -43,7 +44,7 @@ class CompanyViewModel @Inject constructor(
 
     private fun getCompany() {
         successLaunch {
-            val result = repository.getCompanyById(1L)
+            val result = repository.getCompanyById(COMPANY_ID)
             setStateData(result?.mapToCompanyUiState() ?: CompanyUiState())
         }
     }

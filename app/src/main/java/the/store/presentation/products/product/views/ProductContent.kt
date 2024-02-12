@@ -136,14 +136,14 @@ fun ProductContent(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultPadding()
                 .height(120.dp)
-                .background(TheStoreColors.whiteOrBlackColor, baseRoundedCornerShape()),
+                .background(TheStoreColors.blackOrWhiteColor, baseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
             val photoUri = state.photoUri
@@ -154,11 +154,11 @@ fun ProductContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.ShoppingCart),
                         contentDescription = "worker icon",
-                        tint = TheStoreColors.blackOrWhiteColor
+                        tint = TheStoreColors.whiteOrBlackColor
                     )
                     Text(
                         text = stringResource(id = R.string.add_photo),
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                     )
                 }
             } else {
@@ -172,7 +172,7 @@ fun ProductContent(
                     modifier = Modifier
                         .border(
                             width = 2.dp,
-                            color = TheStoreColors.whiteOrBlackColor,
+                            color = TheStoreColors.blackOrWhiteColor,
                             shape = baseRoundedCornerShape()
                         )
                         .clip(baseRoundedCornerShape()),
@@ -204,7 +204,7 @@ fun ProductContent(
                 Icon(
                     painter = rememberVectorPainter(Icons.Filled.AddCircle),
                     contentDescription = null,
-                    tint = TheStoreColors.blackOrWhiteColor,
+                    tint = TheStoreColors.whiteOrBlackColor,
                     modifier = Modifier.defaultIconSize()
                 )
             }
@@ -219,7 +219,7 @@ fun ProductContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.Delete),
                         contentDescription = null,
-                        tint = TheStoreColors.blackOrWhiteColor,
+                        tint = TheStoreColors.whiteOrBlackColor,
                         modifier = Modifier.defaultIconSize()
                     )
                 }
@@ -259,7 +259,7 @@ fun ProductContent(
                 .fillMaxWidth()
                 .defaultHorizontalPadding(),
             style = TextStyle(
-                color = TheStoreColors.whiteOrBlackColor
+                color = TheStoreColors.blackOrWhiteColor
             )
         )
         var selectedMeasurementItem by remember { mutableLongStateOf(MeasurementsList[0].id) }
@@ -282,7 +282,7 @@ fun ProductContent(
                 .fillMaxWidth()
                 .defaultHorizontalPadding(),
             style = TextStyle(
-                color = TheStoreColors.whiteOrBlackColor
+                color = TheStoreColors.blackOrWhiteColor
             )
         )
         var selectedCurrencyItem by remember { mutableLongStateOf(CurrencyList[0].id) }
@@ -367,15 +367,10 @@ fun MeasurementsInputChip(
             }
         },
         colors = InputChipDefaults.inputChipColors(
-            labelColor = TheStoreColors.whiteOrBlackColor,
-            selectedLabelColor = TheStoreColors.whiteOrBlackColor,
-            selectedLeadingIconColor = TheStoreColors.whiteOrBlackColor,
-            selectedContainerColor = TheStoreColors.whiteOrBlackColor.copy(alpha = 0.2f),
-        ),
-        border = InputChipDefaults.inputChipBorder(
-            selectedBorderColor = TheStoreColors.whiteOrBlackColor,
-            selectedBorderWidth = 1.2.dp,
-            borderColor = TheStoreColors.whiteOrBlackColor
+            labelColor = TheStoreColors.blackOrWhiteColor,
+            selectedLabelColor = TheStoreColors.blackOrWhiteColor,
+            selectedLeadingIconColor = TheStoreColors.blackOrWhiteColor,
+            selectedContainerColor = TheStoreColors.blackOrWhiteColor.copy(alpha = 0.2f),
         )
     )
 }

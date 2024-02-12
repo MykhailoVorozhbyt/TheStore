@@ -44,13 +44,6 @@ private val LightColorScheme = lightColorScheme(
 val TheStoreColors: Colors
     @Composable get() = androidx.compose.material.MaterialTheme.colors
 
-val TheStoreShapes: Shapes
-    @Composable get() = androidx.compose.material.MaterialTheme.shapes
-
-val TheStoreTypography: Typography
-    @Composable get() = androidx.compose.material.MaterialTheme.typography
-
-
 @Composable
 fun TheStoreTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

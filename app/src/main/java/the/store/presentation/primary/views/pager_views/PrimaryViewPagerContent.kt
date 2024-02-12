@@ -1,5 +1,6 @@
 package the.store.presentation.primary.views.pager_views
 
+import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -22,22 +23,36 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.constants.Constants
-import com.example.theme.Black
+import com.example.theme.TheStoreColors
+import com.example.theme.whiteOrBlackColor
+import the.store.presentation.primary.models.PrimaryUiState
 
-@Preview
+@Preview(
+    name = "Light Mode",
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Dark Mode",
+    showSystemUi = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
 fun PrimaryViewPagerContentPreview() {
-    PrimaryViewPagerContent()
+    PrimaryViewPagerContent(PrimaryUiState())
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PrimaryViewPagerContent() {
+fun PrimaryViewPagerContent(
+    state: PrimaryUiState
+) {
+    val indicatorColor = TheStoreColors.whiteOrBlackColor
     val items by remember {
         mutableStateOf(
             listOf(
-                Constants.DATA_OF_THE_CURRENT_SHIFT,
-                Constants.SIMPLE_MODE
+                Constants.DATA_OF_COMPANY,
+                Constants.DATA_OF_WORKER,
             )
         )
     }
@@ -52,13 +67,14 @@ fun PrimaryViewPagerContent() {
             state = pagerState,
         ) { page ->
             when (items[page]) {
-                Constants.DATA_OF_THE_CURRENT_SHIFT -> {
-                    DataOfTheCurrentShiftView()
+                Constants.DATA_OF_COMPANY -> {
+                    DataOfCompanyView(state.companyInfo)
                 }
 
-                Constants.SIMPLE_MODE -> {
-                    SimpleModeView()
+                Constants.DATA_OF_WORKER -> {
+                    WorkerDataView(state.workerInfo)
                 }
+
             }
         }
         Row(
@@ -70,9 +86,9 @@ fun PrimaryViewPagerContent() {
             repeat(items.size) { iteration ->
                 val color =
                     if (pagerState.currentPage == iteration) {
-                        Black
+                        indicatorColor
                     } else {
-                        Black.copy(alpha = 0.4f)
+                        indicatorColor.copy(alpha = 0.4f)
                     }
                 Box(
                     modifier = Modifier

@@ -19,8 +19,8 @@ import java.util.Date
 import java.util.Locale
 
 
-fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
-    isFirsItem && isLastITem -> {
+fun workerItemRoundedCorner(isFirsItem: Boolean, isLastItem: Boolean) = when {
+    isFirsItem && isLastItem -> {
         RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
     }
 
@@ -28,8 +28,22 @@ fun itemRoundedCorner(isFirsItem: Boolean, isLastITem: Boolean) = when {
         RoundedCornerShape(10.dp, 10.dp, 0.dp, 0.dp)
     }
 
-    isLastITem -> {
+    isLastItem -> {
         RoundedCornerShape(0.dp, 0.dp, 10.dp, 10.dp)
+    }
+
+    else -> {
+        RoundedCornerShape(0.dp, 0.dp, 0.dp, 0.dp)
+    }
+}
+
+fun navigationBarItemRoundedCorner(isFirsItem: Boolean, isLastItem: Boolean) = when {
+    isFirsItem -> {
+        RoundedCornerShape(10.dp, 0.dp, 0.dp, 10.dp)
+    }
+
+    isLastItem -> {
+        RoundedCornerShape(0.dp, 10.dp, 10.dp, 0.dp)
     }
 
     else -> {
@@ -78,7 +92,7 @@ inline fun checkPermissionState(
             isGranted.invoke()
         }
 
-        state.status.isGranted.not() || state.status.shouldShowRationale -> {
+        state.status.isGranted.not() || state.status.shouldShowRationale.not() -> {
             showRationale.invoke()
         }
 
