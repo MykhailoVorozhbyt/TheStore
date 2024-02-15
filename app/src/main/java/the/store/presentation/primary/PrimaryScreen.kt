@@ -23,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -31,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import com.example.core.utils.extensions.modifiers.baseTopRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultTopPadding
+import com.example.core.utils.helpers.showMessage
 import com.example.theme.BlackBoldTextStyle
 import com.example.theme.R
 import com.example.theme.TheStoreColors
@@ -54,15 +56,18 @@ import the.store.presentation.primary.views.pager_views.PrimaryViewPagerContent
 )
 @Composable
 fun PrimaryScreenPreview() {
-    PrimaryScreen(PrimaryUiState()) {}
+    PrimaryScreen(PrimaryUiState(), {}, {}) {}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PrimaryScreen(
     state: PrimaryUiState,
-    initUiData: () -> Unit
+    initUiData: () -> Unit,
+    searchSale: (String) -> Unit,
+    itemClick: (Long) -> Unit,
 ) {
+    val context = LocalContext.current
     var columnHeightDp by remember {
         mutableStateOf(400.dp)
     }
@@ -104,7 +109,8 @@ fun PrimaryScreen(
                     .background(TheStoreColors.blackOrWhiteColor)
                     .defaultTopPadding()
                     .defaultHorizontalPadding(),
-                style = BlackBoldTextStyle(18)
+                style = BlackBoldTextStyle(18),
+                color = TheStoreColors.whiteOrBlackColor
             )
         },
         sheetContent = {
@@ -112,14 +118,17 @@ fun PrimaryScreen(
                 list = state.history,
                 historySearch = state.historySearch,
                 searchText = {
-
+                    searchSale.invoke(it)
                 },
                 itemClick = {
-
+                    itemClick.invoke(it)
                 },
             )
         }
     ) {
+        if (state.error != null) {
+            showMessage(context, state.error)
+        }
         PrimaryScreenContent(state) {
             columnHeightDp = it
         }

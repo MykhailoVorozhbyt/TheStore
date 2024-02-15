@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.core.domain.entities.SaleHistoryEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
@@ -33,6 +34,7 @@ import com.example.theme.WhiteBoldTextStyle
 import com.example.theme.WhiteTextStyle
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import the.store.utils.convertToDate
 import the.store.utils.workerItemRoundedCorner
 
 @Preview(
@@ -46,7 +48,15 @@ import the.store.utils.workerItemRoundedCorner
 @Composable
 fun PrimaryBottomSheetContentPreview() {
     PrimaryBottomSheetContent(
-        list = listOf("1", "2", "3"),
+        list = listOf(
+            SaleHistoryEntity(
+                id = 0,
+                saleId = 1L,
+                createdAt = 1707916401514L,
+                fullPrice = 155.0,
+                products = 11
+            )
+        ),
         historySearch = "1",
         searchText = {},
         itemClick = {}
@@ -55,7 +65,7 @@ fun PrimaryBottomSheetContentPreview() {
 
 @Composable
 fun PrimaryBottomSheetContent(
-    list: List<String>,
+    list: List<SaleHistoryEntity>,
     historySearch: String,
     searchText: (String) -> Unit,
     itemClick: (Long) -> Unit
@@ -92,7 +102,7 @@ fun PrimaryBottomSheetContent(
 
 @Composable
 fun HistoryItem(
-    data: String,
+    data: SaleHistoryEntity,
     isFirsItem: Boolean,
     isLastITem: Boolean,
     click: (Long) -> Unit
@@ -126,12 +136,12 @@ fun HistoryItem(
                 style = WhiteBoldTextStyle
             )
             Text(
-                text = stringResource(id = R.string.fiscal_id_and_value, data),
+                text = stringResource(id = R.string.fiscal_id_and_value, data.id),
                 style = WhiteTextStyle,
                 maxLines = 2
             )
             Text(
-                text = stringResource(id = R.string.time_and_value, data),
+                text = stringResource(id = R.string.time_and_value, data.createdAt.convertToDate()),
                 style = WhiteTextStyle,
                 maxLines = 2
             )
@@ -142,5 +152,4 @@ fun HistoryItem(
             tint = TheStoreColors.whiteOrBlackColor
         )
     }
-
 }

@@ -28,7 +28,9 @@ fun BottomNavGraph(
                 state = uiState,
                 initUiData = {
                     viewModel.initData()
-                }
+                },
+                searchSale = { text -> },
+                itemClick = { id -> },
             )
         }
         productsNavGraph(navController)

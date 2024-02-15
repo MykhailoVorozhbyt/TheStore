@@ -2,10 +2,11 @@ package the.store.presentation.primary
 
 import com.example.core.base.vm.BaseStateViewModel
 import com.example.core.data.repository.CompanyRepository
-import com.example.core.data.repository.WorkerRepository
+import com.example.core.data.repository.SaleRepository
 import com.example.core.domain.constants.Constants.COMPANY_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import the.store.domain.mapper.mapToCompanyEntity
+import the.store.domain.mapper.mapToSaleHistoryEntity
 import the.store.domain.mapper.mapToWorkerEntity
 import the.store.presentation.primary.models.PrimaryUiEvent
 import the.store.presentation.primary.models.PrimaryUiState
@@ -13,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PrimaryViewModel @Inject constructor(
-    private val workerRepository: WorkerRepository,
-    private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository,
+    private val saleRepository: SaleRepository,
 ) : BaseStateViewModel<PrimaryUiState, PrimaryUiEvent>(PrimaryUiState()) {
 
     fun initData() {
@@ -24,9 +25,7 @@ class PrimaryViewModel @Inject constructor(
 
     override fun onTriggerEvent(eventType: PrimaryUiEvent) {
         when (eventType) {
-            is PrimaryUiEvent.SubmitShiftReportClick -> {
-                println("SubmitShiftReportClick")
-            }
+            is PrimaryUiEvent.Search -> getSaleHistory(eventType.value)
         }
     }
 
@@ -39,7 +38,7 @@ class PrimaryViewModel @Inject constructor(
                     )
                 )
             } catch (e: Exception) {
-                println(e)
+                setState(uiState.value.copy(error = e.localizedMessage))
             }
         }
     }
@@ -50,7 +49,18 @@ class PrimaryViewModel @Inject constructor(
                 val company = companyRepository.getCompanyById(COMPANY_ID)
                 setState(uiState.value.copy(companyInfo = company?.mapToCompanyEntity()))
             } catch (e: Exception) {
-                println(e)
+                setState(uiState.value.copy(error = e.localizedMessage))
+            }
+        }
+    }
+
+    private fun getSaleHistory(value: String) {
+        safeLaunch {
+            try {
+                val result = saleRepository.getSaleHistory(value)
+                setState(uiState.value.copy(history = result.map { it.mapToSaleHistoryEntity() }))
+            } catch (e: Exception) {
+                setState(uiState.value.copy(error = e.localizedMessage))
             }
         }
     }
