@@ -21,8 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 
 @Preview
 @Composable
@@ -44,14 +44,14 @@ fun TheStoreOnBackCenterAlignedTopAppBar(
             Icon(
                 rememberVectorPainter(Icons.Filled.ArrowBack),
                 contentDescription = null,
-                tint = TheStoreColors.blackOrWhiteColor,
+                tint = TheStoreColors.whiteOrBlackColor,
                 modifier = Modifier
                     .padding(8.dp)
                     .clickable { pressOnBack.invoke() }
             )
         },
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = TheStoreColors.whiteOrBlackColor
+            containerColor = TheStoreColors.blackOrWhiteColor
         ),
         modifier = Modifier.fillMaxWidth()
     )
@@ -74,8 +74,8 @@ fun TheStoreOnActionToolbar(
     pressOnBack: () -> Unit,
     pressEditCreate: () -> Unit,
 ) {
-    val bgColor = TheStoreColors.whiteOrBlackColor
-    val itemsColor = TheStoreColors.blackOrWhiteColor
+    val bgColor = TheStoreColors.blackOrWhiteColor
+    val itemsColor = TheStoreColors.whiteOrBlackColor
     CenterAlignedTopAppBar(
         title = {
             Text(

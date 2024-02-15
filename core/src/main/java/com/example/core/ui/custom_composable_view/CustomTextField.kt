@@ -26,8 +26,8 @@ import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultTextBottomPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 
 
 @Preview(
@@ -81,16 +81,16 @@ fun InputTextField(
                     .fillMaxWidth()
                     .defaultTextBottomPadding(),
                 text = titleText.elvis(),
-                color = TheStoreColors.whiteOrBlackColor
+                color = TheStoreColors.blackOrWhiteColor
             )
         }
-        val containerColor = TheStoreColors.whiteOrBlackColor
+        val containerColor = TheStoreColors.blackOrWhiteColor
         TextField(
             value = fieldText,
             modifier = Modifier.fillMaxWidth(),
             shape = baseRoundedCornerShape(),
             textStyle = TextStyle(
-                color = TheStoreColors.blackOrWhiteColor
+                color = TheStoreColors.whiteOrBlackColor
             ),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = containerColor,
@@ -99,8 +99,8 @@ fun InputTextField(
                 focusedIndicatorColor = colorResource(R.color.transparentColor),
                 unfocusedIndicatorColor = colorResource(R.color.transparentColor),
                 errorIndicatorColor = colorResource(R.color.transparentColor),
-                cursorColor = TheStoreColors.blackOrWhiteColor,
-                focusedTextColor = TheStoreColors.blackOrWhiteColor,
+                cursorColor = TheStoreColors.whiteOrBlackColor,
+                focusedTextColor = TheStoreColors.whiteOrBlackColor,
             ),
             onValueChange = { text ->
                 isErrorState = false

@@ -1,8 +1,11 @@
 package com.example.core.domain.constants
 
+import androidx.compose.ui.unit.dp
+
 object Constants {
     const val THE_STORE_APP_PREFERENCES = "THE_STORE_APP_PREFERENCES"
     const val THE_STORE_APP_DATABASE = "THE_STORE_APP_DATABASE"
+    const val COMPANY_ID = 1L
 
     ////
     const val EMPTY_STRING = ""
@@ -10,8 +13,10 @@ object Constants {
     const val USER_PASSWORD = "USER_PASSWORD"
 
     //PRIMARY FRAGMENT
+    const val DATA_OF_WORKER = "DATA_OF_WORKER"
+    const val DATA_OF_COMPANY = "DATA_OF_COMPANY"
     const val DATA_OF_THE_CURRENT_SHIFT = "DATA_OF_THE_CURRENT_SHIFT"
-    const val SIMPLE_MODE = "SIMPLE_MODE"
+    const val BASE_CARD_VIEW_HEIGHT = 200
 
     //WORKER
     const val CREATE_WORKER = "CREATE_WORKER"

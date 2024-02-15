@@ -20,8 +20,8 @@ val TransparentColor = Color(0x00FFFFFF)
 val HintColor = Color(0xFF757575)
 val ErrorColor = Color(0xFFB61919)
 
-val Colors.blackOrWhiteColor: Color
+val Colors.whiteOrBlackColor: Color
     @Composable get() = if (isSystemInDarkTheme()) Black else White
 
-val Colors.whiteOrBlackColor: Color
+val Colors.blackOrWhiteColor: Color
     @Composable get() = if (isSystemInDarkTheme().not()) Black else White

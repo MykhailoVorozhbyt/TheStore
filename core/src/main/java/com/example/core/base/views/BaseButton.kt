@@ -32,7 +32,6 @@ fun BaseButton(
     text: String,
     buttonModifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
-    revertColor: Boolean = true,
     onClick: () -> Unit
 ) {
     return Button(
@@ -41,19 +40,14 @@ fun BaseButton(
             onClick()
         },
         colors = ButtonDefaults.buttonColors(
-            containerColor = if (revertColor) {
-                TheStoreColors.whiteOrBlackColor
-            } else {
-                TheStoreColors.blackOrWhiteColor
-            }
+            containerColor = TheStoreColors.blackOrWhiteColor
         ),
     ) {
         Text(
-            modifier = textModifier, text = text, color = if (revertColor) {
-                TheStoreColors.blackOrWhiteColor
-            } else {
-                TheStoreColors.whiteOrBlackColor
-            }, textAlign = TextAlign.Center
+            modifier = textModifier,
+            text = text,
+            color = TheStoreColors.whiteOrBlackColor,
+            textAlign = TextAlign.Center
         )
     }
 }

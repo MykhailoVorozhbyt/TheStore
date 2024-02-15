@@ -16,7 +16,13 @@ fun RootNavGraph(navController: NavHostController) {
     ) {
         authNavGraph(navController)
         composable(route = Graph.PrimaryScreen.route) {
-            MainScreen()
+            MainScreen {
+                navController.navigate(Graph.Root.route) {
+                    popUpTo(Graph.PrimaryScreen.route) {
+                        inclusive = true
+                    }
+                }
+            }
         }
     }
 }

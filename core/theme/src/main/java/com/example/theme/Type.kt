@@ -43,8 +43,7 @@ val WhiteTextStyle
 val BlackTextStyle: TextStyle
     @Composable get() = TextStyle(
         color = TheStoreColors.blackOrWhiteColor,
-
-        )
+    )
 
 val WhiteBoldTextStyle: TextStyle
     @Composable get() = TextStyle(
@@ -57,3 +56,10 @@ val BlackBoldTextStyle: TextStyle
         color = TheStoreColors.blackOrWhiteColor,
         fontWeight = FontWeight.Bold
     )
+
+@Composable
+fun BlackBoldTextStyle(size: Int): TextStyle = TextStyle(
+    color = TheStoreColors.blackOrWhiteColor,
+    fontWeight = FontWeight.Bold,
+    fontSize = size.sp
+)

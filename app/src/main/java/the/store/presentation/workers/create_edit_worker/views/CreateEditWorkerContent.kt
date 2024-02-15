@@ -50,8 +50,8 @@ import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.core.utils.helpers.showMessage
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberPermissionState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
@@ -123,14 +123,14 @@ fun CreateEditWorkerContent(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultPadding()
                 .height(120.dp)
-                .background(TheStoreColors.whiteOrBlackColor, baseRoundedCornerShape()),
+                .background(TheStoreColors.blackOrWhiteColor, baseRoundedCornerShape()),
             contentAlignment = Alignment.Center
         ) {
             val photoUri = uiState.photoUri
@@ -141,11 +141,11 @@ fun CreateEditWorkerContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.Person),
                         contentDescription = "worker icon",
-                        tint = TheStoreColors.blackOrWhiteColor
+                        tint = TheStoreColors.whiteOrBlackColor
                     )
                     Text(
                         text = stringResource(id = R.string.add_photo),
-                        color = TheStoreColors.blackOrWhiteColor,
+                        color = TheStoreColors.whiteOrBlackColor,
                     )
                 }
             } else {
@@ -159,7 +159,7 @@ fun CreateEditWorkerContent(
                     modifier = Modifier
                         .border(
                             width = 2.dp,
-                            color = TheStoreColors.whiteOrBlackColor,
+                            color = TheStoreColors.blackOrWhiteColor,
                             shape = baseRoundedCornerShape()
                         )
                         .clip(baseRoundedCornerShape()),
@@ -191,7 +191,7 @@ fun CreateEditWorkerContent(
                 Icon(
                     painter = rememberVectorPainter(Icons.Filled.AddCircle),
                     contentDescription = null,
-                    tint = TheStoreColors.blackOrWhiteColor,
+                    tint = TheStoreColors.whiteOrBlackColor,
                     modifier = Modifier.defaultIconSize()
                 )
             }
@@ -206,7 +206,7 @@ fun CreateEditWorkerContent(
                     Icon(
                         painter = rememberVectorPainter(Icons.Filled.Delete),
                         contentDescription = null,
-                        tint = TheStoreColors.blackOrWhiteColor,
+                        tint = TheStoreColors.whiteOrBlackColor,
                         modifier = Modifier.defaultIconSize()
                     )
                 }

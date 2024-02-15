@@ -2,7 +2,11 @@ package the.store.domain.mapper
 
 import com.example.core.domain.db_entity.CompanyDbEntity
 import com.example.core.domain.db_entity.ProductDbEntity
+import com.example.core.domain.db_entity.SaleHistoryDbEntity
 import com.example.core.domain.db_entity.WorkerDbEntity
+import com.example.core.domain.entities.CompanyEntity
+import com.example.core.domain.entities.SaleHistoryEntity
+import com.example.core.domain.entities.WorkerEntity
 import the.store.presentation.company.models.CompanyUiState
 import the.store.presentation.products.product.models.ProductUiState
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
@@ -17,6 +21,15 @@ fun WorkerDbEntity.mapToCreateEditWorkerUiState(): CreateEditWorkerUiState =
         phone = phone,
         password = password,
         emailAddress = emailAddress,
+    )
+
+fun WorkerDbEntity.mapToWorkerEntity(): WorkerEntity =
+    WorkerEntity(
+        id = id,
+        photo = photoUri.toUriOrNull(),
+        name = name,
+        surname = surname,
+        phone = phone,
     )
 
 fun CreateEditWorkerUiState.mapToWorkerEntity(): WorkerDbEntity {
@@ -64,6 +77,13 @@ fun CompanyDbEntity.mapToCompanyUiState(): CompanyUiState = CompanyUiState(
     createdAt = createdAt,
 )
 
+fun CompanyDbEntity.mapToCompanyEntity(): CompanyEntity = CompanyEntity(
+    photoUri = photoUri,
+    name = name,
+    description = description,
+    createdAt = createdAt,
+)
+
 fun CompanyUiState.mapToCompanyDbEntity(): CompanyDbEntity = CompanyDbEntity(
     id = id,
     photoUri = photoUri?.toString(),
@@ -71,4 +91,13 @@ fun CompanyUiState.mapToCompanyDbEntity(): CompanyDbEntity = CompanyDbEntity(
     description = description,
     companyCreated = companyCreated,
     createdAt = createdAt,
+)
+
+
+fun SaleHistoryDbEntity.mapToSaleHistoryEntity(): SaleHistoryEntity = SaleHistoryEntity(
+    id = id,
+    saleId = saleId,
+    createdAt = createdAt,
+    fullPrice = fullPrice,
+    products = products,
 )

@@ -28,8 +28,8 @@ import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 
 @Preview(
     name = "Light Mode",
@@ -55,7 +55,8 @@ fun MoreScreenContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(TheStoreColors.blackOrWhiteColor)
+            .background(TheStoreColors.whiteOrBlackColor),
+        userScrollEnabled = false
     ) {
         items(uiListItems) { item ->
             when (item) {
@@ -106,14 +107,14 @@ private fun MoreScreenButtonItem(
         .clickable {
             clickAction.invoke(model.clickAction)
         }
-        .background(TheStoreColors.blackOrWhiteColor)
+        .background(TheStoreColors.whiteOrBlackColor)
         .smallVerticalPadding()
         .defaultHorizontalPadding(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             painter = painterResource(id = model.icon),
-            tint = TheStoreColors.whiteOrBlackColor,
+            tint = TheStoreColors.blackOrWhiteColor,
             contentDescription = model::class.java.name,
         )
 
@@ -122,12 +123,12 @@ private fun MoreScreenButtonItem(
             modifier = Modifier
                 .weight(1f)
                 .defaultTextStartPadding(),
-            color = TheStoreColors.whiteOrBlackColor
+            color = TheStoreColors.blackOrWhiteColor
         )
         Icon(
             painter = painterResource(id = R.drawable.ic_navigate_next),
             contentDescription = null,
-            tint = TheStoreColors.whiteOrBlackColor
+            tint = TheStoreColors.blackOrWhiteColor
         )
     }
 }
@@ -161,6 +162,6 @@ private fun MoreScreenTitleItem(model: MoreScreenTitleDto) {
             .fillMaxWidth()
             .smallVerticalPadding()
             .defaultHorizontalPadding(),
-        color = TheStoreColors.whiteOrBlackColor
+        color = TheStoreColors.blackOrWhiteColor
     )
 }

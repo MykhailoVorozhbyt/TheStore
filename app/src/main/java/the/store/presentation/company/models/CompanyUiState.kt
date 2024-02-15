@@ -1,7 +1,9 @@
 package the.store.presentation.company.models
 
 import android.net.Uri
+import androidx.compose.runtime.Immutable
 
+@Immutable
 data class CompanyUiState(
     val id: Long = 0,
     val photoUri: Uri? = null,

@@ -6,11 +6,11 @@ import com.example.core.base.states.ErrorState
 
 @Immutable
 data class LoginUiState(
-    var phoneValue: String = "",
-    var passwordValue: String = "",
-    var inputDataErrorState: LoginErrorState = LoginErrorState(),
-    var userNotLoggedIn: Boolean = false,
-    var userLoggedIn: Boolean = false,
+    val phoneValue: String = "",
+    val passwordValue: String = "",
+    val inputDataErrorState: LoginErrorState = LoginErrorState(),
+    val userNotLoggedIn: Boolean = false,
+    val userLoggedIn: Boolean = false,
     override val errorState: ErrorState = ErrorState(),
     override val isLoading: Boolean = false,
 ) : BaseUiState()

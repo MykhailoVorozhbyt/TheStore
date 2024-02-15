@@ -28,7 +28,9 @@
     <string name="input_name">Input name</string>
     <string name="input_surname">Input surname</string>
     <string name="name">Name</string>
+    <string name="name_and_value">Name: %s</string>
     <string name="surname">Surname</string>
+    <string name="surname_and_value">Surname: %s</string>
     <string name="sign_up">Sign up</string>
 
     <!--Primary view-->
@@ -37,6 +39,11 @@
     <string name="basket">Basket</string>
     <string name="workers">Workers</string>
     <string name="more">More</string>
+    <string name="worker_data">Worker data</string>
+
+    <string name="check">Check</string>
+    <string name="fiscal_id_and_value">Fiscal ID: %s</string>
+    <string name="time_and_value">Time: %s</string>
 
     <!--Primary view - view pager items-->
     <string name="data_of_the_current_shift">Data of the current shift</string>
@@ -67,6 +74,7 @@
     <string name="email_address">Email address</string>
     <string name="invalidate_email_address">Email address</string>
     <string name="phone">Phone</string>
+    <string name="phone_and_value">Phone: %s</string>
     <string name="add_photo">Add photo</string>
     <string name="employee_created_successfully">Employee created successfully</string>
     <string name="employee_data_updated_successfully">Employee data updated successfully</string>
@@ -115,6 +123,7 @@
     <string name="company_name">Company name</string>
     <string name="company_description">Company description</string>
     <string name="company_data_updated_successfully">Company data updated successfully</string>
+    <string name="description_with_value">Description: %s</string>
     <string name="the_latest_update_with_value">The latest update: %s</string>
 
 </resources>

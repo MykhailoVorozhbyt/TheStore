@@ -1,9 +1,15 @@
 package the.store.presentation.primary.models
 
-import com.example.core.base.states.BaseUiState
-import com.example.core.base.states.ErrorState
+import androidx.compose.runtime.Immutable
+import com.example.core.domain.entities.CompanyEntity
+import com.example.core.domain.entities.SaleHistoryEntity
+import com.example.core.domain.entities.WorkerEntity
 
+@Immutable
 data class PrimaryUiState(
-    override val errorState: ErrorState = ErrorState(),
-    override val isLoading: Boolean = false
-) : BaseUiState()
+    val companyInfo: CompanyEntity? = null,
+    val workerInfo: WorkerEntity? = null,
+    val historySearch: String = "",
+    val history: List<SaleHistoryEntity> = listOf(),
+    val error: String? = null
+)

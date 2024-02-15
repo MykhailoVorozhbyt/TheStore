@@ -1,110 +1,165 @@
 package the.store.presentation.primary
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.example.core.base.views.BaseButton
-import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
-import com.example.core.utils.extensions.modifiers.smallPadding
+import com.example.core.utils.extensions.modifiers.baseTopRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
+import com.example.core.utils.extensions.modifiers.defaultTopPadding
+import com.example.core.utils.helpers.showMessage
+import com.example.theme.BlackBoldTextStyle
 import com.example.theme.R
 import com.example.theme.TheStoreColors
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
-import the.store.presentation.primary.models.PrimaryUiEvent
-import the.store.presentation.primary.views.bottom_sheet_views.PrimaryBottomSheetView
+import kotlinx.coroutines.launch
+import the.store.presentation.primary.models.PrimaryUiState
+import the.store.presentation.primary.views.bottom_sheet_views.PrimaryBottomSheetContent
 import the.store.presentation.primary.views.pager_views.PrimaryViewPagerContent
 
+
+@Preview(
+    name = "Light Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_NO
+)
+@Preview(
+    name = "Dark Mode",
+    showBackground = true,
+    uiMode = Configuration.UI_MODE_NIGHT_YES
+)
 @Composable
-fun PrimaryScreen(
-    navController: NavHostController, viewModel: PrimaryViewModel = hiltViewModel()
-) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
-        PrimaryBottomSheetView(viewModel) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                PrimaryTopBar()
-                PrimaryViewPagerContent()
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .smallHorizontalPadding()
-                        .background(colorResource(id = R.color.errorColor)),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    BaseButton(
-                        text = stringResource(id = R.string.x_report),
-                        buttonModifier = Modifier
-                            .weight(1f)
-                            .smallPadding()
-                            .height(60.dp),
-                        revertColor = false
-                    ) {
-                        viewModel.onTriggerEvent(PrimaryUiEvent.SubmitXReportClick)
-                    }
-                    BaseButton(
-                        text = stringResource(id = R.string.open_shift),
-                        buttonModifier = Modifier
-                            .weight(1f)
-                            .smallPadding()
-                            .height(60.dp),
-                        revertColor = false
-                    ) {
-                        viewModel.onTriggerEvent(PrimaryUiEvent.SubmitShiftReportClick)
-                    }
-                    BaseButton(
-                        text = stringResource(id = R.string.copy_reports),
-                        buttonModifier = Modifier
-                            .weight(1f)
-                            .smallPadding()
-                            .height(60.dp),
-                        revertColor = false
-                    ) {
-                        viewModel.onTriggerEvent(PrimaryUiEvent.SubmitCopyReportsClick)
-                    }
-                }
-            }
-        }
-    }
+fun PrimaryScreenPreview() {
+    PrimaryScreen(PrimaryUiState(), {}, {}) {}
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrimaryTopBar() {
-    CenterAlignedTopAppBar(
-        title = {
+fun PrimaryScreen(
+    state: PrimaryUiState,
+    initUiData: () -> Unit,
+    searchSale: (String) -> Unit,
+    itemClick: (Long) -> Unit,
+) {
+    val context = LocalContext.current
+    var columnHeightDp by remember {
+        mutableStateOf(400.dp)
+    }
+    val coroutineScope = rememberCoroutineScope()
+    val bottomSheetState = rememberStandardBottomSheetState(
+        initialValue = SheetValue.PartiallyExpanded,
+        confirmValueChange = { it != SheetValue.Hidden },
+        skipHiddenState = false,
+    )
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState)
+
+    BottomSheetScaffold(
+        sheetShape = baseTopRoundedCornerShape(),
+        sheetPeekHeight = columnHeightDp,
+        sheetShadowElevation = 20.dp,
+        scaffoldState = bottomSheetScaffoldState,
+        containerColor = TheStoreColors.blackOrWhiteColor,
+        sheetContainerColor = TheStoreColors.whiteOrBlackColor,
+        modifier = Modifier
+            .fillMaxWidth()
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onTap = {
+                        coroutineScope.launch {
+                            when {
+                                bottomSheetScaffoldState.bottomSheetState.hasExpandedState -> {
+                                    bottomSheetScaffoldState.bottomSheetState.partialExpand()
+                                }
+                            }
+                        }
+                    }
+                )
+            },
+        topBar = {
             Text(
                 text = stringResource(R.string.app_name),
-                fontSize = 18.sp,
-                color = TheStoreColors.blackOrWhiteColor
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(TheStoreColors.blackOrWhiteColor)
+                    .defaultTopPadding()
+                    .defaultHorizontalPadding(),
+                style = BlackBoldTextStyle(18),
+                color = TheStoreColors.whiteOrBlackColor
             )
         },
-        modifier = Modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = TheStoreColors.whiteOrBlackColor
-        ),
-        actions = {}
-    )
+        sheetContent = {
+            PrimaryBottomSheetContent(
+                list = state.history,
+                historySearch = state.historySearch,
+                searchText = {
+                    searchSale.invoke(it)
+                },
+                itemClick = {
+                    itemClick.invoke(it)
+                },
+            )
+        }
+    ) {
+        if (state.error != null) {
+            showMessage(context, state.error)
+        }
+        PrimaryScreenContent(state) {
+            columnHeightDp = it
+        }
+    }
+    LaunchedEffect(true) {
+        initUiData.invoke()
+    }
+}
+
+@Composable
+fun PrimaryScreenContent(
+    state: PrimaryUiState,
+    sizeForBottomSheet: (Dp) -> Unit
+) {
+    val localDensity = LocalDensity.current
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+    ) {
+        PrimaryViewPagerContent(state)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .weight(1f)
+                .onGloballyPositioned { coordinates ->
+                    sizeForBottomSheet.invoke(
+                        with(localDensity) {
+                            coordinates.size.height.toDp()
+                        }
+                    )
+                }
+        )
+    }
 }

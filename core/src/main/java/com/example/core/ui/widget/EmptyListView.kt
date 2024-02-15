@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.whiteOrBlackColor
+import com.example.theme.blackOrWhiteColor
 
 @Composable
 fun EmptyListView(modifier: Modifier = Modifier) {
@@ -29,11 +29,11 @@ fun EmptyListView(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.ic_list),
             contentDescription = null,
             modifier = Modifier.size(80.dp),
-            tint = TheStoreColors.whiteOrBlackColor
+            tint = TheStoreColors.blackOrWhiteColor
         )
         Text(
             text = stringResource(id = R.string.empty_list),
-            color = TheStoreColors.whiteOrBlackColor,
+            color = TheStoreColors.blackOrWhiteColor,
             style = MaterialTheme.typography.bodyLarge,
         )
     }
