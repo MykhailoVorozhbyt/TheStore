@@ -8,8 +8,8 @@ sealed class ProductUiEvent {
     data object DeletePhotoUri : ProductUiEvent()
     data class NameChanged(val name: String) : ProductUiEvent()
     data class PriceChanged(val price: String) : ProductUiEvent()
-    data class MeasurementsChanged(val measurementsId: Long) : ProductUiEvent()
-    data class CurrencyChanged(val currencyId: Long) : ProductUiEvent()
+    data class MeasurementsChanged(val stringId: Int) : ProductUiEvent()
+    data class CurrencyChanged(val stringId: Int) : ProductUiEvent()
     data class DescriptionChanged(val description: String) : ProductUiEvent()
     data class BarcodeChanged(val barcode: String) : ProductUiEvent()
 

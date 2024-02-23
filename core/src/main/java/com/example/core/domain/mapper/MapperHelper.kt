@@ -9,4 +9,7 @@ fun ProductDbEntity.mapToProductEntity(): ProductEntity =
         id = id,
         photoUri = photoUri,
         name = name,
+        price = price,
+        measurementResId = measurementId,
+        currencyResId = currencyId,
     )

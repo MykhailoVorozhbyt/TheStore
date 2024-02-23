@@ -2,8 +2,8 @@ import extensions.addCompose
 import extensions.addDefaultLib
 
 plugins {
-    id("com.android.library")
-    kotlin("android")
+    id(Plugins.androidLibrary)
+    kotlin(Plugins.android)
 }
 
 android {
@@ -32,7 +32,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = AppConfig.jvmTarget
     }
     buildFeatures {
         compose = true

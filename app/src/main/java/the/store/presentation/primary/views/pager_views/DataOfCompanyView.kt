@@ -1,6 +1,5 @@
 package the.store.presentation.primary.views.pager_views
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.base.views.BaseCardView
 import com.example.core.domain.entities.CompanyEntity
@@ -34,23 +33,13 @@ import com.example.theme.BlackBoldTextStyle
 import com.example.theme.BlackTextStyle
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.WhiteTextStyle
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import the.store.utils.convertToDate
 import the.store.utils.imageRequestBuilder
 import java.util.Calendar
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun DataOfCompanyViewPreview() {
     Column {
@@ -77,12 +66,20 @@ fun DataOfCompanyViewPreview() {
 fun DataOfCompanyView(data: CompanyEntity?) {
     BaseCardView {
         if (data == null) {
-            Text(
-                text = "Company is null",
-                style = WhiteTextStyle,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Column {
+                Text(
+                    text = stringResource(R.string.you_need_to_set_up_a_company),
+                    style = BlackBoldTextStyle,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Text(
+                    text = stringResource(R.string.go_to_more_company),
+                    style = BlackBoldTextStyle,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         } else {
             Row {
                 val photoUri = data.photoUri

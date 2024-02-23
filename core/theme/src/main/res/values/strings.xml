@@ -44,6 +44,8 @@
     <string name="check">Check</string>
     <string name="fiscal_id_and_value">Fiscal ID: %s</string>
     <string name="time_and_value">Time: %s</string>
+    <string name="you_need_to_set_up_a_company">You need to set up a company.</string>
+    <string name="go_to_more_company">Go to: More -> Company</string>
 
     <!--Primary view - view pager items-->
     <string name="data_of_the_current_shift">Data of the current shift</string>
@@ -125,5 +127,11 @@
     <string name="company_data_updated_successfully">Company data updated successfully</string>
     <string name="description_with_value">Description: %s</string>
     <string name="the_latest_update_with_value">The latest update: %s</string>
+
+    <!--Basket-->
+    <string name="name_with_value">Name: %s</string>
+    <string name="price_with_value">Price: %s</string>
+    <string name="products_in_the_basket_with_value">Products in the basket: %s</string>
+    <string name="sell">Sell</string>
 
 </resources>

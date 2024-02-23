@@ -1,7 +1,5 @@
 package com.example.core.domain.constants
 
-import androidx.compose.ui.unit.dp
-
 object Constants {
     const val THE_STORE_APP_PREFERENCES = "THE_STORE_APP_PREFERENCES"
     const val THE_STORE_APP_DATABASE = "THE_STORE_APP_DATABASE"
@@ -17,6 +15,7 @@ object Constants {
     const val DATA_OF_COMPANY = "DATA_OF_COMPANY"
     const val DATA_OF_THE_CURRENT_SHIFT = "DATA_OF_THE_CURRENT_SHIFT"
     const val BASE_CARD_VIEW_HEIGHT = 200
+    const val HORIZONTAL_PAGER_AUTO_SCROLL_TIME = 7000L
 
     //WORKER
     const val CREATE_WORKER = "CREATE_WORKER"

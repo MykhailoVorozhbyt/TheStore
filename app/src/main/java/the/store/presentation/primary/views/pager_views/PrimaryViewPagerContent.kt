@@ -1,6 +1,5 @@
 package the.store.presentation.primary.views.pager_views
 
-import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,28 +14,25 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.constants.Constants
 import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import the.store.presentation.primary.models.PrimaryUiState
 
-@Preview(
-    name = "Light Mode",
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showSystemUi = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun PrimaryViewPagerContentPreview() {
     PrimaryViewPagerContent(PrimaryUiState())
@@ -47,6 +43,7 @@ fun PrimaryViewPagerContentPreview() {
 fun PrimaryViewPagerContent(
     state: PrimaryUiState
 ) {
+    val coroutineScope = rememberCoroutineScope()
     val indicatorColor = TheStoreColors.whiteOrBlackColor
     val items by remember {
         mutableStateOf(
@@ -100,6 +97,16 @@ fun PrimaryViewPagerContent(
             }
         }
     }
-
-
+    with(pagerState) {
+        LaunchedEffect(currentPage) {
+            // convert compose state into flow
+            snapshotFlow { currentPage }.collectLatest {
+                delay(Constants.HORIZONTAL_PAGER_AUTO_SCROLL_TIME)
+                val nextPage = if (currentPage < pageCount - 1) currentPage + 1 else 0
+                coroutineScope.launch {
+                    animateScrollToPage(nextPage)
+                }
+            }
+        }
+    }
 }

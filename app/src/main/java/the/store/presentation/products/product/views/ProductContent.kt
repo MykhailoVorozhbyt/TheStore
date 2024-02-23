@@ -49,7 +49,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.base.views.BaseButton
 import com.example.core.domain.entities.CurrencyList
@@ -72,16 +72,7 @@ import the.store.utils.DecimalVisualTransformation
 import the.store.utils.checkPermissionState
 import the.store.utils.imageRequestBuilder
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun ProductScreenPreview() {
     ProductContent(LocalContext.current, ProductUiState(), {}, {}, {}, {}, {}, {}, {}, {}, {})
@@ -96,8 +87,8 @@ fun ProductContent(
     deletePhotoUri: () -> Unit,
     nameChanged: (String) -> Unit,
     priceChanged: (String) -> Unit,
-    measurementsChanged: (Long) -> Unit,
-    currencyChanged: (Long) -> Unit,
+    measurementsChanged: (Int) -> Unit,
+    currencyChanged: (Int) -> Unit,
     descriptionChanged: (String) -> Unit,
     barcodeChanged: (String) -> Unit,
     deleteProduct: (Long) -> Unit
@@ -270,8 +261,8 @@ fun ProductContent(
         ) {
             items(MeasurementsList) { item ->
                 MeasurementsInputChip(item, item.id == selectedMeasurementItem) {
-                    selectedMeasurementItem = it
-                    measurementsChanged.invoke(it)
+                    selectedMeasurementItem = it.id
+                    measurementsChanged.invoke(it.textId)
                 }
             }
         }
@@ -293,8 +284,8 @@ fun ProductContent(
         ) {
             items(CurrencyList) { item ->
                 MeasurementsInputChip(item, item.id == selectedCurrencyItem) {
-                    selectedCurrencyItem = it
-                    currencyChanged.invoke(it)
+                    selectedCurrencyItem = it.id
+                    currencyChanged.invoke(it.textId)
                 }
             }
         }
@@ -336,13 +327,13 @@ fun ProductContent(
 fun MeasurementsInputChip(
     item: ProductInputChipEntity,
     selectedItem: Boolean,
-    itemClick: (Long) -> Unit
+    itemClick: (ProductInputChipEntity) -> Unit
 ) {
     InputChip(
         modifier = Modifier.padding(horizontal = 6.dp),
         selected = selectedItem,
         onClick = {
-            itemClick.invoke(item.id)
+            itemClick.invoke(item)
         },
         label = {
             Text(stringResource(id = item.textId))

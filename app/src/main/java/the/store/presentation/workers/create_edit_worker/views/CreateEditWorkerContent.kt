@@ -39,7 +39,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.base.views.BaseButton
 import com.example.core.ui.custom_composable_view.InputTextField
@@ -58,18 +58,7 @@ import the.store.presentation.workers.create_edit_worker.models.CreateEditWorker
 import the.store.utils.checkPermissionState
 import the.store.utils.imageRequestBuilder
 
-
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO
-)
-@Preview
+@PreviewLightDark
 @Composable
 fun CreateEditWorkerContentPreview() {
     CreateEditWorkerContent(CreateEditWorkerUiState(), {}, {}, {}, {}, {}, {}, {}, {})

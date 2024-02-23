@@ -18,7 +18,7 @@ import com.example.core.domain.db_entity.WorkerDbEntity
         CompanyDbEntity::class,
         SaleHistoryDbEntity::class,
     ],
-    version = 5,
+    version = 7,
     exportSchema = false
 )
 abstract class TheStoreDatabase : RoomDatabase() {

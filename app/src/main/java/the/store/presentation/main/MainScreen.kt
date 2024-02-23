@@ -12,7 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,16 +24,7 @@ import the.store.navigation.BottomNavGraph
 import the.store.utils.extensions.AddNavigationBarItem
 import the.store.utils.extensions.bottomBarAnimatedScroll
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun MainScreenPreview() {
     MainScreen {}

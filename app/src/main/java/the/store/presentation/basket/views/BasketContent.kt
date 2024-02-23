@@ -1,31 +1,22 @@
-package the.store.presentation.workers.views
+package the.store.presentation.basket.views
 
 import android.content.Context
-import android.content.res.Configuration.UI_MODE_NIGHT_NO
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,136 +25,92 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
-import com.example.core.domain.db_entity.WorkerDbEntity
+import com.example.core.domain.entities.ProductEntity
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
 import com.example.core.ui.widget.ProgressIndicator
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.basketListIconSize
+import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
 import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
+import com.example.core.utils.extensions.modifiers.defaultTopPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
 import com.example.core.utils.extensions.modifiers.smallPadding
-import com.example.core.utils.extensions.modifiers.smallVerticalPadding
 import com.example.theme.R
 import com.example.theme.TheStoreColors
-import com.example.theme.whiteOrBlackColor
+import com.example.theme.WhiteBoldTextStyle
+import com.example.theme.WhiteTextStyle
 import com.example.theme.blackOrWhiteColor
-import the.store.presentation.workers.models.WorkersUiState
-import the.store.presentation.workers.models.workersList
+import com.example.theme.whiteOrBlackColor
+import the.store.presentation.products.models.productList
+import the.store.utils.TOperation
 import the.store.utils.imageRequestBuilder
 import the.store.utils.workerItemRoundedCorner
 
-
 @PreviewLightDark
 @Composable
-fun WorkersScreenBodyPreview() {
-    AddTopAppBar(stringResource(R.string.workers), {}) {
-        WorkersScreenContent(WorkersUiState(workersList = workersList), {}, {})
-    }
+fun BasketContentPreview() {
+    BasketContent(productList())
 }
 
+
 @Composable
-fun WorkersScreenContent(
-    uiState: WorkersUiState,
-    searchText: (String) -> Unit,
-    workerClick: (Long) -> Unit,
+fun BasketContent(
+    list: List<ProductEntity>
 ) {
-    val context: Context = LocalContext.current
+    val context = LocalContext.current
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(TheStoreColors.whiteOrBlackColor)
-            .smallVerticalPadding(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxWidth()
     ) {
         InputTextField(
             onValueChange = { resultText ->
-                searchText.invoke(resultText)
+//                searchText.invoke(resultText)
             },
-            hintText = stringResource(id = R.string.input_name),
-            textValue = uiState.searchedName,
-            columnModifier = Modifier.smallHorizontalPadding()
+            textValue = "",
+            columnModifier = Modifier
+                .defaultHorizontalPadding()
+                .defaultTopPadding()
         )
-        if (uiState.workersList.isEmpty()) {
+        if (list.isEmpty()) {
             EmptyListView()
         } else {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .smallHorizontalPadding()
             ) {
-                itemsIndexed(uiState.workersList) { index, item ->
-                    WorkerItem(
+                itemsIndexed(list) { index, item ->
+                    ProductContentItem(
                         context,
                         item,
                         index == 0,
-                        index == uiState.workersList.size - 1
-                    ) { id ->
-                        workerClick.invoke(id)
+                        index == list.size - 1
+                    ) {
+//                        productClick.invoke(it)
                     }
                 }
             }
         }
+
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun AddTopAppBar(
-    title: String,
-    addClick: () -> Unit,
-    pageContent: @Composable (PaddingValues) -> Unit,
-) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        title,
-                        textAlign = TextAlign.Start,
-                        modifier = Modifier.fillMaxWidth(),
-                        color = TheStoreColors.whiteOrBlackColor,
-                    )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = TheStoreColors.blackOrWhiteColor
-                ),
-                modifier = Modifier.fillMaxWidth(),
-                actions = {
-                    Icon(
-                        rememberVectorPainter(Icons.Filled.Add),
-                        contentDescription = null,
-                        tint = TheStoreColors.whiteOrBlackColor,
-                        modifier = Modifier
-                            .padding(8.dp)
-                            .clickable {
-                                addClick.invoke()
-                            }
-
-                    )
-                }
-            )
-        },
-        content = { pageContent.invoke(it) }
-    )
 }
 
 @PreviewLightDark
 @Composable
-fun WorkerItemPreview() {
-    WorkerItem(
+fun ProductContentItemPreviewLightDark() {
+    ProductContentItem(
         LocalContext.current,
-        WorkerDbEntity(
+        ProductEntity(
             id = 0,
+            photoUri = "222",
             name = "Misha",
-            surname = "Vorozhbyt",
-            password = "",
-            phone = "",
-            emailAddress = "",
+            1500.0,
+            R.string.kilogram,
+            R.string.usd
         ),
         true,
         false
@@ -171,12 +118,12 @@ fun WorkerItemPreview() {
 }
 
 @Composable
-fun WorkerItem(
+fun ProductContentItem(
     context: Context,
-    worker: WorkerDbEntity,
+    product: ProductEntity,
     isFirsItem: Boolean,
     isLastITem: Boolean,
-    click: (Long) -> Unit
+    productClick: TOperation<Long>
 ) {
     Row(
         modifier = Modifier
@@ -184,18 +131,18 @@ fun WorkerItem(
             .padding(10.dp, 1.dp)
             .clip(workerItemRoundedCorner(isFirsItem, isLastITem))
             .background(TheStoreColors.blackOrWhiteColor)
-            .clickable { click.invoke(worker.id) }
+            .clickable { productClick(product.id) }
             .smallPadding(),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val photoUri = worker.photoUri
+        val photoUri = product.photoUri
         if (photoUri.isNullOrBlank()) {
             Icon(
                 rememberVectorPainter(Icons.Filled.Person),
                 contentDescription = null,
                 tint = TheStoreColors.whiteOrBlackColor,
-                modifier = Modifier.defaultListIconSize()
+                modifier = Modifier.basketListIconSize()
             )
         } else {
             val painter = imageRequestBuilder(
@@ -206,7 +153,7 @@ fun WorkerItem(
             if (painter.state is AsyncImagePainter.State.Loading) {
                 ProgressIndicator(
                     color = TheStoreColors.whiteOrBlackColor,
-                    modifier = Modifier.defaultListIconSize()
+                    modifier = Modifier.basketListIconSize()
                 )
             } else {
                 Image(
@@ -219,28 +166,35 @@ fun WorkerItem(
                             color = TheStoreColors.whiteOrBlackColor,
                             shape = baseRoundedCornerShape()
                         )
-                        .defaultListIconSize()
+                        .basketListIconSize()
                         .clip(baseRoundedCornerShape())
                 )
             }
 
         }
-        Text(
-            text = worker.name,
-            modifier = Modifier.defaultTextStartPadding(),
-            style = TextStyle(
-                color = TheStoreColors.whiteOrBlackColor
-            )
-        )
-        Text(
-            text = worker.surname,
+        Column(
             modifier = Modifier
+                .defaultTextStartPadding()
                 .weight(1f)
-                .defaultTextStartPadding(),
-            style = TextStyle(
-                color = TheStoreColors.whiteOrBlackColor
+        ) {
+            Text(
+                text = product.name,
+                minLines = 1,
+                style = WhiteBoldTextStyle
             )
-        )
+            Text(
+                text = stringResource(R.string.price_with_value, product.price.toString()),
+                minLines = 1,
+                style = WhiteTextStyle
+            )
+            val measurementAndCurrency =
+                stringResource(product.measurementResId) + " | " + stringResource(product.currencyResId)
+            Text(
+                text = measurementAndCurrency,
+                minLines = 1,
+                style = WhiteTextStyle
+            )
+        }
         Icon(
             rememberVectorPainter(Icons.Filled.KeyboardArrowRight),
             contentDescription = null,

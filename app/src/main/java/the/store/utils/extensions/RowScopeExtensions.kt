@@ -14,7 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -25,16 +25,7 @@ import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
 import com.example.theme.blackOrWhiteColor
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
+
 @Composable
 fun AddItemPreview() {
     val screens = listOf(

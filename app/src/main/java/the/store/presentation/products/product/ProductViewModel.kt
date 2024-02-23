@@ -103,7 +103,7 @@ class ProductViewModel @Inject constructor(
         successLaunch {
             setNewDataState(
                 getState().copy(
-                    measurementId = eventType.measurementsId
+                    measurementId = eventType.stringId
                 )
             )
         }
@@ -113,7 +113,7 @@ class ProductViewModel @Inject constructor(
         successLaunch {
             setNewDataState(
                 getState().copy(
-                    measurementId = eventType.currencyId
+                    measurementId = eventType.stringId
                 )
             )
         }

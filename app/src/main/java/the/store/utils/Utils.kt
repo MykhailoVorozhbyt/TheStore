@@ -18,7 +18,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 fun workerItemRoundedCorner(isFirsItem: Boolean, isLastItem: Boolean) = when {
     isFirsItem && isLastItem -> {
         RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp)
