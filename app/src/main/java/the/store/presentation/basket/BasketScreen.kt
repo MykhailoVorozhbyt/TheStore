@@ -3,6 +3,7 @@ package the.store.presentation.basket
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -12,37 +13,41 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
+import com.example.core.base.states.BaseViewState
+import com.example.core.ui.widget.EmptyView
+import com.example.core.ui.widget.ErrorView
+import com.example.core.ui.widget.LoadingView
 import com.example.core.ui.widget.TheStoreOnBackCenterAlignedTopAppBar
 import com.example.core.utils.extensions.modifiers.baseTopRoundedCornerShape
+import com.example.core.utils.extensions.modifiers.cast
 import com.example.theme.R
 import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import the.store.presentation.basket.models.BasketUiState
 import the.store.presentation.basket.views.BasketContent
 import the.store.presentation.basket.views.BasketSheetContent
-import the.store.presentation.basket.views.BasketSheetContentData
-import the.store.presentation.products.models.productList
-
-@PreviewLightDark
-@Composable
-fun BasketScreenPreview() {
-    BasketScreen(
-        {
-
-        }, {
-
-        }
-    )
-}
+import the.store.utils.TOperation
+import the.store.utils.UnitOperation
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BasketScreen(
-    initUiContent: () -> Unit,
-    pressOnBack: () -> Unit,
+    state: BaseViewState<*>,
+    //Basket
+    initUiContent: UnitOperation,
+    pressOnBack: UnitOperation,
+    searchProduct: TOperation<String>,
+    productClick: TOperation<Long>,
+    //Sheet
+    salleClick: UnitOperation,
+    deleteAllProductsClick: UnitOperation,
+    deleteProductClick: TOperation<Long>,
+    plusQuantity: TOperation<Long>,
+    minusQuantity: TOperation<Long>,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberStandardBottomSheetState(
@@ -52,9 +57,79 @@ fun BasketScreen(
     )
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState)
 
+    when (state) {
+        is BaseViewState.Data -> {
+            val currentState = state.cast<BaseViewState.Data<BasketUiState>>().value
+            BasketScreenContainer(
+                currentState,
+                bottomSheetScaffoldState,
+                coroutineScope,
+                pressOnBack,
+                searchProduct = searchProduct,
+                productClick = productClick,
+                salleClick = salleClick,
+                deleteAllProductsClick = deleteAllProductsClick,
+                deleteProductClick = deleteProductClick,
+                plusQuantity = plusQuantity,
+                minusQuantity = minusQuantity,
+            )
+        }
+
+        is BaseViewState.Empty -> EmptyView()
+        is BaseViewState.Loading -> LoadingView()
+        is BaseViewState.Error -> ErrorView(
+            e = state.cast<BaseViewState.Error>().throwable,
+            action = {
+                pressOnBack.invoke()
+            }
+        )
+    }
+
+    LaunchedEffect(Unit) {
+        initUiContent.invoke()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@PreviewLightDark
+@Composable
+fun BasketScreenContainerPreview() {
+    val coroutineScope = rememberCoroutineScope()
+    val bottomSheetState = rememberStandardBottomSheetState(
+        initialValue = SheetValue.PartiallyExpanded,
+        confirmValueChange = { it != SheetValue.Hidden },
+        skipHiddenState = false,
+    )
+    val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(bottomSheetState)
+
+    BasketScreenContainer(
+        BasketUiState(),
+        bottomSheetScaffoldState,
+        coroutineScope,
+        {}, {}, {}, {}, {}, {}, {}, {},
+    )
+}
+
+@Composable
+@OptIn(ExperimentalMaterial3Api::class)
+private fun BasketScreenContainer(
+    state: BasketUiState,
+    bottomSheetScaffoldState: BottomSheetScaffoldState,
+    coroutineScope: CoroutineScope,
+    pressOnBack: UnitOperation,
+    //Basket
+    searchProduct: TOperation<String>,
+    productClick: TOperation<Long>,
+    //Sheet
+    salleClick: UnitOperation,
+    deleteAllProductsClick: UnitOperation,
+    deleteProductClick: TOperation<Long>,
+    plusQuantity: TOperation<Long>,
+    minusQuantity: TOperation<Long>,
+) {
     BottomSheetScaffold(
         sheetShape = baseTopRoundedCornerShape(),
-        sheetShadowElevation = 10.dp,
+        sheetShadowElevation = 20.dp,
         scaffoldState = bottomSheetScaffoldState,
         containerColor = TheStoreColors.whiteOrBlackColor,
         sheetContainerColor = TheStoreColors.whiteOrBlackColor,
@@ -73,19 +148,25 @@ fun BasketScreen(
             },
         topBar = {
             TheStoreOnBackCenterAlignedTopAppBar(
-                R.string.basket,
-                pressOnBack = {
-                    pressOnBack.invoke()
-                }
+                titleResId = R.string.basket,
+                pressOnBack = pressOnBack
             )
         },
         sheetContent = {
-            BasketSheetContent(BasketSheetContentData)
+            BasketSheetContent(
+                list = state.basketProducts,
+                salleClick = salleClick,
+                deleteAllProductsClick = deleteAllProductsClick,
+                deleteProductClick = deleteProductClick,
+                plusQuantity = plusQuantity,
+                minusQuantity = minusQuantity,
+            )
         }
     ) {
-        BasketContent(productList())
-    }
-    LaunchedEffect(Unit) {
-        initUiContent.invoke()
+        BasketContent(
+            contentList = state.productList,
+            searchText = searchProduct,
+            productClick = productClick
+        )
     }
 }

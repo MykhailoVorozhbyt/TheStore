@@ -35,7 +35,6 @@ import com.example.core.ui.widget.ProgressIndicator
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.basketListIconSize
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
-import com.example.core.utils.extensions.modifiers.defaultListIconSize
 import com.example.core.utils.extensions.modifiers.defaultTextStartPadding
 import com.example.core.utils.extensions.modifiers.defaultTopPadding
 import com.example.core.utils.extensions.modifiers.smallHorizontalPadding
@@ -46,7 +45,7 @@ import com.example.theme.WhiteBoldTextStyle
 import com.example.theme.WhiteTextStyle
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
-import the.store.presentation.products.models.productList
+import the.store.presentation.products.models.ProductEntityList
 import the.store.utils.TOperation
 import the.store.utils.imageRequestBuilder
 import the.store.utils.workerItemRoundedCorner
@@ -54,13 +53,15 @@ import the.store.utils.workerItemRoundedCorner
 @PreviewLightDark
 @Composable
 fun BasketContentPreview() {
-    BasketContent(productList())
+    BasketContent(ProductEntityList(),{},{})
 }
 
 
 @Composable
 fun BasketContent(
-    list: List<ProductEntity>
+    contentList: List<ProductEntity>,
+    searchText: TOperation<String>,
+    productClick: TOperation<Long>
 ) {
     val context = LocalContext.current
     Column(
@@ -68,14 +69,15 @@ fun BasketContent(
     ) {
         InputTextField(
             onValueChange = { resultText ->
-//                searchText.invoke(resultText)
+                searchText.invoke(resultText)
             },
+            //TODO: add state
             textValue = "",
             columnModifier = Modifier
                 .defaultHorizontalPadding()
                 .defaultTopPadding()
         )
-        if (list.isEmpty()) {
+        if (contentList.isEmpty()) {
             EmptyListView()
         } else {
             LazyColumn(
@@ -83,14 +85,14 @@ fun BasketContent(
                     .fillMaxWidth()
                     .smallHorizontalPadding()
             ) {
-                itemsIndexed(list) { index, item ->
+                itemsIndexed(contentList) { index, item ->
                     ProductContentItem(
                         context,
                         item,
                         index == 0,
-                        index == list.size - 1
+                        index == contentList.size - 1
                     ) {
-//                        productClick.invoke(it)
+                        productClick.invoke(it)
                     }
                 }
             }

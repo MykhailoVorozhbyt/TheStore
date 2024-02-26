@@ -11,7 +11,7 @@ data class ProductsUiState(
     val productList: List<ProductEntity> = listOf()
 )
 
-fun productList(): List<ProductEntity> {
+fun ProductEntityList(): List<ProductEntity> {
     val list: MutableList<ProductEntity> = mutableListOf()
     repeat(5) {
         list.add(

@@ -1,7 +1,6 @@
 package the.store.presentation.products.views
 
 import android.content.Context
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -46,14 +45,14 @@ import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
 import com.example.theme.blackOrWhiteColor
 import the.store.presentation.products.models.ProductsUiState
-import the.store.presentation.products.models.productList
+import the.store.presentation.products.models.ProductEntityList
 import the.store.utils.imageRequestBuilder
 
 @PreviewLightDark
 @Composable
 fun WorkersScreenBodyPreview() {
     ProductsContent(
-        dataState = ProductsUiState(productList = productList()),
+        dataState = ProductsUiState(productList = ProductEntityList()),
         searchText = {},
         productClick = {},
     )
