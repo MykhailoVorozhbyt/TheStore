@@ -38,7 +38,7 @@ fun ProductScreen(
     val context: Context = LocalContext.current
 
     CreateEditContentBody(
-        com.example.theme.R.string.product,
+        R.string.product,
         pressOnBack = {
             pressOnBack.invoke()
         },

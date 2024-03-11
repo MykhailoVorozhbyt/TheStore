@@ -15,6 +15,7 @@ import the.store.utils.migration.MIGRATION_3_4
 import the.store.utils.migration.MIGRATION_4_5
 import the.store.utils.migration.MIGRATION_5_6
 import the.store.utils.migration.MIGRATION_6_7
+import the.store.utils.migration.MIGRATION_7_8
 import javax.inject.Singleton
 
 
@@ -30,12 +31,15 @@ class DatabaseModule {
             TheStoreDatabase::class.java,
             Constants.THE_STORE_APP_DATABASE
         )
-            .addMigrations(MIGRATION_1_2)
-            .addMigrations(MIGRATION_2_3)
-            .addMigrations(MIGRATION_3_4)
-            .addMigrations(MIGRATION_4_5)
-            .addMigrations(MIGRATION_5_6)
-            .addMigrations(MIGRATION_6_7)
+            .addMigrations(
+                MIGRATION_1_2,
+                MIGRATION_2_3,
+                MIGRATION_3_4,
+                MIGRATION_4_5,
+                MIGRATION_5_6,
+                MIGRATION_6_7,
+                MIGRATION_7_8
+            )
             .build()
     }
 }

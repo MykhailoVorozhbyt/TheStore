@@ -2,7 +2,6 @@ package the.store.presentation.products.product.views
 
 import android.Manifest
 import android.content.Context
-import android.content.res.Configuration
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -55,6 +54,8 @@ import com.example.core.base.views.BaseButton
 import com.example.core.domain.entities.CurrencyList
 import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductInputChipEntity
+import com.example.core.domain.entities.getCurrencyChipIndexByTextId
+import com.example.core.domain.entities.getMeasurementsChipIndexByTextId
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
@@ -253,7 +254,9 @@ fun ProductContent(
                 color = TheStoreColors.blackOrWhiteColor
             )
         )
-        var selectedMeasurementItem by remember { mutableLongStateOf(MeasurementsList[0].id) }
+        var selectedMeasurementItem by remember {
+            mutableLongStateOf(getMeasurementsChipIndexByTextId(state.measurementId).id)
+        }
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -276,7 +279,9 @@ fun ProductContent(
                 color = TheStoreColors.blackOrWhiteColor
             )
         )
-        var selectedCurrencyItem by remember { mutableLongStateOf(CurrencyList[0].id) }
+        var selectedCurrencyItem by remember {
+            mutableLongStateOf(getCurrencyChipIndexByTextId(state.currencyId).id)
+        }
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()

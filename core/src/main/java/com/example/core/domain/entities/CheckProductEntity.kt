@@ -7,6 +7,6 @@ data class CheckProductEntity(
     val price: Double,
     val fullPrice: Double,
     val quantity: Double,
-    val measurementResId: Int,
-    val currencyResId: Int,
+    val measurementId: Int,
+    val currencyId: Int,
 )

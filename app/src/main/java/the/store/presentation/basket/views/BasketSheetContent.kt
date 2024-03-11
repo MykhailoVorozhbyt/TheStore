@@ -4,22 +4,28 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.core.base.views.BaseButton
 import com.example.core.domain.entities.CheckProductEntity
+import com.example.core.domain.entities.getCurrencyById
+import com.example.core.domain.entities.getMeasurementById
 import com.example.core.utils.extensions.modifiers.baseBottomRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.baseTopEndCornerShape
 import com.example.core.utils.extensions.modifiers.baseTopStartCornerShape
@@ -30,6 +36,7 @@ import com.example.theme.BlackBoldTextStyle
 import com.example.theme.BlackTextStyle
 import com.example.theme.R
 import com.example.theme.TheStoreColors
+import com.example.theme.WhiteBoldTextStyle
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
 import the.store.presentation.basket.models.CheckProductEntityList
@@ -40,12 +47,13 @@ import the.store.utils.UnitOperation
 @Composable
 fun BasketSheetContentPreview() {
     BasketSheetContent(
-        CheckProductEntityList(), {}, {}, {}, {}, {}
+        2000.0, CheckProductEntityList(), {}, {}, {}, {}, {}
     )
 }
 
 @Composable
 fun BasketSheetContent(
+    fullPrice: Double,
     list: List<CheckProductEntity>,
     salleClick: UnitOperation,
     deleteAllProductsClick: UnitOperation,
@@ -100,7 +108,6 @@ fun BasketSheetContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .background(TheStoreColors.blackOrWhiteColor)
             ) {
                 items(list) { item ->
                     BasketSheetItem(
@@ -112,16 +119,48 @@ fun BasketSheetContent(
                 }
             }
 
-            BaseButton(
-                text = stringResource(id = R.string.sell),
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .smallHorizontalPadding()
+            ) {
+                Text(
+                    text = stringResource(R.string.full_price),
+                    textAlign = TextAlign.Start,
+                    style = BlackBoldTextStyle(20),
+                    modifier = Modifier.weight(1f)
+                )
+                Text(
+                    text = fullPrice.toString(),
+                    textAlign = TextAlign.End,
+                    style = BlackBoldTextStyle(20),
+                    modifier = Modifier.weight(1f)
+                )
+            }
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .smallHorizontalPadding()
+                    .defaultVerticalPadding(),
                 onClick = {
                     salleClick.invoke()
                 },
-                buttonModifier = Modifier
-                    .fillMaxWidth()
-                    .smallHorizontalPadding()
-                    .defaultVerticalPadding()
-            )
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = TheStoreColors.blackOrWhiteColor
+                ),
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_sell),
+                    contentDescription = null,
+                    tint = TheStoreColors.whiteOrBlackColor,
+                )
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = stringResource(R.string.sell),
+                    textAlign = TextAlign.Center,
+                    style = WhiteBoldTextStyle(26)
+                )
+            }
         }
     }
 }
@@ -137,8 +176,8 @@ fun BasketSheetItemPreview() {
             price = 100.0,
             fullPrice = 100.0 * 4,
             quantity = 4.0,
-            measurementResId = R.string.kilogram,
-            currencyResId = R.string.usd
+            measurementId = R.string.kilogram,
+            currencyId = R.string.usd
         ),
         plusQuantity = {},
         minusQuantity = {},
@@ -156,10 +195,9 @@ fun BasketSheetItem(
     Row(
         modifier = Modifier
             .padding(vertical = 2.dp)
-            .padding(horizontal = 2.dp)
             .fillMaxWidth()
             .background(TheStoreColors.whiteOrBlackColor)
-            .padding(4.dp),
+            .padding(vertical = 4.dp, horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
@@ -176,17 +214,25 @@ fun BasketSheetItem(
                 minLines = 1,
                 style = BlackTextStyle
             )
-            val measurementAndCurrency =
-                stringResource(data.measurementResId) + " | " + stringResource(data.currencyResId)
+            val measurement = getMeasurementById(data.measurementId.toLong())
+            val currency = getCurrencyById(data.currencyId.toLong())
             Text(
-                text = measurementAndCurrency,
+                text = stringResource(id = measurement.textId) + " | " + stringResource(id = currency.textId),
                 minLines = 1,
                 style = BlackTextStyle
             )
         }
+
+        Text(
+            text = stringResource(R.string.quantity_with_value, data.quantity),
+            minLines = 1,
+            style = BlackTextStyle,
+            modifier = Modifier.weight(1F)
+        )
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.weight(0.5F)
+            modifier = Modifier.weight(1F)
         ) {
             Row {
                 IconButton(

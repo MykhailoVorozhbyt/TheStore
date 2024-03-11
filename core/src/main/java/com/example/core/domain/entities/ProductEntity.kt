@@ -5,6 +5,6 @@ data class ProductEntity(
     val photoUri: String?,
     val name: String,
     val price: Double,
-    val measurementResId: Int,
-    val currencyResId: Int,
+    val measurementId: Int,
+    val currencyId: Int,
 )

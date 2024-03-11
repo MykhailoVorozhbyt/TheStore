@@ -3,6 +3,8 @@ package the.store.presentation.products.product
 import com.example.core.base.states.BaseViewState
 import com.example.core.base.vm.MviViewModel
 import com.example.core.data.repository.ProductsRepository
+import com.example.core.domain.entities.CurrencyList
+import com.example.core.domain.entities.MeasurementsList
 import com.example.core.utils.elvis
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.filterIsInstance
@@ -113,7 +115,7 @@ class ProductViewModel @Inject constructor(
         successLaunch {
             setNewDataState(
                 getState().copy(
-                    measurementId = eventType.stringId
+                    currencyId = eventType.stringId
                 )
             )
         }
@@ -168,8 +170,14 @@ class ProductViewModel @Inject constructor(
     private fun createOrUpdateProduct() {
         successLaunch {
             try {
-                val newModel = getState().mapToProductDbEntity()
+                var newModel = getState().mapToProductDbEntity()
                     .copy(createdAt = Calendar.getInstance().timeInMillis)
+                if (newModel.currencyId == 0) {
+                    newModel = newModel.copy(currencyId = CurrencyList[0].id.toInt())
+                }
+                if (newModel.measurementId == 0) {
+                    newModel = newModel.copy(measurementId = MeasurementsList[0].id.toInt())
+                }
                 if (getState().id == 0L) {
                     repository.insertProduct(newModel)
                     setNewDataState(getState().copy(actionProduct = true))

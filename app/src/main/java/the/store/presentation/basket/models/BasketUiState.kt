@@ -1,19 +1,22 @@
 package the.store.presentation.basket.models
 
+import androidx.compose.runtime.Immutable
 import com.example.core.domain.entities.CheckProductEntity
 import com.example.core.domain.entities.ProductEntity
 import com.example.theme.R
-import the.store.presentation.products.models.ProductEntityList
 
+@Immutable
 data class BasketUiState(
-    val searchedName: String = "",
-    val productList: List<ProductEntity> = ProductEntityList(),
-    val basketProducts: List<CheckProductEntity> = CheckProductEntityList(),
+    val searchedProduct: String = "",
+    val productList: List<ProductEntity> = listOf(),
+    val basketFullPrice: Double = 0.0,
+    val basketProducts: List<CheckProductEntity> = listOf(),
+    val isCheckSold: Boolean = false
 )
 
 fun CheckProductEntityList(): List<CheckProductEntity> {
     val list: MutableList<CheckProductEntity> = mutableListOf()
-    repeat(10) {
+    repeat(3) {
         list.add(
             CheckProductEntity(
                 it.toLong(),

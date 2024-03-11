@@ -134,5 +134,9 @@
     <string name="products_in_the_basket_with_value">Products in the basket: %s</string>
     <string name="sell">Sell</string>
     <string name="remove_all_products">Remove all products</string>
+    <string name="quantity">Quantity</string>
+    <string name="quantity_with_value">Quantity: %s</string>
+    <string name="full_price">Full price</string>
+    <string name="full_price_with_value">Full price: %s</string>
 
 </resources>

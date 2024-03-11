@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,9 +12,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,7 +28,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
+import com.example.core.domain.entities.CurrencyList
+import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductEntity
+import com.example.core.domain.entities.getCurrencyById
+import com.example.core.domain.entities.getMeasurementById
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
 import com.example.core.ui.widget.ProgressIndicator
@@ -45,7 +49,7 @@ import com.example.theme.WhiteBoldTextStyle
 import com.example.theme.WhiteTextStyle
 import com.example.theme.blackOrWhiteColor
 import com.example.theme.whiteOrBlackColor
-import the.store.presentation.products.models.ProductEntityList
+import the.store.presentation.basket.models.BasketUiState
 import the.store.utils.TOperation
 import the.store.utils.imageRequestBuilder
 import the.store.utils.workerItemRoundedCorner
@@ -53,15 +57,15 @@ import the.store.utils.workerItemRoundedCorner
 @PreviewLightDark
 @Composable
 fun BasketContentPreview() {
-    BasketContent(ProductEntityList(),{},{})
+    BasketContent(BasketUiState(), {}, {})
 }
 
 
 @Composable
 fun BasketContent(
-    contentList: List<ProductEntity>,
+    state: BasketUiState,
     searchText: TOperation<String>,
-    productClick: TOperation<Long>
+    productClick: TOperation<ProductEntity>
 ) {
     val context = LocalContext.current
     Column(
@@ -71,13 +75,12 @@ fun BasketContent(
             onValueChange = { resultText ->
                 searchText.invoke(resultText)
             },
-            //TODO: add state
-            textValue = "",
+            textValue = state.searchedProduct,
             columnModifier = Modifier
                 .defaultHorizontalPadding()
                 .defaultTopPadding()
         )
-        if (contentList.isEmpty()) {
+        if (state.productList.isEmpty()) {
             EmptyListView()
         } else {
             LazyColumn(
@@ -85,12 +88,12 @@ fun BasketContent(
                     .fillMaxWidth()
                     .smallHorizontalPadding()
             ) {
-                itemsIndexed(contentList) { index, item ->
+                itemsIndexed(state.productList) { index, item ->
                     ProductContentItem(
                         context,
                         item,
                         index == 0,
-                        index == contentList.size - 1
+                        index == state.productList.size - 1
                     ) {
                         productClick.invoke(it)
                     }
@@ -125,7 +128,7 @@ fun ProductContentItem(
     product: ProductEntity,
     isFirsItem: Boolean,
     isLastITem: Boolean,
-    productClick: TOperation<Long>
+    productClick: TOperation<ProductEntity>
 ) {
     Row(
         modifier = Modifier
@@ -133,7 +136,7 @@ fun ProductContentItem(
             .padding(10.dp, 1.dp)
             .clip(workerItemRoundedCorner(isFirsItem, isLastITem))
             .background(TheStoreColors.blackOrWhiteColor)
-            .clickable { productClick(product.id) }
+//            .clickable { productClick(product.id) }
             .smallPadding(),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
@@ -150,7 +153,7 @@ fun ProductContentItem(
             val painter = imageRequestBuilder(
                 context,
                 photoUri,
-                R.drawable.ic_person
+                R.drawable.ic_hourglass_empty
             )
             if (painter.state is AsyncImagePainter.State.Loading) {
                 ProgressIndicator(
@@ -189,19 +192,22 @@ fun ProductContentItem(
                 minLines = 1,
                 style = WhiteTextStyle
             )
-            val measurementAndCurrency =
-                stringResource(product.measurementResId) + " | " + stringResource(product.currencyResId)
+            val measurement = getMeasurementById(product.measurementId.toLong())
+            val currency = getCurrencyById(product.currencyId.toLong())
             Text(
-                text = measurementAndCurrency,
+                text = stringResource(id = measurement.textId) + " | " + stringResource(id = currency.textId),
                 minLines = 1,
                 style = WhiteTextStyle
             )
         }
-        Icon(
-            rememberVectorPainter(Icons.Filled.KeyboardArrowRight),
-            contentDescription = null,
-            tint = TheStoreColors.whiteOrBlackColor,
-            modifier = Modifier
-        )
+        IconButton(onClick = {
+            productClick.invoke(product)
+        }) {
+            Icon(
+                rememberVectorPainter(Icons.Filled.Add),
+                contentDescription = null,
+                tint = TheStoreColors.whiteOrBlackColor,
+            )
+        }
     }
 }

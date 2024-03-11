@@ -47,10 +47,10 @@ fun NavGraphBuilder.basketNavGraph(navController: NavHostController) {
                     viewModel.onTriggerEvent(BasketSheetUiEvent.DeleteProductClick(it))
                 },
                 plusQuantity = {
-
+                    viewModel.onTriggerEvent(BasketSheetUiEvent.PlusQuantityClick(it))
                 },
                 minusQuantity = {
-
+                    viewModel.onTriggerEvent(BasketSheetUiEvent.MinusQuantityClick(it))
                 }
             )
         }

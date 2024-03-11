@@ -5,6 +5,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.core.domain.db_entity.CompanyDbEntity
 import com.example.core.domain.db_entity.ProductDbEntity
 import com.example.core.domain.db_entity.SaleHistoryDbEntity
+import com.example.core.domain.db_entity.check.CheckDbEntity
+import com.example.core.domain.db_entity.check.CheckProductDbEntity
 
 val MIGRATION_1_2 by lazy {
     object : Migration(1, 2) {
@@ -76,6 +78,32 @@ val MIGRATION_6_7 by lazy {
                 "ALTER TABLE ${ProductDbEntity.TABLE_NAME} " +
                         "ADD COLUMN ${ProductDbEntity.COLUMN_CURRENCY_ID} INTEGER NOT NULL DEFAULT 0"
             )
+        }
+    }
+}
+
+val MIGRATION_7_8 by lazy {
+    object : Migration(7, 8) {
+        override fun migrate(db: SupportSQLiteDatabase) {
+            db.execSQL("DROP TABLE IF EXISTS ${CheckDbEntity.TABLE_NAME}")
+            db.execSQL("DROP TABLE IF EXISTS ${CheckProductDbEntity.TABLE_NAME}")
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS ${CheckDbEntity.TABLE_NAME} " +
+                    "(${CheckDbEntity.COLUMN_ID} INTEGER PRIMARY KEY NOT NULL, " +
+                    "${CheckDbEntity.COLUMN_CHECK_PRICE} REAL NOT NULL, " +
+                    "${CheckDbEntity.COLUMN_CREATED_AT} INTEGER NOT NULL, " +
+                    "${CheckDbEntity.COLUMN_IS_CANCELED} INTEGER NOT NULL)")
+
+            db.execSQL("CREATE TABLE IF NOT EXISTS ${CheckProductDbEntity.TABLE_NAME} " +
+                    "(${CheckProductDbEntity.COLUMN_CHECK_ID} INTEGER PRIMARY KEY NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_PHOTO_URI} TEXT, " +
+                    "${CheckProductDbEntity.COLUMN_NAME} TEXT NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_PRICE} REAL NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_FULL_PRICE} REAL NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_QUANTITY} REAL NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_MEASUREMENT_ID} INTEGER NOT NULL, " +
+                    "${CheckProductDbEntity.COLUMN_CURRENCY_ID} INTEGER NOT NULL)")
+
         }
     }
 }

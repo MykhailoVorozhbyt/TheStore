@@ -35,7 +35,7 @@ fun BaseButton(
     onClick: () -> Unit
 ) {
     return Button(
-        modifier = buttonModifier.height(36.dp),
+        modifier = buttonModifier,
         onClick = {
             onClick()
         },
