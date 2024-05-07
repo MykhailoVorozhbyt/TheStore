@@ -2,6 +2,7 @@ package com.example.core.utils.extensions.modifiers
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Paint
@@ -9,9 +10,27 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+
+fun baseTopStartCornerShape() = RoundedCornerShape(topStart = 15.dp)
+fun baseTopEndCornerShape() = RoundedCornerShape(topEnd = 15.dp)
+
+fun Modifier.baseTopStartCornerShape() = this.clip(RoundedCornerShape(topStart = 15.dp))
+fun Modifier.baseTopEndCornerShape() = this.clip(RoundedCornerShape(topEnd = 15.dp))
+
+fun baseBottomStartCornerShape() = RoundedCornerShape(bottomStart = 15.dp)
+fun baseBottomEndCornerShape() = RoundedCornerShape(bottomEnd = 15.dp)
+
+fun Modifier.baseBottomStartCornerShape() = this.clip(RoundedCornerShape(bottomStart = 15.dp))
+fun Modifier.baseBottomEndCornerShape() = this.clip(RoundedCornerShape(bottomEnd = 15.dp))
+
 fun baseTopRoundedCornerShape() = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp)
+fun baseBottomRoundedCornerShape() = RoundedCornerShape(bottomStart = 15.dp, bottomEnd = 15.dp)
+
+fun Modifier.baseTopRoundedCornerShape() =  this.clip(RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp))
+fun Modifier.baseBottomRoundedCornerShape() =  this.clip(RoundedCornerShape(bottomStart = 15.dp, bottomEnd = 15.dp))
+
+
 fun baseRoundedCornerShape() = RoundedCornerShape(15.dp)
-fun navigationBarRoundedCornerShape() = RoundedCornerShape(20.dp)
 
 fun Modifier.drawColoredShadow(
     color: Color,

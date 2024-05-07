@@ -7,7 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -23,7 +23,7 @@ import the.store.presentation.workers.create_edit_worker.models.CreateEditWorker
 import the.store.presentation.workers.create_edit_worker.models.CreateEditWorkerUiState
 import the.store.presentation.workers.create_edit_worker.views.CreateEditWorkerContent
 
-@Preview
+@PreviewLightDark
 @Composable
 fun CreateEditWorkerScreenPreview() {
     CreateEditWorkerScreen(navController = rememberNavController(), workerId = 1)

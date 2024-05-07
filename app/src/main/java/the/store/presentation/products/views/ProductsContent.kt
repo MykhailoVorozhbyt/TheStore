@@ -1,7 +1,6 @@
 package the.store.presentation.products.views
 
 import android.content.Context
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,7 +29,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
 import com.example.core.domain.entities.ProductEntity
@@ -46,23 +45,14 @@ import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
 import com.example.theme.blackOrWhiteColor
 import the.store.presentation.products.models.ProductsUiState
-import the.store.presentation.products.models.productList
+import the.store.presentation.products.models.ProductEntityList
 import the.store.utils.imageRequestBuilder
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun WorkersScreenBodyPreview() {
     ProductsContent(
-        dataState = ProductsUiState(productList = productList),
+        dataState = ProductsUiState(productList = ProductEntityList()),
         searchText = {},
         productClick = {},
     )

@@ -10,8 +10,8 @@ buildscript {
 }
 
 plugins {
-    id("com.google.devtools.ksp") version "1.9.21-1.0.15" apply false
-    id("com.google.dagger.hilt.android") version "2.50" apply false
+    id(Plugins.ksp) version "1.9.21-1.0.15" apply false
+    id(Plugins.hiltAndroid) version "2.50" apply false
 }
 
 tasks.register("clean", Delete::class){

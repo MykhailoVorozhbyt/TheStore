@@ -1,6 +1,5 @@
 package the.store.presentation.primary
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -26,7 +25,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.core.utils.extensions.modifiers.baseTopRoundedCornerShape
@@ -42,18 +42,11 @@ import kotlinx.coroutines.launch
 import the.store.presentation.primary.models.PrimaryUiState
 import the.store.presentation.primary.views.bottom_sheet_views.PrimaryBottomSheetContent
 import the.store.presentation.primary.views.pager_views.PrimaryViewPagerContent
+import the.store.utils.TOperation
+import the.store.utils.UnitOperation
 
-
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
+@PreviewScreenSizes
 @Composable
 fun PrimaryScreenPreview() {
     PrimaryScreen(PrimaryUiState(), {}, {}) {}
@@ -63,13 +56,13 @@ fun PrimaryScreenPreview() {
 @Composable
 fun PrimaryScreen(
     state: PrimaryUiState,
-    initUiData: () -> Unit,
-    searchSale: (String) -> Unit,
-    itemClick: (Long) -> Unit,
+    initUiData: UnitOperation,
+    searchSale: TOperation<String>,
+    itemClick: TOperation<Long>,
 ) {
     val context = LocalContext.current
     var columnHeightDp by remember {
-        mutableStateOf(400.dp)
+        mutableStateOf(100.dp)
     }
     val coroutineScope = rememberCoroutineScope()
     val bottomSheetState = rememberStandardBottomSheetState(

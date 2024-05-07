@@ -29,8 +29,8 @@ fun ProductScreen(
     deletePhotoUri: () -> Unit,
     nameChanged: (String) -> Unit,
     priceChanged: (String) -> Unit,
-    measurementsChanged: (Long) -> Unit,
-    currencyChanged: (Long) -> Unit,
+    measurementsChanged: (Int) -> Unit,
+    currencyChanged: (Int) -> Unit,
     descriptionChanged: (String) -> Unit,
     barcodeChanged: (String) -> Unit,
     deleteProduct: (Long) -> Unit,
@@ -38,7 +38,7 @@ fun ProductScreen(
     val context: Context = LocalContext.current
 
     CreateEditContentBody(
-        com.example.theme.R.string.product,
+        R.string.product,
         pressOnBack = {
             pressOnBack.invoke()
         },

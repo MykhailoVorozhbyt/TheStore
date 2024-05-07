@@ -17,7 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.core.domain.more_screen_dto.BaseMoreScreenItemDto
 import com.example.core.domain.more_screen_dto.MoreScreenButtonDto
 import com.example.core.domain.more_screen_dto.MoreScreenTitleDto
@@ -31,16 +31,7 @@ import com.example.theme.TheStoreColors
 import com.example.theme.whiteOrBlackColor
 import com.example.theme.blackOrWhiteColor
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = UI_MODE_NIGHT_YES
-)
+
 @Composable
 fun MoreScreenContentPreview() {
 
@@ -75,16 +66,7 @@ fun MoreScreenContent(
 }
 
 
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
+
 @Composable
 private fun MoreScreenButtonItemPreview() {
     val context = LocalContext.current
@@ -133,16 +115,7 @@ private fun MoreScreenButtonItem(
     }
 }
 
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
+
 @Composable
 private fun MoreScreenTitleItemPreview() {
     val context = LocalContext.current

@@ -2,7 +2,6 @@ package the.store.presentation.products.product.views
 
 import android.Manifest
 import android.content.Context
-import android.content.res.Configuration
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -49,12 +48,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.base.views.BaseButton
 import com.example.core.domain.entities.CurrencyList
 import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductInputChipEntity
+import com.example.core.domain.entities.getCurrencyChipIndexByTextId
+import com.example.core.domain.entities.getMeasurementsChipIndexByTextId
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
@@ -72,16 +73,7 @@ import the.store.utils.DecimalVisualTransformation
 import the.store.utils.checkPermissionState
 import the.store.utils.imageRequestBuilder
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    showBackground = true,
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewLightDark
 @Composable
 fun ProductScreenPreview() {
     ProductContent(LocalContext.current, ProductUiState(), {}, {}, {}, {}, {}, {}, {}, {}, {})
@@ -96,8 +88,8 @@ fun ProductContent(
     deletePhotoUri: () -> Unit,
     nameChanged: (String) -> Unit,
     priceChanged: (String) -> Unit,
-    measurementsChanged: (Long) -> Unit,
-    currencyChanged: (Long) -> Unit,
+    measurementsChanged: (Int) -> Unit,
+    currencyChanged: (Int) -> Unit,
     descriptionChanged: (String) -> Unit,
     barcodeChanged: (String) -> Unit,
     deleteProduct: (Long) -> Unit
@@ -262,7 +254,9 @@ fun ProductContent(
                 color = TheStoreColors.blackOrWhiteColor
             )
         )
-        var selectedMeasurementItem by remember { mutableLongStateOf(MeasurementsList[0].id) }
+        var selectedMeasurementItem by remember {
+            mutableLongStateOf(getMeasurementsChipIndexByTextId(state.measurementId).id)
+        }
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -270,8 +264,8 @@ fun ProductContent(
         ) {
             items(MeasurementsList) { item ->
                 MeasurementsInputChip(item, item.id == selectedMeasurementItem) {
-                    selectedMeasurementItem = it
-                    measurementsChanged.invoke(it)
+                    selectedMeasurementItem = it.id
+                    measurementsChanged.invoke(it.textId)
                 }
             }
         }
@@ -285,7 +279,9 @@ fun ProductContent(
                 color = TheStoreColors.blackOrWhiteColor
             )
         )
-        var selectedCurrencyItem by remember { mutableLongStateOf(CurrencyList[0].id) }
+        var selectedCurrencyItem by remember {
+            mutableLongStateOf(getCurrencyChipIndexByTextId(state.currencyId).id)
+        }
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -293,8 +289,8 @@ fun ProductContent(
         ) {
             items(CurrencyList) { item ->
                 MeasurementsInputChip(item, item.id == selectedCurrencyItem) {
-                    selectedCurrencyItem = it
-                    currencyChanged.invoke(it)
+                    selectedCurrencyItem = it.id
+                    currencyChanged.invoke(it.textId)
                 }
             }
         }
@@ -336,13 +332,13 @@ fun ProductContent(
 fun MeasurementsInputChip(
     item: ProductInputChipEntity,
     selectedItem: Boolean,
-    itemClick: (Long) -> Unit
+    itemClick: (ProductInputChipEntity) -> Unit
 ) {
     InputChip(
         modifier = Modifier.padding(horizontal = 6.dp),
         selected = selectedItem,
         onClick = {
-            itemClick.invoke(item.id)
+            itemClick.invoke(item)
         },
         label = {
             Text(stringResource(id = item.textId))

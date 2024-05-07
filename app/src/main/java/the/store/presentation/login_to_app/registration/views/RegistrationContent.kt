@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.core.base.views.BaseButton
 import com.example.core.base.views.HorizontalSpacerColorView
 import com.example.core.base.views.SmallSpacer
@@ -24,7 +24,7 @@ import com.example.core.utils.extensions.modifiers.defaultPadding
 import com.example.theme.R
 import the.store.presentation.login_to_app.registration.models.RegistrationUiState
 
-@Preview
+@PreviewLightDark
 @Composable
 fun RegistrationContentPreview() {
     RegistrationContent(data = RegistrationUiState(),

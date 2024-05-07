@@ -1,6 +1,5 @@
 package the.store.presentation.primary.views.bottom_sheet_views
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -20,7 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.entities.SaleHistoryEntity
 import com.example.core.ui.custom_composable_view.InputTextField
@@ -37,14 +37,8 @@ import com.example.theme.whiteOrBlackColor
 import the.store.utils.convertToDate
 import the.store.utils.workerItemRoundedCorner
 
-@Preview(
-    name = "Light Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_NO
-)
-@Preview(
-    name = "Dark Mode",
-    uiMode = Configuration.UI_MODE_NIGHT_YES
-)
+@PreviewScreenSizes
+@PreviewLightDark
 @Composable
 fun PrimaryBottomSheetContentPreview() {
     PrimaryBottomSheetContent(
@@ -70,7 +64,9 @@ fun PrimaryBottomSheetContent(
     searchText: (String) -> Unit,
     itemClick: (Long) -> Unit
 ) {
-    Column {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ) {
         InputTextField(
             onValueChange = { resultText ->
                 searchText.invoke(resultText)

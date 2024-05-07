@@ -15,9 +15,9 @@ import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.shouldShowRationale
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-
 
 fun workerItemRoundedCorner(isFirsItem: Boolean, isLastItem: Boolean) = when {
     isFirsItem && isLastItem -> {
@@ -106,3 +106,5 @@ fun Long.convertToDate(format: String = DateConvertPatterns.dayMonthYearHourMinu
     val formatter = SimpleDateFormat(format, Locale.getDefault())
     return formatter.format(Date(this))
 }
+
+fun getTimeInMillis() = Calendar.getInstance().timeInMillis

@@ -7,12 +7,12 @@ import extensions.addNavigation
 import extensions.addRoomDi
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    id("org.jetbrains.kotlin.plugin.parcelize")
-    id("org.jetbrains.kotlin.kapt")
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.androidApplication)
+    kotlin(Plugins.android)
+    id(Plugins.parcelize)
+    id(Plugins.kapt)
+    id(Plugins.ksp)
+    id(Plugins.hiltAndroid)
 }
 
 android {
@@ -46,7 +46,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = AppConfig.jvmTarget
     }
     buildFeatures {
         compose = true

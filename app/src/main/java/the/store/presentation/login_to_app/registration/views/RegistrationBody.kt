@@ -3,10 +3,10 @@ package the.store.presentation.login_to_app.registration.views
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.core.ui.widget.TheStoreOnBackCenterAlignedTopAppBar
 
-@Preview
+@PreviewLightDark
 @Composable
 fun RegistrationBodyPreview() {
     RegistrationBody({}, {})

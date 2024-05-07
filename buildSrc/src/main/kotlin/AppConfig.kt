@@ -12,6 +12,7 @@ object AppConfig {
     private const val versionBuild = 0
     const val versionName = "$versionMajor$versionMinor$versionPatch$versionBuild"
 
+    const val jvmTarget = "17"
     const val testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     const val kotlinCompilerExtensionVersion = "1.5.8"
 }

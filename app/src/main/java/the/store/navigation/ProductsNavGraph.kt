@@ -87,8 +87,8 @@ fun NavGraphBuilder.productsNavGraph(navController: NavHostController) {
                 measurementsChanged = { measurementsId ->
                     viewModel.onTriggerEvent(ProductUiEvent.MeasurementsChanged(measurementsId))
                 },
-                currencyChanged = {
-                    viewModel.onTriggerEvent(ProductUiEvent.CurrencyChanged(it))
+                currencyChanged = { currency ->
+                    viewModel.onTriggerEvent(ProductUiEvent.CurrencyChanged(currency))
                 },
                 descriptionChanged = { description ->
                     viewModel.onTriggerEvent(ProductUiEvent.DescriptionChanged(description))

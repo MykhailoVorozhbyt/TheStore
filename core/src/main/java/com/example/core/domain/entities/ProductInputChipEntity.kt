@@ -12,6 +12,22 @@ data class ProductInputChipEntity(
     val iconId: Int
 )
 
+fun getMeasurementsChipIndexByTextId(id: Int): ProductInputChipEntity {
+    return if (id == 0) {
+        MeasurementsList[0]
+    } else {
+        MeasurementsList.find { it.textId == id }!!
+    }
+}
+
+fun getCurrencyChipIndexByTextId(id: Int): ProductInputChipEntity {
+    return if (id == 0) {
+        CurrencyList[0]
+    } else {
+        CurrencyList.find { it.textId == id }!!
+    }
+}
+
 val MeasurementsList = listOf(
     ProductInputChipEntity(1, R.string.kilogram, R.drawable.ic_kilogram),
     ProductInputChipEntity(2, R.string.liters, R.drawable.ic_liter),
@@ -24,6 +40,8 @@ val MeasurementsList = listOf(
     ),
 )
 
+fun getMeasurementById(id: Long): ProductInputChipEntity = MeasurementsList.find { it.id == id }!!
+
 val CurrencyList = listOf(
     ProductInputChipEntity(1, R.string.uah, R.drawable.ic_currency_uah),
     ProductInputChipEntity(2, R.string.usd, R.drawable.ic_currency_usd),
@@ -31,3 +49,4 @@ val CurrencyList = listOf(
     ProductInputChipEntity(4, R.string.franc, R.drawable.ic_currency_franc),
     ProductInputChipEntity(5, R.string.bitcoin, R.drawable.ic_currency_bitcoin),
 )
+fun getCurrencyById(id: Long): ProductInputChipEntity = CurrencyList.find { it.id == id }!!

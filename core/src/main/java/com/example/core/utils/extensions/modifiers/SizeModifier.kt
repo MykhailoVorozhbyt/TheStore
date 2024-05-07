@@ -13,3 +13,6 @@ fun Modifier.defaultIconSize(): Modifier =
 
 fun Modifier.defaultListIconSize(): Modifier =
     this.size(80.dp)
+
+fun Modifier.basketListIconSize(): Modifier =
+    this.size(60.dp)
