@@ -1,6 +1,5 @@
 package the.store.presentation.main
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
@@ -9,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -36,10 +36,10 @@ fun MainScreen(
     logout: () -> Unit
 ) {
     val bottomBarHeight = 80.dp
-    val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
+    val bottomBarOffsetHeightPx = remember { mutableFloatStateOf(0f) }
     val buttonsVisible = remember { mutableStateOf(true) }
-    LaunchedEffect(bottomBarOffsetHeightPx.value) {
-        buttonsVisible.value = bottomBarOffsetHeightPx.value >= -10
+    LaunchedEffect(bottomBarOffsetHeightPx.floatValue) {
+        buttonsVisible.value = bottomBarOffsetHeightPx.floatValue >= -10
     }
     Scaffold(
         modifier = Modifier.bottomBarAnimatedScroll(

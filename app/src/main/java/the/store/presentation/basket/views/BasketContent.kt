@@ -28,11 +28,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
-import com.example.core.domain.entities.CurrencyList
-import com.example.core.domain.entities.MeasurementsList
 import com.example.core.domain.entities.ProductEntity
-import com.example.core.domain.entities.getCurrencyById
-import com.example.core.domain.entities.getMeasurementById
+import com.example.core.domain.utils.Currency.Companion.getCurrencyById
+import com.example.core.domain.utils.Measurements.Companion.getMeasurementById
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.ui.widget.EmptyListView
 import com.example.core.ui.widget.ProgressIndicator

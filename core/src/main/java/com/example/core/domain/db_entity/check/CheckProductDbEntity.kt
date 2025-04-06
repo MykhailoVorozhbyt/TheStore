@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = CheckProductDbEntity.TABLE_NAME)
 data class CheckProductDbEntity(
     @PrimaryKey
+    @ColumnInfo(COLUMN_ID) val id: Long,
     @ColumnInfo(COLUMN_CHECK_ID) val checkId: Long,
     @ColumnInfo(COLUMN_PHOTO_URI) val photoUri: String?,
     @ColumnInfo(COLUMN_NAME) val name: String,
@@ -18,6 +19,7 @@ data class CheckProductDbEntity(
 ) {
     companion object {
         const val TABLE_NAME = "checkProductDbEntity"
+        const val COLUMN_ID = "id"
         const val COLUMN_CHECK_ID = "checkId"
         const val COLUMN_PHOTO_URI = "photoUri"
         const val COLUMN_NAME = "name"

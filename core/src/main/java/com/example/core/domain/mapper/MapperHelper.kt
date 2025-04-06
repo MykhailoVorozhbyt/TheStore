@@ -4,6 +4,7 @@ import com.example.core.domain.db_entity.ProductDbEntity
 import com.example.core.domain.db_entity.check.CheckProductDbEntity
 import com.example.core.domain.entities.CheckProductEntity
 import com.example.core.domain.entities.ProductEntity
+import java.util.UUID
 
 
 fun ProductDbEntity.mapToProductEntity(): ProductEntity = ProductEntity(
@@ -33,6 +34,7 @@ fun ProductEntity.mapToCheckProductEntity(): CheckProductEntity {
 
 fun CheckProductEntity.mapToCheckProductDbEntity(checkId: Long): CheckProductDbEntity =
     CheckProductDbEntity(
+        id = UUID.randomUUID().mostSignificantBits and Long.MAX_VALUE,
         checkId = checkId,
         photoUri = photoUri,
         name = name,

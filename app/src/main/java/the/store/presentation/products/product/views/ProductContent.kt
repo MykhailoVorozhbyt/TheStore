@@ -51,11 +51,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.base.views.BaseButton
-import com.example.core.domain.entities.CurrencyList
-import com.example.core.domain.entities.MeasurementsList
-import com.example.core.domain.entities.ProductInputChipEntity
-import com.example.core.domain.entities.getCurrencyChipIndexByTextId
-import com.example.core.domain.entities.getMeasurementsChipIndexByTextId
+import com.example.core.domain.MeasurementDelegate
+import com.example.core.domain.utils.Currency.Companion.getCurrencyChipIndexByTextId
+import com.example.core.domain.utils.CurrencyList
+import com.example.core.domain.utils.Measurements.Companion.getMeasurementsChipIndexByTextId
+import com.example.core.domain.utils.MeasurementsList
 import com.example.core.ui.custom_composable_view.InputTextField
 import com.example.core.utils.extensions.modifiers.baseRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.defaultHorizontalPadding
@@ -330,9 +330,9 @@ fun ProductContent(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MeasurementsInputChip(
-    item: ProductInputChipEntity,
+    item: MeasurementDelegate,
     selectedItem: Boolean,
-    itemClick: (ProductInputChipEntity) -> Unit
+    itemClick: (MeasurementDelegate) -> Unit
 ) {
     InputChip(
         modifier = Modifier.padding(horizontal = 6.dp),
