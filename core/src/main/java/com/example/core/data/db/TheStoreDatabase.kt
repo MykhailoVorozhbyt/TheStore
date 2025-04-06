@@ -9,9 +9,8 @@ import com.example.core.data.dao.sale.SaleDao
 import com.example.core.data.dao.worker.WorkerDao
 import com.example.core.domain.db_entity.CompanyDbEntity
 import com.example.core.domain.db_entity.ProductDbEntity
-import com.example.core.domain.db_entity.check.CheckDbEntity
-import com.example.core.domain.db_entity.SaleHistoryDbEntity
 import com.example.core.domain.db_entity.WorkerDbEntity
+import com.example.core.domain.db_entity.check.CheckDbEntity
 import com.example.core.domain.db_entity.check.CheckProductDbEntity
 import com.example.core.utils.type_converters.CheckProductDbConverter
 
@@ -20,7 +19,6 @@ import com.example.core.utils.type_converters.CheckProductDbConverter
         WorkerDbEntity::class,
         ProductDbEntity::class,
         CompanyDbEntity::class,
-        SaleHistoryDbEntity::class,
         CheckDbEntity::class,
         CheckProductDbEntity::class,
     ],

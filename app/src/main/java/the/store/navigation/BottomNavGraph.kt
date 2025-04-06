@@ -11,6 +11,7 @@ import com.example.core.navigation.Graph
 import com.example.core.navigation.base.BottomBarScreen
 import the.store.presentation.primary.PrimaryScreen
 import the.store.presentation.primary.PrimaryViewModel
+import the.store.presentation.primary.models.PrimaryUiEvent
 
 @Composable
 fun BottomNavGraph(
@@ -29,8 +30,8 @@ fun BottomNavGraph(
                 initUiData = {
                     viewModel.initData()
                 },
-                searchSale = { text -> },
-                itemClick = { id -> },
+                searchSale = { text -> viewModel.onTriggerEvent(PrimaryUiEvent.Search(text)) },
+                itemClick = { id -> viewModel.onTriggerEvent(PrimaryUiEvent.ItemClick(id)) },
             )
         }
         productsNavGraph(navController)

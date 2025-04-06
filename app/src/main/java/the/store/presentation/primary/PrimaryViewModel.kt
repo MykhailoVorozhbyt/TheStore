@@ -21,11 +21,13 @@ class PrimaryViewModel @Inject constructor(
     fun initData() {
         getWorker()
         getCompany()
+        getSaleHistory("")
     }
 
     override fun onTriggerEvent(eventType: PrimaryUiEvent) {
         when (eventType) {
             is PrimaryUiEvent.Search -> getSaleHistory(eventType.value)
+            is PrimaryUiEvent.ItemClick -> getCheckProductBySaleCheckId(eventType.id)
         }
     }
 
@@ -54,11 +56,25 @@ class PrimaryViewModel @Inject constructor(
         }
     }
 
-    private fun getSaleHistory(value: String) {
+    private fun getSaleHistory(fiscalId: String) {
         safeLaunch {
             try {
-                val result = saleRepository.getSaleHistory(value)
-                setState(uiState.value.copy(history = result.map { it.mapToSaleHistoryEntity() }))
+                val result = saleRepository.getAllChecks(fiscalId)
+                setState(uiState.value.copy(history = result?.map { it.mapToSaleHistoryEntity() }
+                    ?: listOf()))
+            } catch (e: Exception) {
+                setState(uiState.value.copy(error = e.localizedMessage))
+            }
+        }
+    }
+
+    private fun getCheckProductBySaleCheckId(id: Long) = safeLaunch {
+        if (uiState.value.history.find { it.id == id }?.products?.isEmpty() == true) {
+            try {
+                val result = saleRepository.getCheckProductBySaleCheckId(id)
+                val newItem = uiState.value.history.first { it.id == id }.copy(products = result)
+                val newHistory = uiState.value.history.map { if (it.id == id) newItem else it }
+                setState(uiState.value.copy(history = newHistory))
             } catch (e: Exception) {
                 setState(uiState.value.copy(error = e.localizedMessage))
             }

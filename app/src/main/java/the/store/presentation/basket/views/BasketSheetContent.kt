@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.core.domain.entities.CheckProductEntity
-import com.example.core.domain.entities.getCurrencyById
-import com.example.core.domain.entities.getMeasurementById
+import com.example.core.domain.utils.Currency.Companion.getCurrencyById
+import com.example.core.domain.utils.Measurements.Companion.getMeasurementById
 import com.example.core.utils.extensions.modifiers.baseBottomRoundedCornerShape
 import com.example.core.utils.extensions.modifiers.baseTopEndCornerShape
 import com.example.core.utils.extensions.modifiers.baseTopStartCornerShape
